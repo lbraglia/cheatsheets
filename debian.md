@@ -3,6 +3,13 @@
 
 ## Amministrazione
 
+### Ottenere permessi di amministratore
+
+```
+su -
+sudo -i
+```
+
 ### Systemd, servizi e target (runlevel)
 Una volta c'era `init` a ad essere il primo processo avviato dal
 kernel, ora sostituito da `systemd`; i runlevel di init sono stati
@@ -43,11 +50,20 @@ documentazione qui: https://wiki.debian.org/systemd/Services
 ### Log
 
 ```
-journalctl -b      # log del boot corrente
-journalctl -b -r   # log del boot corrente, reversed
-journalctl -f      # ultimi eventi in aggiornamento continuo
+journalctl -b                   # log del boot corrente
+journalctl -b -r                # log del boot corrente, reversed
+journalctl --since "1 hour ago" # log timeframe specificato
+journalctl -f                   # ultimi eventi in aggiornamento continuo
+journalctl -u nginx.service     # log di una unit di systemd
+journalctl _UID=1000            # log di un utente (uid ottenibile con id user)
 ```
 
+### Layout tastiera
+
+```
+/usr/sbin/dpkg-reconfigure keyboard-configuration 
+systemctl restart keyboard-setup
+```
 
 
 ### Recovery di sistema
