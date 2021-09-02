@@ -11,7 +11,6 @@ sudo -i
 ```
 shutdown -h now # spegni
 shutdown -r now # riavvia
-
 ```
 
 ## Systemd
@@ -71,9 +70,10 @@ un altro target (`graphical.target`).
 <!-- kernel tratta assieme per quanto riguarda l'allocazione di risorse (e -->
 <!-- isolamento processi). -->
 
+Comandi utili per i target
 ```
-systemctl get-default               # ottenere il target di default
-systemctl set-default target.target # settare il target di default
+systemctl get-default                 # ottenere il target di default
+systemctl set-default target.target   # settare il target di default
 ```
 
 ### Analisi del boot
@@ -96,12 +96,14 @@ journalctl -u nginx.service     # log di una unit di systemd
 journalctl _UID=1000            # log di un utente (uid ottenibile con id user)
 ```
 
-## Layout tastiera
+## Configurazione layout tastiera
 
 ```
 dpkg-reconfigure keyboard-configuration 
 systemctl restart keyboard-setup
 ```
+
+## ACPI
 
 
 ## Recovery di sistema
