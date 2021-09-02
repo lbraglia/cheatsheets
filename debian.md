@@ -1,4 +1,4 @@
-# Debian (and Gnu/Linux) cheatsheet
+# Debian cheatsheet
 
 
 ## Permessi di amministratore
@@ -7,31 +7,40 @@ su -
 sudo -i
 ```
 
-## Spegnere la macchina
+## Spegnere, riavviare, sospendere
 ```
-shutdown -h now # spegni
-shutdown -r now # riavvia
+shutdown -h now   # spegni
+shutdown -r now   # riavvia
 ```
 
-## WiFi
+## Rete
 
 ```
 ip addr              # lista interfacce disponibili (tra cui es wlan0) e stato
 ip link set wlan0 up # attiva/alimenta l'interfaccia
 iwlist wlan0 scan    # scan delle reti disponibili
 ```
-Porre la configurazione in `/etc/network/interfaces`
+Configurazioni comuni per `/etc/network/interfaces`
 ```
-# my wifi device
+# ethernet
+auto eth0
+allow-hotplug eth0
+iface eth0 inet dhcp
+
+# wifi device, setup principale
 allow-hotplug wlan0    # <- per fare la configurazione al boot
 iface wlan0 inet dhcp  # <- info sulla configurazione di default
         wpa-ssid ESSID
         wpa-psk PASSWORD
 
-# Altre connessioni
-iface lavoro inet dhcp
+# Altra connessione WPA
+iface uni inet dhcp
       wpa-ssid ESSID2
       wpa-psk PASSWORD2
+	  
+# Altra connessione non criptata
+iface lavoro inet dhcp
+	wireless-essid ESSID3
 ```
 Al boot dovrebbe andare, poi per switchare ad altre reti:
 ```
@@ -128,11 +137,26 @@ dpkg-reconfigure keyboard-configuration
 systemctl restart keyboard-setup
 ```
 
-## ACPI
+## alternatives
+`man update-alternatives`
 
+
+## Creazione di chiavetta di installazione
+Con i permessi di amministratore, senza aver montato la chiavetta (in
+questo caso mappata come `sdb`
+```
+cat debian-10.0.0-amd64-netinst.iso > /dev/sdb 
+sync
+```
 
 ## Recovery di sistema
 
 Aggiungere 1 al termine della linea di GRUB per bootare il runlevel 1
 (single user root).
 
+Alternativamente è possibile bootare un disco di installazione Debian
+con Graphical Rescue Mode (tra le opzioni avanzate) che dopo aver
+mostrato le partizioni sulle quali è possibile intervenire (hanno il
+nome dell'host da salvare nel path) eventualmente permette l'avvio di
+una shell di root nel sistema considerato (es per reinstallare GRUB
+nel MBR).
