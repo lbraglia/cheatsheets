@@ -23,12 +23,11 @@ iwlist wlan0 scan    # scan delle reti disponibili
 Configurazioni comuni per `/etc/network/interfaces`
 ```
 # ethernet
-auto eth0
-allow-hotplug eth0
+auto eth0              # configurazione al boot (per schede sempre attaccate)
 iface eth0 inet dhcp
 
 # wifi device, setup principale
-allow-hotplug wlan0    # <- per fare la configurazione al boot
+allow-hotplug wlan0    # <- schede rimovibili (configura quando rilevate)
 iface wlan0 inet dhcp  # <- info sulla configurazione di default
         wpa-ssid ESSID
         wpa-psk PASSWORD
