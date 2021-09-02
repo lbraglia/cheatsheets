@@ -13,6 +13,31 @@ shutdown -h now # spegni
 shutdown -r now # riavvia
 ```
 
+## WiFi
+
+```
+ip addr              # lista interfacce disponibili (tra cui es wlan0) e stato
+ip link set wlan0 up # attiva/alimenta l'interfaccia
+iwlist wlan0 scan    # scan delle reti disponibili
+```
+Porre la configurazione in `/etc/network/interfaces`
+```
+# my wifi device
+allow-hotplug wlan0    # <- per fare la configurazione al boot
+iface wlan0 inet dhcp  # <- info sulla configurazione di default
+        wpa-ssid ESSID
+        wpa-psk PASSWORD
+
+# Altre connessioni
+iface lavoro inet dhcp
+      wpa-ssid ESSID2
+      wpa-psk PASSWORD2
+```
+Al boot dovrebbe andare, poi per switchare ad altre reti:
+```
+ifdown wlan0 && ifup wlan0=lavoro
+```
+
 ## Systemd
 Una volta c'era `init` a ad essere il primo processo avviato dal
 kernel, ora sostituito da `systemd`; i runlevel di init sono stati
