@@ -2,6 +2,11 @@
 
 ## `dpkg`
 
+```
+dpkg -S /bin/date   # a quale pacchetto appartiene questo file
+dpkg -L coreutils   # quali file contiene un dato pacchetto
+```
+
 
 ## `/etc/apt/sources.list`
 
@@ -29,8 +34,8 @@ apt upgrade
 apt full-upgrade
 
 # Ricerca
-apt search parole
-apt show pacchetto
+apt search parole    # cerca in nome o descrizione
+apt show pacchetto   # descrizione del pacchetto
 
 # Installazione
 apt install pacchetto
@@ -52,7 +57,7 @@ apt autoremove
 debtags search "use::editing && works-with::image:raster && \
 	! (role::shared-lib || role::dummy)"
 
-# Show all mail clients
+# Tutti i client mail
 debtags search "works-with::mail && network::client"
 ```
 
@@ -63,3 +68,7 @@ debtags search "works-with::mail && network::client"
 apt show pacchetto -a
 apt -t bullseye-backports install pacchetto
 ```
+
+
+## Aggiornamento automatico
+`apticron` (in stable)
