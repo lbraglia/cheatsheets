@@ -1,9 +1,9 @@
 # Installazione software
 
-## dpkg
+## `dpkg`
 
 
-## sources.list
+## `/etc/apt/sources.list`
 
 ```
 # Stable
@@ -16,7 +16,7 @@ deb http://security.debian.org/debian-security stable-security main contrib non-
 # deb http://deb.debian.org/debian testing main contrib non-free
 ```
 
-## apt
+## `apt`
 Funge come intefaccia ad altri programmi (`apt-get`, `apt-cache`) 
 
 ```
@@ -44,10 +44,20 @@ apt purge pacchetto    # anche i file di configurazione
 apt autoremove
 ```
 
-## Ricerca con debtags
+## Ricerca con `debtags`
+
+```
+# Lista pacchetti coi quali è possibile editare immagini raster
+# escludendo librerie e dummy package
+debtags search "use::editing && works-with::image:raster && \
+	! (role::shared-lib || role::dummy)"
+
+# Show all mail clients
+debtags search "works-with::mail && network::client"
+```
 
 
-## backports
+## Backports
 
 ```
 apt show pacchetto -a
