@@ -12,4 +12,4 @@ TODO:
 - stampa (cups, lp)
 - multimedia (dlna, torrent)
 - bash
-- docker
+- docker, aqemu
