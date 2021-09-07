@@ -129,13 +129,6 @@ journalctl -u nginx.service     # log di una unit di systemd
 journalctl _UID=1000            # log di un utente (uid ottenibile con id user)
 ```
 
-## Configurazione layout tastiera
-
-```
-dpkg-reconfigure keyboard-configuration 
-systemctl restart keyboard-setup
-```
-
 ## alternatives
 `man update-alternatives`
 
