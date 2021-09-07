@@ -4,21 +4,44 @@
 È il programma utilizzato (tramite `apt`) per installazione/e
 rimozione di software; memorizza il log in `/var/log/dpkg.log`.
 
-Ogni pacchetto su una macchina può essere:
-- *installed*: installato (depacchettato) e configurato correttamente
+Ogni pacchetto su una macchina può essere in diversi stati, principalmente:
+- *not-installed*: il pacchetto non e' presente sul sistema
+- *config-files*: nel sistema esistono solo i file di configurazione
 - *half-installed*: l'installazione del pacchetto e' iniziata, ma non
   è stata terminata per qualche ragione
-- *not-installed*: il pacchetto non e' presente sul sistema
-- *half-configured*: spacchettato, ma non configurato
-- *config-files*: nel sistema esistono solo i file di configurazione
+- *unpacked*: (depacchettato ma non configurato
+- *half-configured*: spacchettato, ma la configurazione (iniziata) non
+  è completata
+- *installed*: installato (depacchettato) e configurato correttamente
 	  
 La sintassi di dpkg è:
 ```
 dpkg [opzioni .. ] azione
 ```
 
+### Stato del sistema
+Il comando:
+```
+dpkg -l <eventuale_pattern>
+```
+lista i pacchetti rispettanti il pattern; se non fornito lista
+tutti i pacchetti contenuti in `/var/lib/dpkg/status`, ad eccezione
+di quelli marcati con "purged"
+```
+$ ~ : dpkg -l *speak
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+||/ Name           Version        Description
++++-==============-==============-============================================
+un  emacspeak      <none>         (no description available)
+un  erc-speak      <none>         (no description available)
+ii  espeak         1.16-2         A multi-lingual software speech synthesizer
+```
+
+
 ### Pacchetti deb
-È un archivio `ar` che raggruppa dei `tar.xz` quindi
+È un archivio `ar` che raggruppa dei `tar.xz` quindi per 
 ```
 # Estrazione "raw"
 ar -x file.deb
@@ -31,33 +54,46 @@ tar xvJf data.tar.xz
 dpkg -I file.deb      # mostra info
 dpkg -c file.deb      # lista i file contenuti
 dpkg -x file.deb dir  # estrae contenuti in dir, se -X lista anche i file
-dpkg -e file.deb dir  # estrae control file, script debian ()
-
+dpkg -e file.deb dir  # estrae control file, script debian etc
 ```
+
 ### Installazione
 ```
 dpkg -i file.deb
 ```
-Nell'ordine
+Nell'ordine l'installazione procede attraverso i seguenti passi:
+- `dpkg` estrae il control file
+- se un'altra versione del pacchetto è presente, viene eseguito lo
+  script `prerm` della vecchia versione (se esistente);
+- viene eseguito lo script `preinst` del nuovo pacchetto (se presente)
+- vengono spacchettati i nuovi file e viene fatto un backup
+  dei vecchi così se qualcosa va male si puo rimenttere a posto
+- viene eseguito lo script `postrm` dell'eventuale versione precedente
+- il pacchetto viene configurato; se qualcosa va male provare `dpkg -a`
+  riconfigura tutti i pacchetti decompressi ma non ancora configurati
 
-L'installazione procede attraverso i seguenti passi:
-\begin{itemize}
-\item dpkg estrae il control file nel nuovo pacchetto
-\item se presente una versione precedere del pacchetto nel
-  sistema, viene eseguito il suo script prerm
-\item viene eseguito lo script preinst del nuovo pacchetto, s
-  presente
-\item vengono spacchettati i nuovi file e viene fatto un backup
-  dei vecchi cosi' se qualcosa va male si puo rimenttere a posto
-\item  viene eseguito lo script postrm dell'eventuale vecchi pacchetto
-\item  il pacchetto viene configurato (vedi --configure)
-\end{itemize}
-
-
-
+### Rimozione
 ```
-dpkg -S /bin/date   # a quale pacchetto appartiene questo file
-dpkg -L coreutils   # quali file contiene un dato pacchetto
+dpkg -r pacchetto  # -P per rimuovere anche i file di configurazione (purge)
+```
+Nell'ordine:
+- esegue `prerm`
+- rimuove i file installati
+- esegue `postrm`
+
+
+### Riconfigurazione
+Per riconfigurare un pacchetto (es cambio opzioni)
+```
+dpkg-reconfigure nomepacchetto
+```
+
+# Listing e ricerca di contenuti locali (pacchetti installati
+```
+dpkg -L coreutils   # quali file/path contiene un dato pacchetto
+dpkg -S /bin/date   # greppa il pattern fornito tra i path di tutti
+                    # i pacchetti installati; qui dice quale pacchetto
+					# contiene /bin/date
 ```
 
 
