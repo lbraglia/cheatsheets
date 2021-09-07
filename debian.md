@@ -1,20 +1,17 @@
 # Debian cheatsheet
 
-
-## Permessi di amministratore
+## Installazione
+Con i permessi di amministratore, senza aver montato la chiavetta (in
+questo caso mappata come `sdb`
 ```
-su -
-sudo -i
-```
-
-## Spegnere, riavviare, sospendere
-```
-shutdown -h now   # spegni
-shutdown -r now   # riavvia
+cat debian-10.0.0-amd64-netinst.iso > /dev/sdb 
+sync
 ```
 
-## Rete
+## Setup
 
+
+### Rete
 ```
 ip addr              # lista interfacce disponibili (tra cui es wlan0) e stato
 ip link set wlan0 up # attiva/alimenta l'interfaccia
@@ -46,7 +43,17 @@ Al boot dovrebbe andare, poi per switchare ad altre reti:
 ifdown wlan0 && ifup wlan0=lavoro
 ```
 
-## Systemd
+### Localizzazione
+
+
+### alternatives
+`man update-alternatives`
+
+
+
+
+
+## Amministrazione - Systemd
 Una volta c'era `init` a ad essere il primo processo avviato dal
 kernel, ora sostituito da `systemd`; i runlevel di init sono stati
 sostituiti dai target di `systemd`.
@@ -80,7 +87,6 @@ systemctl is-enabled service  # testare se avviato al boot
 systemctl disable service     # togliere il servizio dal boot
 ```
 
-
 ### Target (ex-runlevel)
 
 I *target* sono gruppi di units chiamate in un dato ordine per fare il
@@ -109,16 +115,7 @@ systemctl get-default                 # ottenere il target di default
 systemctl set-default target.target   # settare il target di default
 ```
 
-### Analisi del boot
-
-Per vedere quali servizi ci mettono molto al boot (vedere i relativi log 
-per casi particolarmente lenti)
-```
-systemd-analyze blame
-```
-
-
-## Log
+## Amministrazione - Log
 
 ```
 journalctl -b                   # log del boot corrente
@@ -129,26 +126,10 @@ journalctl -u nginx.service     # log di una unit di systemd
 journalctl _UID=1000            # log di un utente (uid ottenibile con id user)
 ```
 
-## alternatives
-`man update-alternatives`
 
 
-## Creazione di chiavetta di installazione
-Con i permessi di amministratore, senza aver montato la chiavetta (in
-questo caso mappata come `sdb`
+### Spegnere, riavviare, sospendere
 ```
-cat debian-10.0.0-amd64-netinst.iso > /dev/sdb 
-sync
+shutdown -h now   # spegni
+shutdown -r now   # riavvia
 ```
-
-## Recovery di sistema
-
-Aggiungere 1 al termine della linea di GRUB per bootare il runlevel 1
-(single user root).
-
-Alternativamente è possibile bootare un disco di installazione Debian
-con Graphical Rescue Mode (tra le opzioni avanzate) che dopo aver
-mostrato le partizioni sulle quali è possibile intervenire (hanno il
-nome dell'host da salvare nel path) eventualmente permette l'avvio di
-una shell di root nel sistema considerato (es per reinstallare GRUB
-nel MBR).

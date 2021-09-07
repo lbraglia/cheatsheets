@@ -1,8 +1,6 @@
 # cheatsheets
 
 TODO:
-
-- dpkg_apt
 - cleaning
 - laptop https://wiki.archlinux.org/title/Laptop_Mode_Tools_(Italiano) 
   ed articoli correlati
