@@ -42,16 +42,10 @@ fuserumount -u /tmp/mioiso          # smontare
 
 ### Ricerca unità
 ```
-wodim --devices
-wodim -checkdrive
+xorriso -devices
 ```
 
 ### Scrittura
 ```
-wodim -v speed=4 dev=/dev/cdrom -eject -data file.iso
-```
-
-### Blanking di un CD/RW
-```
-wodim -v dev=/dev/cdrom blank=all
+xorriso -as cdrecord  -v dev=/dev/sr0 -dao my.iso
 ```

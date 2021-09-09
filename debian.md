@@ -30,6 +30,19 @@ dpkg-reconfigure locales
 La prima domanda è quali locali () supportare mentre la seconda quello
 di default (da porre a `it_IT.UTF-8`)
 
+### Timezone
+Per riconfigurare la zona, se necessario:
+```
+dpkg-reconfigure tzdata
+```
+
+### NTP
+Su installazioni nuove `systemd-timesyncd` agisce da client NTP e ciò
+è sufficiente per sincronizzare un sistema. Il demone `ntp`
+dell'omonimo pacchetto è necessario solo quando è richiesto un server
+NTP cui fare riferire le macchine locali.
+
+
 ### Tastiera
 
 Per la riconfigurazione di layout/lingua
@@ -46,6 +59,8 @@ Per la rilevazione dei tasti sotto X
 ```
 xev
 ```
+
+
 
 
 ### alternatives
