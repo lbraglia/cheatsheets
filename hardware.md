@@ -5,7 +5,7 @@
 ```
 cat /proc/cpuinfo  # Processori
 free -m            # Memoria RAM
-df -h              # Disco fisso
+df -hT             # Disco fisso
 lspci              # Periferiche PCI
 lsusb              # Periferiche USB
 ```
