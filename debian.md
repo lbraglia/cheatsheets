@@ -45,6 +45,14 @@ Per la riconfigurazione di layout/lingua
 dpkg-reconfigure keyboard-configuration 
 systemctl restart keyboard-setup
 ```
+Per applicare le nuove impostazioni, dovrebbe essere sufficiente riavviare 
+il servizio `keyboard-setup`; se così non è si può provare
+a riavviare il sistema di input del kernel con udev:
+```
+udevadm trigger --subsystem-match=input --action=change 
+```
+o a riavviare l'intero sistema operativo. 
+
 Per altre configurazioni comuni
 ```
 xset b off   # Disattivazione system bell (sotto X)
