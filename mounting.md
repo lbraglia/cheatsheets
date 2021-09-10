@@ -1,19 +1,13 @@
-# Partizioni e Mounting
+# Mounting: 
 
-## Partizioni
-
-### Listing 
-Per listare dischi, partizioni e file system 
-```
-parted -l
-```
-
-## Mounting: 
-
-### `/etc/fstab`
+## `/etc/fstab`
 Il filesystem / è montato dal kernel al boot; altre device più tardi
 mediante `mount`, e seguendo le configurazioni specificate in
 `/etc/fstab`.
+
+Systemd genera unità di mount basate su questo file; dopo aver
+modificato il file (su installazioni dalla 11 in poi di Debian)
+comandare `systemctl daemon-reload`.
 
 Ogni mountpoint è descritto da una linea con campi separati da spazi
 (anche uno solo):
@@ -49,7 +43,9 @@ Ogni mountpoint è descritto da una linea con campi separati da spazi
   numeri posti (se 0 non viene eseguita, tipicamente si pone 1 sul
   filesystem root e 2 su altri filesystem)
 
-### `mount`
+
+
+## `mount`
 Se i device non sono specificati in fstab, il comando mount (che
 necessita dei permessi di root se non diversamente previsto) ha la sintassi
 ```
@@ -61,7 +57,7 @@ guardando `fstab` (possibile evitare ambiguità specificando `--source` e
 `--target`
 
 
-### Listare i filesystem montati
+## Listare i filesystem montati
 
 ```
 findmnt
