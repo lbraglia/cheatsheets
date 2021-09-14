@@ -83,3 +83,31 @@ dopo `parted /dev/sdb`
 ```
 (parted) rm 1
 ```
+
+
+## LVM
+Software/configurazione che permette di fare apparire più dischi
+fisici come un'unica unità virtuale (es si monta solo quella)
+permettendo maggiore flessibilità/comodità nel ri-dimensionamento in
+aggiunta
+
+Terminologia:
+- dischi sorgente sono chiamati physical volume (/dev/sda e /dev/sdb)
+- aggregato dei dischi (es data, aggregato di sda e sdb, verrà
+  visto come disco)
+- logical volume sono i dischi virtuali basati sull'aggregato (es
+  video, web, doc sono visti come normali partizioni di data); si può
+  specificare ovviamente la dimensione di ciascuno
+
+Vantaggi:
+- se un domani ho bisogno di più spazio aggiungo un physical volume e lo
+  configuro come facente parte di data e alloco il relativo spazio al
+  logical volume che mi interessa
+- è possibile spostare i dati a sistema avviato: i dati su un disco
+  fisico possono essere spostati su un altro facente parte del volume
+  group senza interrompere il servizio (es se si vuole sostituire un
+  disco fisico)
+- velocità di trasferimento incrementano perché si scrive in parallelo 
+  su più dischi (stripe come nel raid 0 su due o più dischi)
+
+Per la pratica Morro, LPI - Exam 101, 25.102.1
