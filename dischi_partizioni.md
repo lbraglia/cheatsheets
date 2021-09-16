@@ -142,3 +142,41 @@ Vantaggi:
   su più dischi (stripe come nel raid 0 su due o più dischi)
 
 Per la pratica Morro, LPI - Exam 101, 25.102.1
+
+
+## Integrità dei filesystem
+
+### Controllo automatico
+Ad ogni montaggio di una partizione/filesystem un contatore viene
+incrementato. Si può impostare che un controllo automatico avvenga
+ogni tot montaggi.
+
+In fstab il controllo automatico è abilitato se la sesta colonna
+(pass) ha un numero diverso da 0. Questo campo viene usato da `fsck`
+per determinare l'ordine di verifica dei file system in fase di
+avvio. Il file system root dovrebbe essere specificato con 1, mentre
+altri con valori pari a 2 (file system nello stesso disco verranno
+verificati in sequenza, mentre file system su dischi diversi verranno
+verificati parallelamente)
+```
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+UUID=9cf52461-2e6c-4f62-bd74-75c19575a71b / ext4 errors=remount-ro 0 1
+UUID=2150130e-761f-42b8-9776-36f3679e100e none swap sw 0 0
+```
+Se abilitata la funzione di check in `fstab`, il filesystem viene
+controllato ogni tot montaggi. Per controllare ogni quanto, su fs ext si usa
+(verificato con `df -hT` che la partizione di root è `/dev/sda1`)
+```
+# tune2fs -l /dev/sda1 # varie info
+# tune2fs -l /dev/sda1 | grep -i "maximum mount count"
+Maximum mount count:      -1
+```
+Se `-1` il check automatico è disabilitato; per impostare un
+valore custom (sfruttando l'UUID stavolta)
+```
+# tune2fs -c 20 /dev/sda1 
+tune2fs 1.46.2 (28-Feb-2021)
+Impostazione del numero massimo di mount a 20
+```
+
+### Controllo manuale
