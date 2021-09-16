@@ -100,6 +100,13 @@ mkfs.vfat -F32 /dev/sdg1 #FAT32
 mkfs.exfat /dev/sdg1
 ```
 
+In ambito **UNIX**
+[`btrfs`](https://wiki.debian.org/Btrfs) è un
+filesystem avanzato (ancora in sviluppo) che fornisce feature come:
+- supporto nativo per RAID
+- compressione zlib
+- snapshot
+- conversione diretta da ext4
 
 ### Eliminazione
 Ipotizzando di dover cancellare la prima partizione (`/dev/sdb1`) 
