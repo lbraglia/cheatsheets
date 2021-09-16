@@ -180,3 +180,9 @@ Impostazione del numero massimo di mount a 20
 ```
 
 ### Controllo manuale
+Avviene mediante `fsck` (che wrappa tanti altri eseguibili specifici
+per filesystem) su partizioni non montate (o montate in sola lettura)
+```
+fsck.vfat /dev/sdb1
+```
+
