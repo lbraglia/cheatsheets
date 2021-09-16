@@ -21,7 +21,11 @@ Ogni mountpoint è descritto da una linea con campi separati da spazi
   root@m740n:~# blkid /dev/sdb1 
   /dev/sdb1: UUID="788E-DC5F" BLOCK_SIZE="512" TYPE="vfat"
   ```
-  ... e in fstab si tolgono le virgolette `UUID=788E-DC5F`
+  ... e in fstab si tolgono le virgolette `UUID=788E-DC5F`.  Nello
+  specifico UUID è l'ID univoco della partizione assegnato da Linux;
+  `blkid` riferisce a volte anche un `PARTUUID` (che è l'ID univo
+  della partizione assegnato da GPT). Questi ID vengono generati
+  casualmente alla creazione di nuove partizioni (es con parted)
 
 - *mountpoint*: dove nel filesystem root montare
 
@@ -47,9 +51,10 @@ Ogni mountpoint è descritto da una linea con campi separati da spazi
 
 ## `mount`
 Se i device non sono specificati in fstab, il comando mount (che
-necessita dei permessi di root se non diversamente previsto) ha la sintassi
+necessita dei permessi di root se non diversamente previsto) ha la
+sintassi:
 ```
-mount -t type device dir
+mount -t type partizione dir
 ```
 `-t` è opzionale (mount indovina abbastanza il tipo); se viene fornita
 solo la device o la directory, mount vede se riesce a completare le info 
@@ -60,8 +65,19 @@ guardando `fstab` (possibile evitare ambiguità specificando `--source` e
 ## Listare i filesystem montati
 
 ```
-findmnt
+findmnt # oppure mount senza parametri
 findmnt --fstab    ## solo quelli specificati in fstab
 ```
 
-
+## Listare i block device
+```
+l@m740n:~$ lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda      8:0    0 238,5G  0 disk 
+├─sda1   8:1    0 222,6G  0 part /
+├─sda2   8:2    0     1K  0 part 
+└─sda5   8:5    0  15,9G  0 part [SWAP]
+sdb      8:16   1   7,5G  0 disk 
+└─sdb1   8:17   1   7,5G  0 part 
+sr0     11:0    1  1024M  0 rom
+```

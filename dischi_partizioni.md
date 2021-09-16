@@ -172,7 +172,7 @@ controllato ogni tot montaggi. Per controllare ogni quanto, su fs ext si usa
 Maximum mount count:      -1
 ```
 Se `-1` il check automatico è disabilitato; per impostare un
-valore custom (sfruttando l'UUID stavolta)
+valore custom
 ```
 # tune2fs -c 20 /dev/sda1 
 tune2fs 1.46.2 (28-Feb-2021)
