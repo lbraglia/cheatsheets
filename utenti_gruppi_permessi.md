@@ -10,7 +10,16 @@ proprietario del file (o da root) a:
 - `-` per i file normali
 - `d` per le directory
 - `l` per i collegamenti
-
+- `c` file speciali per IO (maggior parte in /dev)
+- `s` socket (simili a socket TCP/IP) per comunicazione tra processi
+- `p` pipe (simili ai socket)
+- `b` block device (es /dev/sda)
+Lettura, scrittura ed esecuzione:
+- su file sono immediati (esecuzione pertinente solo per file script o 
+  binari eseguibili) 
+- su cartelle lettura indica la possibilità di listare il contenuto
+  (mediante ls), scrittura di creare file al loro interno, esecuzione
+  di spostarsi al proprio interno
 
 ## Permessi e cambio
 Il modo ottale è il più veloce e i permessi concessi sono identificati
