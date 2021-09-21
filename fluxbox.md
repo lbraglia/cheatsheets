@@ -15,8 +15,8 @@ Control Mod1 u :ExecCommand urxvt -e inizio-giornata
 Control Mod1 w :ExecCommand work
 Control Mod1 j :ExecCommand do_analysis
 Control Mod1 m :ExecCommand compile_math
-Control Mod1 s :ExecCommand screenshot_focus
-Control Mod1 a :ExecCommand screenshot_globale
+Control Mod1 s :ExecCommand scrot --focused # screenshot focus
+Control Mod1 a :ExecCommand scrot           # screenshot globale
 
 ! Gestione del desktop
 Control Mod1 d :ShowDesktop
@@ -30,14 +30,12 @@ Mod1 F5 :MaximizeVertical
 Mod1 F6 :MaximizeHorizontal
 
 # Mod4 è il tasto Windows
-Mod4 F6 :ExecCommand diminuisci_volume
-Mod4 F7 :ExecCommand mute_unmute
-Mod4 F8 :ExecCommand aumenta_volume
-Mod4 F11 :ExecCommand galculator
+Mod4 F6 :ExecCommand amixer set Master 2%-       # diminuisci volume
+Mod4 F7 :ExecCommand amixer sset Master,0 toggle # mute/unmute
+Mod4 F8 :ExecCommand amixer set Master 2%+       # aumenta volume
 
-!!!!! MULTIMEDIA
-! None XF86AudioMute :ExecCommand mute_unmute
-! !None XF86AudioMute :ExecCommand mute_unmute_headphones
-! None XF86AudioRaiseVolume :ExecCommand aumenta_volume
-! None XF86AudioLowerVolume :ExecCommand diminuisci_volume
+## Multimedia con tasti alternativi/ad-hoc (vedi xev)
+# None XF86AudioMute :ExecCommand amixer sset Master,0 toggle
+# None XF86AudioRaiseVolume :ExecCommand amixer set Master 2%+
+# None XF86AudioLowerVolume :ExecCommand amixer set Master 2%-
 ```
