@@ -10,15 +10,32 @@ Alcuni file generali sulle shell:
   chsh -s /usr/bin/zsh
   ```
   chsh modifica `/etc/passwd` anche se non si è root (setuiddato con root)
-  
-## File e configurazioni di Bash
-I file principali per la configurazione di bash:
-- `/etc/profile`: eseguito in fase di login
-- `~/.bash_profile`: come sopra
-- `~/.bashrc`: eseguito all’avvio della shell
-- `~/.bash_logout`: eseguito al logout
-- `~/.bash_history`: contiene la history
 
+## Shell di login e non, file di configurazione
+Una: 
+- shell di login è il primo processo che viene eseguito dall'utente e
+  viene utilizzata per impostare diverse variabili/configurazioni
+  globali/d'ambiente che saranno disponibili ai processi figli. Nel
+  caso di bash legge ed esegue, nell'ordine
+  ```
+  /etc/profile
+  ~/.bash_profile
+  ~/.bash_login
+  ~/.profile
+  ```
+  Quando una shell di login esce esegue `~/.bash_logout` (se esiste).
+  Una login shell di fatto si ha quando
+  - ci si logga per la prima volta in locale o mediante ssh
+  - ci si logga con su - (o sudo -)
+- shell non di login è quella che tipicamente si ottiene aprendo un
+  terminale; esegue nell'ordine
+  ```
+  /etc/bash.bashrc
+  ~/.bashrc
+  ```
+
+Spesso però al fine di avere uniformità tra login shell e non-login
+shell in `.profile` si fa il source di `.bashrc`.
 
 ## Caratteri speciali
 ```
@@ -46,6 +63,7 @@ Lo standard:
 ```
 comando1 | comando2
 ```
+redirige lo stdout di `comando1` allo stdin di `comando2`
 
 ## Redirezione
 È possibile gestire input e output in modo da farli provenire e finire
@@ -88,29 +106,45 @@ eseguito.
 ```
 
 ## Variabili
-Sono stringhe e ve ne sono due tipi, locali e d'ambiente:
-- le prime sono disponibili solo nella shell attuale e si creano
-  semplicemente mediante ```identificatore=contenuto``` senza spazi
-  (se no bash crede sia un comando); se il `contenuto` ha spazi
-  quotarlo mediante ";
+
+### Creazione
+Sono stringhe e ve ne sono due tipi:
+- le *variabili locali* prime sono disponibili solo nella shell attuale
+  e si creano semplicemente mediante 
+  ```
+  identificatore=contenuto
+  ```
+  senza spazi (se no bash crede sia un comando); se il `contenuto` ha
+  spazi quotarlo mediante ";
   
-- le seconde vengono rese disponibili anche alle shell figlie di quella 
-  dove sono definite e vengono definite alternativamente come
+- le *variabili d'ambiente* vengono rese disponibili anche alle shell
+  figlie di quella dove sono definite e vengono definite
+  alternativamente come
   ```
   identificatore=contenuto
   export identificatore
   ## oppure
   export identificatore=contenuto
   ```
-	È buona norma creare identificatori minuscoli (i maiuscoli sono
-    utilizzati dalle variabili d'ambiente impostate dal sistema)
+  È buona norma creare identificatori minuscoli (i maiuscoli sono
+  utilizzati dalle variabili d'ambiente impostate dal sistema)
 
+### Listing
 Dando due tab dopo
 ```
 echo $
 ```
-vengono listate tutte le variabili attualmente disponibili.
+vengono listate tutte le variabili attualmente disponibili 
+mentre con `printenv` le variabili d'ambiente
+
+### Utilizzo
+La sostituzione viene effettuata mediante `$identificatore` nel
+comando desiderato
+
+### Rimozione
 Per eliminare una variabile
 ```
 unset identificatore
 ```
+
+### Variabili notevoli
