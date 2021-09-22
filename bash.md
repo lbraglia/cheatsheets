@@ -97,21 +97,28 @@ Si interroga mediante `history` mentre se:
   $:  asd <- no
   ```
 
-
-
-## Caratteri speciali
+## Caratteri speciali e quoting
 ```
 #          commento
 `comando`  sostituisce l'output dato comando nella linea di bash
 $(comando) sostituisce l'output dato comando nella linea di bash
 $variabile sostituisce la variabile nella linea di bash
 \          andare a capo senza interrompere il comando 
-\          il carattere che lo segue viene preso alla lettera
+\          il carattere che lo segue viene preso alla lettera (es spazio, 
+	       no altro parametro)
 *          uno o più caratteri qualsiasi in un nome di un file/percorso
 ?          un carattere qualsiasi
 []         uno qualsiasi dei caratteri inclusi tra parentesi
 ```
-
+Il quoting con apici singoli serve per stringhe che si voglion tenere
+assieme in presenza di spazi (non effettua sostituzioni di variabili
+ed è il massimo del safe); con apici doppi effettua la sostituzione
+```
+l@m740n:~$ echo 'ciao $USER'
+ciao $USER
+l@m740n:~$ echo "ciao $USER"
+ciao l
+```
 
 ## stdin, stdout, stderr
 Lo standard:
@@ -166,50 +173,3 @@ eseguito.
 ;   separa dal comando successivo sulla stessa linea
 &   esegue il comando in background in una sottoshell
 ```
-
-## Variabili
-
-### Creazione
-Sono stringhe e ve ne sono due tipi:
-- le *variabili locali* prime sono disponibili solo nella shell attuale
-  e si creano semplicemente mediante 
-  ```
-  identificatore=contenuto
-  ```
-  senza spazi (se no bash crede sia un comando); se il `contenuto` ha
-  spazi quotarlo mediante ";
-  
-- le *variabili d'ambiente* vengono rese disponibili anche alle shell
-  figlie di quella dove sono definite e vengono definite
-  alternativamente come
-  ```
-  identificatore=contenuto
-  export identificatore
-  ## oppure
-  export identificatore=contenuto
-  ```
-  È buona norma creare identificatori minuscoli (i maiuscoli sono
-  utilizzati dalle variabili d'ambiente impostate dal sistema)
-
-### Listing
-Dando due tab dopo
-```
-echo $
-```
-vengono listate tutte le variabili attualmente disponibili 
-mentre con `printenv` le variabili d'ambiente
-
-### Utilizzo
-La sostituzione viene effettuata mediante `$identificatore` nel
-comando desiderato
-
-### Rimozione
-Per eliminare una variabile
-```
-unset identificatore
-```
-Altrimenti verranno eliminate alla chiusura della shell; se si
-vuole impostare variabili permanentemente impostarle
-in `.profile` o `.bashrc`
-
-
