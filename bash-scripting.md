@@ -48,17 +48,22 @@ in `.profile` o `.bashrc`
 
 ## Gestione del flusso
 
-### Esecuzione condizionale (`if` e simili)
+### Esecuzione condizionale: `if`/`test`, `case` 
 Si hanno diversi modi: 
-- il costrutto `if`
-- la builtin `test`, 
+- il costrutto `if` (e `test`)
 - il costrutto `case`
-- gli operatori di parentesi, 
 
-La struttura di un generico **if**:
+Formalmente la struttura di un generico **if**:
+```
+if COMANDI; then COMANDI; [ elif COMANDI; then COMANDI; ]... [ else COMANDI; ] fi
+```
+Viene eseguito l'elenco dei COMANDI che fungono da condizione e se lo
+stato di uscita è 0 viene eseguito il blocco then; come valore di uscita 
+restituisce lo stato dell'ultimo comando eseguito. Spesso si trova
+riadattato come
 ```
 \begin{verbatim}
-if [[condizione]]; then 
+if [[ condizione ]]; then 
     comandi
 elif [[ condizione2 ]]; then
     comandi
@@ -66,19 +71,37 @@ else
     comandi
 fi
 ```
-questo perché if/elif e then sono comandi separati e per esser
-posti sulla stessa riga devono essere separati dal punto e virgola.
+dove:
+- è importante che dentro parentesi ci sia uno spazio bianco all'inizio e 
+  uno alla fine;
+- di fatto bash sostituisce `[[ condizione ]]` al comando `test
+  condizione`; spesso è quindi la builtin `test` che effettua le
+  comparazioni quindi rifarsi al suo help per vedere i test
+  disponibili;
+- non si pone punto e virgola dopo comandi posti sulla stessa riga
+  devono essere separati dal punto e virgola.
+- non si pone punto e virgola dopo `comandi` dato che l'`elif`, l'`else` e il `fi` sono su un'altra
 
-Un modo equivalente (ma meno efficiente di) è usare **test**:
+È possibile nidificare gli if come:
 ```
-if [[condizione]]
-```
-è 
-```
-if test condizione
+if [[condizione]]; then
+   if [[condizione]]; then
+      comando
+   fi
+else
+   comando
+fi
 ```
 
-Il **case** è simile allo switch del C:
+
+
+Il **case** è simile allo switch del C; formalmente 
+```
+case PAROLA in [MODELLO [| MODELLO]...) COMANDI ;;]... esac
+```
+Esegue in modo selettivo COMANDI basati sulla PAROLA corrispondente al MODELLO
+e restituisce lo stato dell'ultimo comando eseguito; spesso riparafrasato 
+come segue:
 ```
 case "$variable" in
  "$var1" )
@@ -170,11 +193,6 @@ Si fa semplicemente
 function_name
 ```
 
-
-
-
-
-
 ## Scripting
 
 ### Incipit del file
@@ -200,3 +218,48 @@ caricarne i valori e poterle utilizzare si comanda alternativamente:
 source file_path
 . file_path
 ```
+
+### Input dall'utente
+\subsection{Prendere in input dall'utente}
+Utilizzare read
+\begin{verbatim}
+echo Please, enter your name
+read NAME
+echo "Hi $NAME!"
+\end{verbatim}
+o per prendere più input nella stessa linea
+\begin{verbatim}
+echo Please, enter your firstname and lastname
+read FN LN 
+echo "Hi! $LN, $FN !"
+\end{verbatim}
+
+
+\subsection{Here documents}
+Sono un modo di programmare la shell per ottenere un effetto
+simile a
+\begin{verbatim}
+programma < file_di_comandi
+\end{verbatim}
+dove a un programma (es ftp) viene passato in stdin una serie di
+comandi da effettuare che sono contenuti in un file. Il fatto è
+che prima bisogna definire tali comandi in apposito file e il
+funzionamento dello script dipende dall'esistenza e la
+correttezza di tale file.\\
+Mediante l'here document si specificano i comandi all'interno
+della sintassi di bash e poi si passano gli stessi al comando
+speicficato. La sintassi è
+\begin{verbatim}
+programma << EOF
+comando1
+comando2
+...
+EOF
+\end{verbatim}
+Al posto di EOF ci può essere qualsiasi cosa: i due delimitatori
+(EOF in questo caso) conterranno i comandi che saranno passati al
+programma.
+
+Come nelle altre parti degli script vi è sostituzione delle
+variabili con il loro contenuto.
+

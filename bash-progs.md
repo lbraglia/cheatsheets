@@ -18,3 +18,33 @@ splitted_aa  splitted_ac  splitted_ae  splitted_ag  splitted_ai
 splitted_ab  splitted_ad  splitted_af  splitted_ah  splitted_aj
 ```
 
+## sed
+Sed è un comando per l'editing in streaming. Il formato è 
+```
+sed 's/to_be_replaced/replaced/g' 
+```
+un esempio
+```
+ls -l | sed 's/[aeio]/u/g'
+```
+
+## awk
+Ricerca un pattern e poi svolge l'azione specificata.
+Se ad esempio abbiamo un file \texttt{/tmp/dummy} con:
+```
+test123
+test
+tteesstt
+```
+e comandiamo
+```
+awk '/test/ {print}' /tmp/dummy
+```
+awk restituisce
+```
+test123 
+test
+```
+
+
+
