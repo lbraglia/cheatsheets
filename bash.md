@@ -37,6 +37,68 @@ Una:
 Spesso però al fine di avere uniformità tra login shell e non-login
 shell in `.profile` si fa il source di `.bashrc`.
 
+
+## Opzioni di bash (set/shopt)
+Il listing si ottiene con `set +o`
+```
+l@m740n:~$ set +o
+set +o allexport
+set -o braceexpand
+set -o emacs
+set +o errexit
+```
+quando vi è il + significa che l'impostazione è disattivata, mentre se c'è il -
+è attiva: per maggiori informazioni sulle opzioni disponibili vedere 
+`help set`, ad esempio per impostare che tutte le variabili create siano esportate per le shell figlie
+```
+set -o allexport
+```
+Altre opzioni sono disponibili in `shopt`
+
+## Alias
+
+### Definizione
+```
+alias dataset="echo dataset_$(date +'%Y_%m_%d')"
+```
+
+### Rimozione
+```
+unalias dataset
+```
+Anche gli alias valgono solo per la sessione corrente 
+quindi impostarli in `.profile` o `.bashrc`
+
+
+## history
+Si interroga mediante `history` mentre se:
+- voglio rieseguire un comando `!#_comando`
+- voglio utilizzare un parametro dato nell'ultimo comando uso `!$`
+  ```
+  mkdir /tmp/test
+  cd !$
+  ```
+- per rilanciare l'ultimo comando eseguito `!!`
+- per lanciare l'ultimo comando che inizia con una stringa
+  ```
+  !apt
+  ```
+- per effettuare una ricerca all'interno della history
+  - `Ctrl+R` 
+  - digitare la stringa, viene restituita l'ultima occorrenza che matcha
+  - ridare `Ctrl+R` per scorrere le altre che matchano fino a trovare 
+	la desiderata
+  - `Invio` per eseguire il comando scelto oppure `Esc` per modificare 
+	la ricerca usandola come punto di partenza
+- per pulire la history, `history -c`
+- per evitare che un comando finisca in history iniziarlo con uno spazio
+  ```
+  $: asd <- finisce in history 
+  $:  asd <- no
+  ```
+
+
+
 ## Caratteri speciali
 ```
 #          commento
@@ -146,5 +208,8 @@ Per eliminare una variabile
 ```
 unset identificatore
 ```
+Altrimenti verranno eliminate alla chiusura della shell; se si
+vuole impostare variabili permanentemente impostarle
+in `.profile` o `.bashrc`
 
-### Variabili notevoli
+
