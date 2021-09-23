@@ -30,7 +30,7 @@ ls -l | sed 's/[aeio]/u/g'
 
 ## awk
 Ricerca un pattern e poi svolge l'azione specificata.
-Se ad esempio abbiamo un file \texttt{/tmp/dummy} con:
+Se ad esempio abbiamo un file `/tmp/dummy` con:
 ```
 test123
 test
