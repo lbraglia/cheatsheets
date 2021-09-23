@@ -173,3 +173,16 @@ eseguito.
 ;   separa dal comando successivo sulla stessa linea
 &   esegue il comando in background in una sottoshell
 ```
+
+
+## Esecuzione in background
+Se un processo sta occupando la shell e ne abbiamo bisogno momentaneamente:
+- dare `Ctrl+Z` per porre il processo in background
+- utilizzare la shell per altro
+- comandare `bg 1` per rimettere a schermo il processo posto in background
+
+Per la lista dei processi in esecuzione in background comandare `jobs`
+(dal quale si ricava l'id numerico diverso da 1, nel caso di
+molteplici processi in background)
+
+

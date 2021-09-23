@@ -1,6 +1,12 @@
-# Compressione
+# Archiviazione e compressione
 
-I pacchetti fondamentali sono `rar unrar zip unzip bzip2 gzip`.
+Archiviazione è trasformare cartelle/sottocartelle/file molteplici in
+un unico file.  Compressione è ridurre le dimensioni di un file.
+Storicamente le due cose sono ben separate ma essendo che spesso vanno
+a braccetto programmi moderni tendono a fare il tutto assieme.
+
+I pacchetti fondamentali sono `tar rar unrar zip unzip bzip2 gzip`.
+
 
 ## tar, gz, bz e xz
 Alla compressione è tipicamente preceduta la creazione di un archivio

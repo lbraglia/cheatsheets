@@ -4,6 +4,16 @@
 Concatena file; le varianti servono per preprocessare le compressioni
 dei file di testo da visualizzare
 
+## wc
+```
+wc file.txt    # conta linee, parole, bytes di un file di testo
+
+wc -l file.txt # linee
+wc -w file.txt # parole
+wc -c file.txt # bytes
+wc -L file.txt # lunghezza linea più lunga in caratteri
+```
+
 ## split
 Fa l'inverso di `cat` e divide un file in molteplici file ciascuno con al 
 max tot righe. Ad esempio per dividere un file di 5000
@@ -32,6 +42,29 @@ l@m740n:~$ ls -l modulo_spl_a*
 -rw-r--r-- 1 l l 10000 23 set 09.20 modulo_spl_ae
 -rw-r--r-- 1 l l  4345 23 set 09.20 modulo_spl_af
 ```
+
+## tr
+Sta per translate ed è un recoder per caratteri. Ad esempio 
+- per sostituire un carattere r con s
+  ```
+  cat test.txt | tr 'r' 's'
+  ```
+- per eliminare i caratteri r ed s
+  ```
+  cat test.txt | tr -d 'rs'
+  ```
+- per tenere solo qualcosa si fa il complementare, es per tenere solo r ed s
+  ```
+  cat test.txt | tr -dc 'rs'
+  ```
+  per tenere solo i caratteri stampabili (es non gli a capo):
+  ```
+  cat test.txt | tr -dc [:print:]
+  ```
+- per fare l'upcase di un file
+  ```
+  cat test.txt | tr [:lower:] [:upper:] 
+  ```
 
 ## sed
 Sed è un comando per l'editing in streaming. Il formato è 
