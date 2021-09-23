@@ -1,4 +1,4 @@
-# My minimal emacs cheat sheet
+# emacs
 
 ### Help
 

@@ -1,8 +1,8 @@
 # Utilities da shell
 
-
-## cat
-Concatena file
+## cat e famiglia (zcat, bzcat, xzcat)
+Concatena file; le varianti servono per preprocessare le compressioni
+dei file di testo da visualizzare
 
 ## split
 Fa l'inverso di `cat` e divide un file in molteplici file ciascuno con al 
@@ -16,6 +16,21 @@ l@m740n:~$ split file.txt -l 500 splitted_
 l@m740n:~$ ls splitted_*
 splitted_aa  splitted_ac  splitted_ae  splitted_ag  splitted_ai
 splitted_ab  splitted_ad  splitted_af  splitted_ah  splitted_aj
+```
+split può anche splittare in base a tot byte mediante `-b` (quindi 
+es si presta anche a file binari (che potranno essere rimessi assieme
+con `cat`)
+```
+l@m740n:~$ l modulo.pdf 
+-rw-r--r-- 1 l l 54K 21 set 11.15 modulo.pdf
+l@m740n:~$ split -b 10000 modulo.pdf modulo_spl_
+l@m740n:~$ ls -l modulo_spl_a*
+-rw-r--r-- 1 l l 10000 23 set 09.20 modulo_spl_aa
+-rw-r--r-- 1 l l 10000 23 set 09.20 modulo_spl_ab
+-rw-r--r-- 1 l l 10000 23 set 09.20 modulo_spl_ac
+-rw-r--r-- 1 l l 10000 23 set 09.20 modulo_spl_ad
+-rw-r--r-- 1 l l 10000 23 set 09.20 modulo_spl_ae
+-rw-r--r-- 1 l l  4345 23 set 09.20 modulo_spl_af
 ```
 
 ## sed
