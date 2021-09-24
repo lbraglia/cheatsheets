@@ -2,6 +2,7 @@
 
 ## Mounting di dispositivi Android
 
+### Setup on the fly
 Dopo aver installato il pacchetto `jmtpfs` (per montare dispositivi
 mediante MFS - media transfer protocol) da utente normale:
 - connettere lo smartphone mediante USB e in `Impostazioni` -> 
@@ -23,7 +24,7 @@ mediante MFS - media transfer protocol) da utente normale:
   umount /tmp/phone
   ```
 
-## Configurazione con /etc/fstab (da ArchWiki)
+### Configurazione con /etc/fstab (da ArchWiki)
 Per far si che funzioni come gli altri mount
 
 ```
@@ -55,3 +56,7 @@ drwxr-xr-x 20 l l 0 15 ago  4458541 'Memoria interna condivisa'
 drwxr-xr-x  9 l l 0 19 feb  4458541 'Scheda SD SanDisk'
 l@m740n:~$ umount motog
 ```
+
+
+## Per tutto il resto ...
+`kdeconnect`

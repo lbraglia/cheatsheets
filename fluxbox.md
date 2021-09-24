@@ -15,8 +15,8 @@ Control Mod1 u :ExecCommand urxvt -e inizio-giornata
 Control Mod1 w :ExecCommand work
 Control Mod1 j :ExecCommand do_analysis
 Control Mod1 m :ExecCommand compile_math
-Control Mod1 s :ExecCommand scrot --focused # screenshot focus
-Control Mod1 a :ExecCommand scrot           # screenshot globale
+Control Mod1 s :ExecCommand flameshot # screenshot fighetto editabile
+Control Mod1 a :ExecCommand scrot     # screenshot globale ignorante (in ~)
 
 ! Gestione del desktop
 Control Mod1 d :ShowDesktop
