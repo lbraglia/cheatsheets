@@ -35,7 +35,15 @@ Mod4 F7 :ExecCommand amixer sset Master,0 toggle # mute/unmute
 Mod4 F8 :ExecCommand amixer set Master 2%+       # aumenta volume
 
 ## Multimedia con tasti alternativi/ad-hoc (vedi xev)
-# None XF86AudioMute :ExecCommand amixer sset Master,0 toggle
-# None XF86AudioRaiseVolume :ExecCommand amixer set Master 2%+
-# None XF86AudioLowerVolume :ExecCommand amixer set Master 2%-
+# XF86AudioMute :ExecCommand amixer sset Master,0 toggle
+# XF86AudioRaiseVolume :ExecCommand amixer set Master 2%+
+# XF86AudioLowerVolume :ExecCommand amixer set Master 2%-
 ```
+
+Nel caso di tasti speciali/multimediali, qualora `xev` non fornisca un
+nome del pulsante per come è mappato da X (es `XF86AudioRaiseVolume`)
+si può inserire il keycode (un numerico semplice); per ottenerlo, nel
+caso `xev` non lo stampi si può installare `evtest` che da il keycode
+a livello kernel e aggiungere 8 per ottenere il keycode a livello X
+(confrontare il valore restituito di keycode su un tasto semplice es
+`a`).
