@@ -66,6 +66,82 @@ Sta per translate ed è un recoder per caratteri. Ad esempio
   cat test.txt | tr [:lower:] [:upper:] 
   ```
 
+## cut
+serve per estrarre testo da un file/stdin
+
+```
+# Estrazione di colonne
+cut -c 12-15 file.txt    # estrae dalla 12a alla 15a colonna
+cut -c 12- file.txt      # estrae dalla 12a colonna alla fine
+cut -c "-12" file.txt      # estrae fino alla 12a colonna
+
+# Estrazione da un file con delimitatore
+cut -d ',' -f 2 file.csv  # stampa secondo campo (colonna) di un csv
+cut -d ',' -f 2,4 file.csv  # stampa secondo campo (colonna) di un csv
+```
+Altre opzioni interessanti sono
+- `--output-deliter=';'` assieme a -d e selezione multipla di
+  campi, per sostituire il delimitatore dei campi nell'output;
+- `-s` (in aggiunta a `-d`) che stampa solo se il carattere di
+  delimitazione è trovato nella riga);
+- `--complement` (stampa tutto ad eccezione della selezione
+  specificata).
+
+## paste
+Serve per incollare righe di diversi file o di un unico file (in questo caso crea su unica riga da molteplici), utilizzando come delimitatore di default il tab. Se `test.txt` è 
+```
+asd
+foo
+bar
+```
+e `test2.txt`
+```
+baz
+poi
+hoy
+```
+si ha
+```
+l@m740n:~$ paste test.txt test2.txt 
+asd  baz
+foo  poi
+bar  hoy
+l@m740n:~$ paste -s -d ' ' test.txt
+asd foo bar
+l@m740n:~$ cat test.txt test2.txt | paste - - -     
+asd  foo  bar 
+baz  poi  hoy
+```
+tre trattini significa fai tre colonne nell'output
+
+## fmt
+Serve a wrappare, non spezzando parole un file di testo
+```
+cat file.txt | fmw -w 72
+```
+
+## pr
+Serve per preprocessare un file di testo da inviare a stampa: aggiunge
+intestazione e spezza per far si che sia leggibile in stampa
+```
+pr file.txt | lp- 
+```
+Utile soprattutto per file lunghi
+
+
+## sort
+Serve per ordinare secondo diversi criteri linee di testo
+
+```
+du -s * | sort -n           # ordina per dimensione file/cartelle di .
+cat elenco.txt | sort -k 2  # ordina elenco Cognome, Nome Tel sulla base di Nome
+```
+
+## uniq
+Elimina righe adiacenti duplicate; pertanto quasi sempre utilizzato
+con `sort` per mettere tutte le righe simili vicine.
+
+
 ## sed
 Sed è un comando per l'editing in streaming. Il formato è 
 ```
