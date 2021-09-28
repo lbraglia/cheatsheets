@@ -71,134 +71,77 @@ $ ~ : sudo chattr = ciao mia_cartella/
 ## Ricerca
 Può esser fatta principalmente mediante `find`, `locate` e `xargs`
 
-Per brevità considereremo come file il file vero e proprio, la
-direcory, il link simbolico ed ogni cosa abbia una "directory
-entry" ossia un nome.  L'albero di una directory consiste nel suo
-contenuto e nel contenuto delle sottodirectory.
+<!-- Per brevità considereremo come file il file vero e proprio, la -->
+<!-- direcory, il link simbolico ed ogni cosa abbia una "directory -->
+<!-- entry" ossia un nome.  L'albero di una directory consiste nel suo -->
+<!-- contenuto e nel contenuto delle sottodirectory. -->
 
-I programmi sopra elencati permettono di cercare files in una o
-più alberi di directory che:
-\begin{itemize}
-\item presentano nomi che contengono un certo testo o rispettano
-  un determinato pattern
-\item sono link a determinati file
-\item si trovano all'interno di un determinato range di grandezza
-  del file
-\item sono stati utilizzati durante un certo periodo di tempo
-\item sono di un certo tipo (file regolari directory, link)
-\item sono di proprietà di un certo soggetto o di un determinato
-  gruppo
-\item hanno determinati permess
-\item contengono testo che rispetta un determinato pattern
-\item si trovano ad un certo livello di profondità nell'albero
-  della directory
-\item una combinazione dei criteri precedenti
-\end{itemize}
-Una volta ndividuati il/i file ricercati è possibile fare molto di
-più che del semplice dichiarazione di path.
+<!-- I programmi sopra elencati permettono di cercare files in una o -->
+<!-- più alberi di directory che: -->
+<!-- - presentano nomi che contengono un certo testo o rispettano un -->
+<!--   determinato pattern -->
+<!-- - sono link a determinati file -->
+<!-- - si trovano all'interno di un determinato range di grandezza del file -->
+<!-- - sono stati utilizzati durante un certo periodo di tempo -->
+<!-- - sono di un certo tipo (file regolari directory, link) -->
+<!-- - sono di proprietà di un certo soggetto o di un determinato gruppo -->
+<!-- - hanno determinati permess -->
+<!-- - contengono testo che rispetta un determinato pattern -->
+<!-- - si trovano ad un certo livello di profondità nell'albero della -->
+<!--   directory -->
+<!-- - una combinazione dei criteri precedenti -->
 
 ### find
-Find cerca nell'albero di directory specificato vi sono file o
-cartelle che rispettano il pattern fornito, dopodichè ne printa
-il path allo stdout.  Un esempio: cerco la roba il cui nome
-inizia per linux
-\begin{verbatim}
-$ ~ : sudo find -name "linux*"
-Password:
-./.Mail/linux
-./.fluxbox/backgrounds/linux_story.png
-./linux
-./linux/linux_kernel
-./back_conf_29012007-115939/.fluxbox/backgrounds/linux_story.png
-./back_conf_29012007-115939/.Mail/linux
-./linux_non_e_windows.pdf
+Cerca nell'albero di directory specificato vi sono file o cartelle che
+rispettano il pattern fornito, dopodichè ne printa il path allo
+stdout.
 
-$ ~ : sudo find . -name "linux*.p*"
-./.fluxbox/backgrounds/linux_story.png
-./back_conf_29012007-115939/.fluxbox/backgrounds/linux_story.png
-./linux_non_e_windows.pdf
-\end{verbatim}
-L'utilizzo è il seguente
-\begin{verbatim}
-	   find [-H] [-L] [-P] [path...] [expression]
-\end{verbatim}
-Le opzioni H,L e P gestiscono il trattamento dei link simbolici:
-per ora lasciamole stare.
+```
+l@m740n:~$ find -name asd
+./.doc/todo/asd
+./asd
+l@m740n:~$ find -name BRG*
+./.doc/dichiarazione_redditi/2021/BRGLCU83S04H223C.pdf
+./.doc/dichiarazione_redditi/2020/BRGLCU83S04H223C.pdf
+./.doc/dichiarazione_redditi/2020/BRGRNI27M11H223Z.pdf
+```
+ha la sintassi (semplificata)
+```
+   find [-H] [-L] [-P] [paths] [espressione]
+```
+con:
+- H,L e P per il trattamento dei link simbolici (`P`, il default, non
+  segue il link stampando info del file linkato ma del link stesso;
+  `L` segue il link quindi stampa info del file linkato)
+- paths dove effettuare la ricerca (default  `.`)
+- espressione espressione può essere formata da: operatori,
+  opzioni, test e azioni. L'azione di default è `-print`, che consiste nel
+  stampare a terminale i file che rispettano il criterio di ricerca.
 
-Path consiste nella cartella il cui albero deve esser esaminato
-per la ricerca del file: se path non è specificato di default è
-settato .
+Le **opzioni** riguardano il comportamento nella ricerca; per chiarezza è
+meglio porle all'inizio dell'espressione. Alcune utili: 
+-`maxdepth numero`: scendi nella ricerca al massimo a n sottolivelli
+  della directory. Se numero = 1 cerca solo nella dir corrente, se 0
+  ci si chiede se il nome della dir corrente rispetta il pattern;
+-`mindepth numero`: non processa niente che sia almeno nel sottolivello n;
+-`mount`: non discende in directory su altri filesystem montati;
+- `noleaf`: opzione necessaria quando si cerca in cdrom, msdos
+  filesystem e in filesystem non Unix. Nei filesystem UNIX vi sono per
+  ogni cartella due link (. e ..), pertanto per sapere se ci sono
+  sottocartelle in una cartella basta contare hard link -2 (). Viceversa
+  i fs non unix non hanno questi 2 hard link quindi per determinare se
+  vi sono file o cartelle non bisogna fare il -2;
+- `regextype` tipo: cambia la sintassi date a `-regex` o `-iregex` da
+  `emacs` (default) al tipo specificato (`find -regextype help`).
 
-L'espressione si compone di opzioni, tests, azioni ed
-operatori. L'operazione di default è -print, che consiste nel
-stampare a terminale i file che rispettano il criterio di
-ricerca.
+Alcuni test:
+- `-name pattern`: matcha nomi file con globbing (`iname` per case insensitive)
+- `-regex pattern`: matcha nomi file con regex (`iregex` per case insensitive)
 
-% Le opzioni 
-% ----------
-% riguardano il comportamento nella ricerca; per chiarezza è meglio porle all'inizio. Ecco alcune opzioni
-
-% - depth: cerca prima nel contenuto delle directory che nella dir stessa. Facciamo un esempio da confrontare con il primo dei due proposti in precedenza
-
-% $ ~ : sudo find  -depth  -name "linux*"
-% ./.Mail/linux
-% ./.fluxbox/backgrounds/linux_story.png
-% ./linux/linux_kernel
-% ./linux
-% ./back_conf_29012007-115939/.fluxbox/backgrounds/linux_story.png
-% ./back_conf_29012007-115939/.Mail/linux
-% ./linux_non_e_windows.pdf
-
-% L'unico cambiamento è nella terza e quarta riga dell'output: ossia laddove sia la dir che un suo contenuto rispettano la richiesta; con quest'ultima opzione viene però prima processata e stampata il contenuto della directory (./linux/linux_kerne) che la dir stessa (./linux)
-
-% -help --> printa un help riassuntivo del comando find
-
-% $ ~ : find -help
-% Usage: find [path...] [expression]
-
-% default path is the current directory; default expression is -print
-% expression may consist of: operators, options, tests, and actions:
-
-% ...
-
-% -maxdepth numero_non_negativo: scendi nella ricerca al massimo a n sottolivelli della directory. Se numero = 1 cerca solo nella dir corrente, se 0 ci si chiede se il nome della dir corrente rispetta il pattern
-
-% $ ~ : sudo find  -maxdepth 0  -name "linux*"
-
-% $ ~ : sudo find  -maxdepth 1  -name "linux*"
-% ./linux
-% ./linux_non_e_windows.pdf
-
-% $ ~ : sudo find  -maxdepth 2  -name "linux*"
-% ./.Mail/linux
-% ./linux
-% ./linux/linux_kernel
-% ./linux_non_e_windows.pdf
-
-% -mindepth numero_non_negativo: non processa niente che sia almeno nel sottolivello n
-
-% $ ~ : sudo find  -mindepth 2  -name "linux*"
-% ./.Mail/linux
-% ./.fluxbox/backgrounds/linux_story.png
-% ./linux/linux_kernel
-% ./back_conf_29012007-115939/.fluxbox/backgrounds/linux_story.png
-% ./back_conf_29012007-115939/.Mail/linux
-
-% -mount: non discende in directory su altri filesystem montati
-
-% -noleaf: opzione necessaria quando si cerca in cdrom, msdos filesystem e in filesystem non Unix. In questi ultimi per sapere se ci sono sottocartelle da esaminare basta fare hard link -2 (). Se il risultato non è 0 vuol dire che ci sono sottocartelle (qualsiasi cartella, anche vuota, ha almeno due hard link, che consistono nel suo nome e nella cartella ".")
-
-% $ ~ : mkdir ciccio
-% $ ~ : ls -l 
-% drwxr-xr-x  2 luca 2007-01-29 20:46 ciccio
-% $ ~ : mkdir ciccio/luca
-% $ ~ : l
-% drwxr-xr-x  3 luca 2007-01-29 20:47 ciccio
-
-% I fs non unix non hanno questi 2 hard link di default e se avesser 1 o più sottocartelle lo scan non avvertito potrebbe ignorarle 
-
-% -regextype tipo_regex: cambia la sintassi della regex data al -regex o -iregex (visti più tard) da emacs (di deault) al tipo specificato, che puo' esser posix-awk, posix-basic, posix-egrep and posix-extended. 
-
+Azioni:
+- `-print` (default), stampa il path seguito da newline
+- `-exec comando` esegue
+- `-delete` rimuove il file
 
 ### locate
 
