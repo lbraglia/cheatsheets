@@ -1,9 +1,41 @@
 # File e cartelle
 
+## Cartelle
+
+### Creazione nidificata
+```
+mkdir -p /tmp/foo/long/path
+cd
+```
+
 
 ## File
 
-### Informazioni
+### Informazioni: file, type, stat
+`file` da info generiche sulla tipologia di file:
+```
+l@m740n:~$ file *|head
+ado:               directory
+asd:               directory
+av:                symbolic link to .av/
+av_it_subs:        symbolic link to src/srt/avsubs/
+biblio.bib:        symbolic link to texmf/tex/latex/biblio/biblio.bib
+biostat:           symbolic link to .sintesi/biostat/
+canzoniere:        symbolic link to doc/chitarra/canzoniere/
+cdrom:             symbolic link to /media/cdrom
+chiavetta:         symbolic link to pendrive
+cogitab_es:        symbolic link to src/pypkg/cogitab_es/
+```
+`type` è una builtin bash che applicata ad un eseguibile ci dice cosa è
+```
+l@m740n:~$ type type
+type è un comando interno di shell
+l@m740n:~$ type ls
+ls ha "ls --color=auto" come alias
+l@m740n:~$ type which
+which è /usr/bin/which
+```
+`stat` fornisce info di più basso livello sul file 
 ```
 l@m740n:~$ echo "ciao" > prova
 l@m740n:~$ stat prova
@@ -147,10 +179,3 @@ Azioni:
 
 ### xargs
 
-## Cartelle
-
-### Creazione nidificata
-```
-mkdir /tmp/foo/long/path
-cd
-```
