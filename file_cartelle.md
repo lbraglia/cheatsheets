@@ -49,7 +49,7 @@ Cambio   : 2021-09-28 08:24:00.286290509 +0200
 Creazione: 2021-09-28 08:24:00.286290509 +0200
 ```
 
-## Attributi
+### Attributi
 `chattr` serve per cambiare gli attributi ai file e alle cartelle,
 attributi che sono visualizzabili mediante `lsattr`. 
 Il funzionamento di base è 
@@ -100,30 +100,7 @@ niente:
 $ ~ : sudo chattr = ciao mia_cartella/
 ```
 
-## Ricerca
-Può esser fatta principalmente mediante `find`, `locate` e `xargs`
-
-<!-- Per brevità considereremo come file il file vero e proprio, la -->
-<!-- direcory, il link simbolico ed ogni cosa abbia una "directory -->
-<!-- entry" ossia un nome.  L'albero di una directory consiste nel suo -->
-<!-- contenuto e nel contenuto delle sottodirectory. -->
-
-<!-- I programmi sopra elencati permettono di cercare files in una o -->
-<!-- più alberi di directory che: -->
-<!-- - presentano nomi che contengono un certo testo o rispettano un -->
-<!--   determinato pattern -->
-<!-- - sono link a determinati file -->
-<!-- - si trovano all'interno di un determinato range di grandezza del file -->
-<!-- - sono stati utilizzati durante un certo periodo di tempo -->
-<!-- - sono di un certo tipo (file regolari directory, link) -->
-<!-- - sono di proprietà di un certo soggetto o di un determinato gruppo -->
-<!-- - hanno determinati permess -->
-<!-- - contengono testo che rispetta un determinato pattern -->
-<!-- - si trovano ad un certo livello di profondità nell'albero della -->
-<!--   directory -->
-<!-- - una combinazione dei criteri precedenti -->
-
-### find
+### Ricerca: `find`
 Cerca nell'albero di directory specificato vi sono file o cartelle che
 rispettano il pattern fornito, dopodichè ne printa il path allo
 stdout.
@@ -169,13 +146,26 @@ meglio porle all'inizio dell'espressione. Alcune utili:
 Alcuni test:
 - `-name pattern`: matcha nomi file con globbing (`iname` per case insensitive)
 - `-regex pattern`: matcha nomi file con regex (`iregex` per case insensitive)
+- `-type tipo`: restituisci solo i file di un dato tipo (`f` per file
+  normali, `d` per directory, etc)
+- `-mtime +gg`: file modificati più di tot giorni fa (se inserisco -gg
+  i file modificati al massimo nei tot giorni precedenti)
+- `-size +dim`: trova i file con dimensione dim. es se `+1G` maggiore di
+  1Gigabyte, se `-10M` minore di 10 Mega
+  
 
 Azioni:
 - `-print` (default), stampa il path seguito da newline
-- `-exec comando` esegue
+- `-exec comando` esegue il comando specificato (sostituendo `{}` con il
+  nome file) fino al `\;`
 - `-delete` rimuove il file
 
-### locate
-
-### xargs
-
+Ad esempio per capire che tipo di file sono restituiti da una ricerca
+```
+l@m740n:~$ find . -name asd
+./.doc/todo/asd
+./asd
+l@m740n:~$ find . -name asd -exec file {} \;
+./.doc/todo/asd: UTF-8 Unicode text
+./asd: directory
+```
