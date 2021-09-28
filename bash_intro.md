@@ -132,23 +132,74 @@ Lo standard:
 ```
 comando1 | comando2
 ```
-redirige lo stdout di `comando1` allo stdin di `comando2`
+redirige lo stdout di `comando1` allo stdin di `comando2`.
+Vediamo alcuni comandi comodi
+
+### tee
+Stampa a video il risultato ricevuto da stdin e lo salva anche su file
+```
+ls -l | tee unsorted.txt | sort -r -k9 | tee sorted-rev.txt
+```
+salverà in unsorted e sorted i contenuti ordinati
+o meno per nome del file (oltre a stamparne il contenuto a
+video dell'ultimo che non essendo redirezionato non viene salvato)
+
+### xargs
+prende dallo standard input i valori passati come se fossero parametri
+di un comando ed esegue un comando specificato (di default echo) con i
+parametri passati.
+
+Di default effettua l'echo
+```
+l@m740n:~$ echo {1..9} | xargs
+1 2 3 4 5 6 7 8 9
+```
+Possiamo dirgli di processare anche di gestire tot parametri alla volta
+ed eseguire il comando sui tot
+```
+l@m740n:~$ echo {1..9} | xargs -n 3
+1 2 3
+4 5 6
+7 8 9
+```
+Per utilizzarlo su un comando si procede come segue (facciamo il tar dei 
+file `.c`):
+```
+ls *.c | xargs tar cvjf asd.tar.bz
+```
+
 
 ## Redirezione
 È possibile gestire input e output in modo da farli provenire e finire
 in diverse direzioni
 
 ```
-<  specificare stdin da file
+<    specificare stdin da file
+<<<  here string: stdin da stringa
 
->  stdout su file, sovrascrivendolo
->> stdout su file, in coda
+>  redirige stdout su file, sovrascrivendolo
+>> accoda stdout su file
 
-2>  stderr sovrascrive  (es per scrittura su file)
-2>> stderr appende
+2>  redirige stderr sovrascrive
+2>> appende stderr su file
 
-&>  sia stdout che stderr sovrascrive
+&>  redirige sia stdout che stderr su un file, sovrascrivendolo
 &>> sia stdout e stderr appende
+```
+Es per prendere da input e redirigere stdout e stderr su file diversi
+```
+comando < file_input > file_risultati 2> file_errori
+```
+Spesso si usa `2> /dev/null` per sopprimere gli errori.
+
+L'operatore `<<<` serve per prendere in input da una stringa invece
+che da file: es
+```
+xargs -n1 <<< "testo1 testo2 testo3"
+```
+invece di (e notando le virgolette manganti)
+```
+echo testo1 testo2 testo3 | xargs -n1
 ```
 
 ## Lista di comandi
