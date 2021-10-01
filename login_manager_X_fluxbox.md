@@ -1,4 +1,4 @@
-# X e fluxbox
+# Login manager, X e fluxbox
 
 ## Installazione 
 ```
@@ -7,8 +7,32 @@ apt install xorg fluxbox
 apt-get install firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-ati
 ```
 
+## Login manager: start/stop, scelta
+```
+# Installazione
+apt install xdm # o lightdm
+# Management
+systemctl stop xdm
+systemctl disable lightdm
+systemctl enable lightdm
+```
+
+## Autologin
+In assenza di login manager: https://unix.stackexchange.com/questions/401759
+`xdm` non permette autologin, per `lightdm`: https://wiki.debian.org/it/LightDM
 
 ## Configurazione
+Per fluxbox fare riferimento a https://wiki.debian.org/it/FluxBox
+
+
+## `.xinitrc` o `.fluxbox/startup`
+
+```
+fbsetbg -r ~/.fluxbox/backgrounds/ &   # background random
+xscreensaver -no-splash &              # screensaver
+numlockx &                             # attiva blocnum
+xset b off &                           # disattiva system bell
+```
 
 
 ## `.fluxbox/keys`
