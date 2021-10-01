@@ -62,10 +62,11 @@ stato di uscita è 0 viene eseguito il blocco then; come valore di uscita
 restituisce lo stato dell'ultimo comando eseguito. Spesso si trova
 riadattato come
 ```
-\begin{verbatim}
-if [[ condizione ]]; then 
+if [[ condizione ]]
+then 
     comandi
-elif [[ condizione2 ]]; then
+elif [[ condizione2 ]]
+then
     comandi
 else 
     comandi
@@ -84,16 +85,16 @@ dove:
 
 È possibile nidificare gli if come:
 ```
-if [[condizione]]; then
-   if [[condizione]]; then
+if [[condizione]]
+then
+   if [[condizione]]
+   then
       comando
    fi
 else
    comando
 fi
 ```
-
-
 
 Il **case** è simile allo switch del C; formalmente 
 ```
@@ -105,11 +106,11 @@ come segue:
 ```
 case "$variable" in
  "$var1" )
- command...
- ;;
+    command...
+    ;;
  "$var2" )
- command...
- ;;
+    command...
+    ;;
 esac
 ```
 Per variabili è necessario quotare perché non viene effettuata la
@@ -117,11 +118,12 @@ sostituzione di default
 
 
 
-### Loop (`for` e while)
+### Loop (`for` e `while`)
 
 Il **`for`** è costruito così 
 ```
-for arg in lista; do
+for arg in lista
+do
   commandi con $arg
 done
 ```
@@ -140,19 +142,15 @@ done
 
 La sintassi del **`while`** è
 ```
-while [[ condizione ]]; do
- commandi
+while [[ condizione ]]
+do
+  commandi
 done
 ```
 
 **`break`** e **`continue`** funzionano come di consueto: il primo fa
 uscire dal loop (`for` o `while`), il secondo fa saltare
 all'iterazione successiva.
-
-
-
-
-
 
 
 
@@ -206,7 +204,7 @@ o, per maggiore portabilità sui sistemi Unix
 ```
 
 ### Parametri di posizione
-sono variabili speciali creati/associati all'esecuzione di uno script
+Sono variabili speciali creati/associati all'esecuzione di uno script
 - `$0` è il nome con cui è stato chiamato lo script
 - `$1` è il primo parametro, `$2` il secondo
 
@@ -220,42 +218,40 @@ source file_path
 ```
 
 ### Input dall'utente
-\subsection{Prendere in input dall'utente}
 Utilizzare read
-\begin{verbatim}
+```
 echo Please, enter your name
 read NAME
 echo "Hi $NAME!"
-\end{verbatim}
+```
 o per prendere più input nella stessa linea
-\begin{verbatim}
+```
 echo Please, enter your firstname and lastname
 read FN LN 
 echo "Hi! $LN, $FN !"
-\end{verbatim}
+```
 
-
-\subsection{Here documents}
+### Here documents
 Sono un modo di programmare la shell per ottenere un effetto
 simile a
-\begin{verbatim}
+```
 programma < file_di_comandi
-\end{verbatim}
+```
 dove a un programma (es ftp) viene passato in stdin una serie di
 comandi da effettuare che sono contenuti in un file. Il fatto è
 che prima bisogna definire tali comandi in apposito file e il
 funzionamento dello script dipende dall'esistenza e la
-correttezza di tale file.\\
+correttezza di tale file.
 Mediante l'here document si specificano i comandi all'interno
 della sintassi di bash e poi si passano gli stessi al comando
 speicficato. La sintassi è
-\begin{verbatim}
+```
 programma << EOF
 comando1
 comando2
 ...
 EOF
-\end{verbatim}
+```
 Al posto di EOF ci può essere qualsiasi cosa: i due delimitatori
 (EOF in questo caso) conterranno i comandi che saranno passati al
 programma.

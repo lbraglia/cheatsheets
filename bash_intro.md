@@ -13,29 +13,51 @@ Alcuni file generali sulle shell:
 
 ## Shell di login e non, file di configurazione
 Una: 
-- shell di login è il primo processo che viene eseguito dall'utente e
+- **shell di login** è il primo processo che viene eseguito dall'utente e
   viene utilizzata per impostare diverse variabili/configurazioni
-  globali/d'ambiente che saranno disponibili ai processi figli. Nel
-  caso di bash legge ed esegue, nell'ordine
+  globali/d'ambiente che saranno disponibili ai processi figli. 
+  Una shell di login di fatto si ha quando
+  - ci si logga per la prima volta in locale o mediante ssh
+  - ci si logga con su - (o sudo -)
+  Nel caso di bash i file di configurazione sono
   ```
   /etc/profile
   ~/.bash_profile
   ~/.bash_login
   ~/.profile
   ```
+  nello specifico bash prima legge ed esegue comandi da `/etc/profile`
+  se esiste; dopodiché esegue comandi dal primo di
+  `~/.bash_profile`, `~/.bash_login`, e
+  `~/.profile` in quest'ordine.
   Quando una shell di login esce esegue `~/.bash_logout` (se esiste).
-  Una login shell di fatto si ha quando
-  - ci si logga per la prima volta in locale o mediante ssh
-  - ci si logga con su - (o sudo -)
-- shell non di login è quella che tipicamente si ottiene aprendo un
+- **shell non di login** è quella che tipicamente si ottiene aprendo un
   terminale; esegue nell'ordine
   ```
   /etc/bash.bashrc
   ~/.bashrc
   ```
 
-Spesso però al fine di avere uniformità tra login shell e non-login
-shell in `.profile` si fa il source di `.bashrc`.
+Spesso però al fine di avere **uniformità** tra login shell e non-login
+shell in `.profile` si fa il source di `.bashrc` e si modifica
+quest'ultimo. Questo anche perché non è detto che il `.profile` sia
+valutato (es login/display manager grafico)
+
+
+## Scheletro configurazioni 
+In `/etc/skel` è posto uno scheletro di configurazione di file e cartelle
+della home di ogni utente (utile es in  contesti aziendali):
+```
+l@m740n:~$ ls -la /etc/skel/
+totale 28
+drwxr-xr-x   2 root root  4096 30 ago 10.44 .
+drwxr-xr-x 155 root root 12288  1 ott 07.56 ..
+-rw-r--r--   1 root root   220 15 mag  2017 .bash_logout
+-rw-r--r--   1 root root  3526 15 mag  2017 .bashrc
+-rw-r--r--   1 root root   807 18 apr  2019 .profile
+```
+Quindi se ad esempio si vogliono aggiungere/modificare file di
+configurazioni o directory procedere la.
 
 
 ## Opzioni di bash (set/shopt)
@@ -132,40 +154,94 @@ Lo standard:
 ```
 comando1 | comando2
 ```
-redirige lo stdout di `comando1` allo stdin di `comando2`
+redirige lo stdout di `comando1` allo stdin di `comando2`.
+Vediamo alcuni comandi comodi
+
+### tee
+Stampa a video il risultato ricevuto da stdin e lo salva anche su file
+```
+ls -l | tee unsorted.txt | sort -r -k9 | tee sorted-rev.txt
+```
+salverà in unsorted e sorted i contenuti ordinati
+o meno per nome del file (oltre a stamparne il contenuto a
+video dell'ultimo che non essendo redirezionato non viene salvato)
+
+### xargs
+prende dallo standard input i valori passati come se fossero parametri
+di un comando ed esegue un comando specificato (di default echo) con i
+parametri passati.
+
+Di default effettua l'echo
+```
+l@m740n:~$ echo {1..9} | xargs
+1 2 3 4 5 6 7 8 9
+```
+Possiamo dirgli di processare anche di gestire tot parametri alla volta
+ed eseguire il comando sui tot
+```
+l@m740n:~$ echo {1..9} | xargs -n 3
+1 2 3
+4 5 6
+7 8 9
+```
+Per utilizzarlo su un comando si procede come segue (facciamo il tar dei 
+file `.c`):
+```
+ls *.c | xargs tar cvjf asd.tar.bz
+```
+
 
 ## Redirezione
 È possibile gestire input e output in modo da farli provenire e finire
 in diverse direzioni
 
 ```
-<  specificare stdin da file
+<    specificare stdin da file
+<<<  here string: stdin da stringa
 
->  stdout su file, sovrascrivendolo
->> stdout su file, in coda
+>  redirige stdout su file, sovrascrivendolo
+>> accoda stdout su file
 
-2>  stderr sovrascrive  (es per scrittura su file)
-2>> stderr appende
+2>  redirige stderr sovrascrive
+2>> appende stderr su file
 
-&>  sia stdout che stderr sovrascrive
+&>  redirige sia stdout che stderr su un file, sovrascrivendolo
 &>> sia stdout e stderr appende
+```
+Es per prendere da input e redirigere stdout e stderr su file diversi
+```
+comando < file_input > file_risultati 2> file_errori
+```
+Spesso si usa `2> /dev/null` per sopprimere gli errori.
+
+L'operatore `<<<` serve per prendere in input da una stringa invece
+che da file: es
+```
+xargs -n1 <<< "testo1 testo2 testo3"
+```
+invece di (e notando le virgolette manganti)
+```
+echo testo1 testo2 testo3 | xargs -n1
 ```
 
 ## Lista di comandi
 ```
+comando1 ; comando2 ; comando3 
 comando1 && comando2 && comando3 
 comando1 || comando2 || comando3
 ```
 Il:
-- primo esegue ogni comando in sequenza, ma al primo ritorno non
-  uguale a zero, la catena termina (l'ultimo ad essere eseguito è il
-  comando che restituisce non zero;
-- secondo esegue ogni comando a turno indipendentemente dall'esito del
-  precedente, ma il primo che ritorna un valore pari a 0 termina
-  l'esecuzione della catena.
+- primo esegue tutti i comandi in sequenza
+- secondo esegue ogni comando in sequenza se il precedente non è fallito 
+  (l'ultimo ad essere eseguito è il comando che restituisce non zero);
+- terzo esegue ogni comando a turno indipendentemente dall'esito del
+  precedente; il primo che termina correttamente (ritorna un valore pari a 0)
+  termina l'esecuzione della catena.
 
 L'exit status in entrambi i casi è l'exit status dell'ultimo comando
 eseguito.
+
+
 
 ## Terminatori di riga o di comando
 ```
