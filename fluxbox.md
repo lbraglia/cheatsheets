@@ -1,6 +1,17 @@
-# fluxbox
+# X e fluxbox
 
-## keys
+## Installazione 
+```
+apt install xorg fluxbox
+# driver ATI
+apt-get install firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-ati
+```
+
+
+## Configurazione
+
+
+## `.fluxbox/keys`
 
 ```
 ! Applicativi essenziali
