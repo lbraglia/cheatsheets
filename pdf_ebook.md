@@ -1,7 +1,8 @@
-# PDF handling
+# PDF e e-book
 
+## PDF
 
-## Manipulation
+### Manipulation
 Installare `pdftk`.
 ```
 ## Collage di due pdf
@@ -26,10 +27,14 @@ pdftk broken.pdf output fixed.pdf
 pdftk input.pdf burst
 ```
 
-## OCR
+### OCR
 Per trasformare una scansione `original.pdf` in un file con testo
 riconosciuto `ocred.pdf`, installare i pacchetti `ocrmypdf
 tesseract-ocr-ita` e dare
 ```
 ocrmypdf -l ita -j 8 -c -d -i original.pdf ocred.pdf
 ```
+
+
+## e-book
+`fbreader`

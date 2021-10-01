@@ -13,29 +13,51 @@ Alcuni file generali sulle shell:
 
 ## Shell di login e non, file di configurazione
 Una: 
-- shell di login è il primo processo che viene eseguito dall'utente e
+- **shell di login** è il primo processo che viene eseguito dall'utente e
   viene utilizzata per impostare diverse variabili/configurazioni
-  globali/d'ambiente che saranno disponibili ai processi figli. Nel
-  caso di bash legge ed esegue, nell'ordine
+  globali/d'ambiente che saranno disponibili ai processi figli. 
+  Una shell di login di fatto si ha quando
+  - ci si logga per la prima volta in locale o mediante ssh
+  - ci si logga con su - (o sudo -)
+  Nel caso di bash i file di configurazione sono
   ```
   /etc/profile
   ~/.bash_profile
   ~/.bash_login
   ~/.profile
   ```
+  nello specifico bash prima legge ed esegue comandi da `/etc/profile`
+  se esiste; dopodiché esegue comandi dal primo di
+  `~/.bash_profile`, `~/.bash_login`, e
+  `~/.profile` in quest'ordine.
   Quando una shell di login esce esegue `~/.bash_logout` (se esiste).
-  Una login shell di fatto si ha quando
-  - ci si logga per la prima volta in locale o mediante ssh
-  - ci si logga con su - (o sudo -)
-- shell non di login è quella che tipicamente si ottiene aprendo un
+- **shell non di login** è quella che tipicamente si ottiene aprendo un
   terminale; esegue nell'ordine
   ```
   /etc/bash.bashrc
   ~/.bashrc
   ```
 
-Spesso però al fine di avere uniformità tra login shell e non-login
-shell in `.profile` si fa il source di `.bashrc`.
+Spesso però al fine di avere **uniformità** tra login shell e non-login
+shell in `.profile` si fa il source di `.bashrc` e si modifica
+quest'ultimo. Questo anche perché non è detto che il `.profile` sia
+valutato (es login/display manager grafico)
+
+
+## Scheletro configurazioni 
+In `/etc/skel` è posto uno scheletro di configurazione di file e cartelle
+della home di ogni utente (utile es in  contesti aziendali):
+```
+l@m740n:~$ ls -la /etc/skel/
+totale 28
+drwxr-xr-x   2 root root  4096 30 ago 10.44 .
+drwxr-xr-x 155 root root 12288  1 ott 07.56 ..
+-rw-r--r--   1 root root   220 15 mag  2017 .bash_logout
+-rw-r--r--   1 root root  3526 15 mag  2017 .bashrc
+-rw-r--r--   1 root root   807 18 apr  2019 .profile
+```
+Quindi se ad esempio si vogliono aggiungere/modificare file di
+configurazioni o directory procedere la.
 
 
 ## Opzioni di bash (set/shopt)
@@ -204,19 +226,22 @@ echo testo1 testo2 testo3 | xargs -n1
 
 ## Lista di comandi
 ```
+comando1 ; comando2 ; comando3 
 comando1 && comando2 && comando3 
 comando1 || comando2 || comando3
 ```
 Il:
-- primo esegue ogni comando in sequenza, ma al primo ritorno non
-  uguale a zero, la catena termina (l'ultimo ad essere eseguito è il
-  comando che restituisce non zero;
-- secondo esegue ogni comando a turno indipendentemente dall'esito del
-  precedente, ma il primo che ritorna un valore pari a 0 termina
-  l'esecuzione della catena.
+- primo esegue tutti i comandi in sequenza
+- secondo esegue ogni comando in sequenza se il precedente non è fallito 
+  (l'ultimo ad essere eseguito è il comando che restituisce non zero);
+- terzo esegue ogni comando a turno indipendentemente dall'esito del
+  precedente; il primo che termina correttamente (ritorna un valore pari a 0)
+  termina l'esecuzione della catena.
 
 L'exit status in entrambi i casi è l'exit status dell'ultimo comando
 eseguito.
+
+
 
 ## Terminatori di riga o di comando
 ```
