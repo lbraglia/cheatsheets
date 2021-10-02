@@ -35,6 +35,10 @@ chmod 660 file.txt
 ```
 concede lettura e scrittura a proprietario e facenti parti del gruppo sul file
 che ha proprietà del file.
+Per la *modifica permessi ricorsiva* su cartelle e loro file inclusi:
+```
+chmod -R 740 directory
+```
 
 `umask` permette di impostare i permessi di default sui nuovi
 file/cartelle creati (definito come complemento all'ottale). L'umask

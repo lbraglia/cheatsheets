@@ -1,39 +1,47 @@
-# Login manager, X e fluxbox
+# Login, X e fluxbox
 
-## Installazione 
+## Installazione componenti
 ```
 apt install xorg fluxbox
 # driver ATI
 apt-get install firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-ati
 ```
 
-## Login manager: start/stop, scelta
+## Autologin e avvio del server grafico senza login manager
+In assenza di login manager si usano i [servizi di systemd](https://unix.stackexchange.com/questions/401759) e nello specifico:
+- cambiare in `/etc/systemd/logind.conf` , da `#NAutoVTs=6` a `NAutoVTs=1`
+- creare `/etc/systemd/system/getty@tty1.service.d/override.conf`
+  (eventualmente attraverso `systemctl edit getty@tty1`) inserendo il contenuto
+  ```
+  [Service]
+  ExecStart=
+  ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
+  ```
+- abilitare il servizio mediante
+  ```
+  systemctl enable getty@tty1.service
+  ```
+- fare il `reboot`
+Per l'autoavvio del server grafico al login porre in `.profile` la linea:
 ```
-# Installazione
-apt install xdm # o lightdm
-# Management
-systemctl stop xdm
-systemctl disable lightdm
-systemctl enable lightdm
+startx
 ```
 
-## Autologin
-In assenza di login manager: https://unix.stackexchange.com/questions/401759
-`xdm` non permette autologin, per `lightdm`: https://wiki.debian.org/it/LightDM
 
 ## Configurazione
 Per fluxbox fare riferimento a https://wiki.debian.org/it/FluxBox
 
 
-## `.xinitrc` o `.fluxbox/startup`
-
+## `.fluxbox/startup`
+Porre i programmi che si vogliono far partire assieme a fluxbox con
+esecuzione in background (per evitare che lo script si interrompa
+attendendo)␘
 ```
 fbsetbg -r ~/.fluxbox/backgrounds/ &   # background random
 xscreensaver -no-splash &              # screensaver
 numlockx &                             # attiva blocnum
 xset b off &                           # disattiva system bell
 ```
-
 
 ## `.fluxbox/keys`
 
