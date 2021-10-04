@@ -27,6 +27,12 @@ pdftk broken.pdf output fixed.pdf
 pdftk input.pdf burst
 ```
 
+### Rimozione annotazioni
+Installare il pacchetto `libcam-pdf-perl` e utilizzare rewritepdf come segue
+```
+rewritepdf -C in.pdf out.pdf
+```
+
 ### OCR
 Per trasformare una scansione `original.pdf` in un file con testo
 riconosciuto `ocred.pdf`, installare i pacchetti `ocrmypdf
