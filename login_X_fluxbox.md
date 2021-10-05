@@ -37,11 +37,12 @@ Porre i programmi che si vogliono far partire assieme a fluxbox con
 esecuzione in background (per evitare che lo script si interrompa
 attendendo)␘
 ```
-# Background
-fbsetbg -r ~/.fluxbox/backgrounds/ &     # random
+# fbsetbg -r ~/.fluxbox/backgrounds/ &   # sfondo random
+fbsetbg .fluxbox/backgrounds/chosen &    # sfondo deterministico
 xscreensaver -no-splash &                # screensaver
 numlockx &                               # attiva blocnum
 xset b off &                             # disattiva system bell
+battery_monitor &                        # battery monitor artigianale
 ```
 
 ## `.fluxbox/keys`
