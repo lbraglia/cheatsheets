@@ -1,6 +1,28 @@
-# Cron e anacron
+# at cron e anacron
 
-## Cron
+## at
+permette di schedulare una operazione ad una certa datao o alla prima
+occasione dopo tale scadenza; ideale per sistemi non necessariamente
+accesi sempre.
+
+Questo esegue il backup a mezzanotte o appena si accende il pc in seguito
+```
+at 00:00 -f /bin/backup
+```
+Per listare i job schedulati non ancora terminati
+```
+atq
+```
+mentre per rimuovere un certo job (restituito da `atq`)
+```
+atrm job_id
+```
+
+## cron
+
+si specifica data e ora di un dato task (o intervalli di tempo regolari) 
+
+utile soprattutto per sistemi attivi 24/7 tipo server
 
 Si tratta di un applicativo utilizzato per automatizzare l’esecuzione di
 determinati processi o programmi a scadenze temporali ben definite.  
