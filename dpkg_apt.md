@@ -112,6 +112,7 @@ deb http://deb.debian.org/debian stable-updates main contrib non-free
 deb http://security.debian.org/debian-security stable-security main contrib non-free
 ```
 
+
 ### Comandi comuni di `apt`
 ```
 # Lista pacchetti installati
@@ -138,6 +139,27 @@ apt purge pacchetto    # anche i file di configurazione
 apt clean      # cache
 apt autoremove # dipendenze non più necessarie
 ```
+
+### Installazione dai backports
+Abilitare l'opportuna riga nel `sources.list`, dipende dalla versione di debian, che possiamo indagare con `lsb_release`
+```
+m740n:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:Debian
+Description:Debian GNU/Linux 11 (bullseye)
+Release:11
+Codename:bullseye
+```
+per bullseye la riga è 
+```
+deb http://deb.debian.org/debian bullseye-backports main
+```
+dopodiché
+```
+apt update
+apt install <package>/bullseye-backports
+```
+Per approfondimenti [vedere qui](https://backports.debian.org).
 
 ## Ricerca software mediante `debtags`
 
