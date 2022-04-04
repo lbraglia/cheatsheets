@@ -223,3 +223,28 @@ un esempio di `Makefile` per `main`:
         rm -f *.o main
         cd foo && make clean
         cd bar && make clean
+
+
+## Cookbook
+
+### Processare script in una cartella tutti nello stesso modo
+
+Directory contenente script di tex processati con knitr
+```
+%.pdf : %.tex
+	knit2pdf $<
+
+all: *.pdf
+
+clean:
+	texclean
+```
+Directory con file di `R`:
+```
+R = R CMD BATCH --no-timing --quiet --vanilla
+
+%.Rout : %.R
+        ${R} $<
+		
+all: *.Rout
+```
