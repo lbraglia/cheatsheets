@@ -11,6 +11,23 @@ cd
 
 ## File
 
+### Apertura portabile con xdg-open
+
+```
+xdg-open file.ext
+```
+`xdg-open` utilizza l'applicativo specificato nel database delle associazioni MIME in `~/.config/mimeapps.list`
+```
+[Default Applications]
+text/plain=emacs24.desktop
+application/pdf=okularApplication_pdf.desktop
+```
+A sinistra dell'assegnazione sta il tipo di file (la lista si trova in 
+`/etc/mime.types`), a destra uno dei file `.desktop` residenti 
+in `/usr/share/applications` (dove vi è specificata tra le altre cose
+la linea di comando da applicare).
+
+
 ### Informazioni: file, type, stat
 `file` da info generiche sulla tipologia di file:
 ```

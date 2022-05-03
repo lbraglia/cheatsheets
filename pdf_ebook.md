@@ -2,6 +2,12 @@
 
 ## PDF
 
+### Apertura in maniera portabile
+```
+xdg-open file2open.pdf
+```
+
+
 ### Manipulation
 Installare `pdftk`.
 ```
