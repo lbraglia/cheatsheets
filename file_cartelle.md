@@ -11,12 +11,14 @@ cd
 
 ## File
 
-### Apertura portabile con xdg-open
+### Apertura generale con `open` (`xdg-open`)
 
 ```
-xdg-open file.ext
+open file.ext
 ```
-`xdg-open` utilizza l'applicativo specificato nel database delle associazioni MIME in `~/.config/mimeapps.list`
+`open` su debian utilizza `xdg-open`, il quale
+ utilizza l'applicativo specificato nel database delle associazioni
+ MIME in `~/.config/mimeapps.list`
 ```
 [Default Applications]
 text/plain=emacs24.desktop
