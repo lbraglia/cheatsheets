@@ -338,6 +338,15 @@ Se è necessario specificare un remote e un branch
 git push [remote] [branch]
 ```
 
+### Esempio: aggiungere un remote di backup
+```
+# primo setup
+git remote add backup https://lbraglia@github.com/lbraglia/repo.git
+
+# poi
+git push         # push su origin
+git push backup  # push su backup
+```
 
 ## Usare il branching (diramazioni)
 A volte si sta lavorando a un progetto con una versione che è
