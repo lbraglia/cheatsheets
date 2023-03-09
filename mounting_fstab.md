@@ -47,6 +47,20 @@ Ogni mountpoint è descritto da una linea con campi separati da spazi
   numeri posti (se 0 non viene eseguita, tipicamente si pone 1 sul
   filesystem root e 2 su altri filesystem)
 
+Esempi:
+```
+# Chiavetta USB predefinita mediante blkid
+UUID="5CC6-55ED" /media/pendrive vfat user,noauto 0 0
+
+# Chiavette generiche/sconosciute
+/dev/sdb1 /media/sdb vfat user,noauto 0 0
+
+# CDROM
+/dev/sr0 /media/cdrom0 udf,iso9660 user,noauto 0 0
+
+
+# Per smartphone/Android vedere smartphone.md
+```
 
 
 ## `mount`
