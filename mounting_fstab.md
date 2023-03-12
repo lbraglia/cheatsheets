@@ -58,6 +58,12 @@ UUID="5CC6-55ED" /media/pendrive vfat user,noauto 0 0
 # CDROM
 /dev/sr0 /media/cdrom0 udf,iso9660 user,noauto 0 0
 
+# NFS, vedere/da fare nfs.md
+p6k:/media/shared/video /media/video nfs4 noauto,user,ro 0 0
+
+# SAMBA, da vedere/fare samba.md
+//nas/Public  /media/nas/Public cifs guest,noauto,user,rw 0 0
+//nas/Multimedia /media/nas/Multimedia cifs username=luca,password=asd,noauto,user,rw 0 0
 
 # Per smartphone/Android vedere smartphone.md
 ```
