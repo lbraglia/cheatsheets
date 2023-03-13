@@ -1,34 +1,4 @@
-# Login, X e fluxbox
-
-## Installazione componenti
-```
-apt install xorg fluxbox
-# driver ATI
-apt-get install firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-ati
-```
-
-## Autologin e avvio del server grafico senza login manager
-In assenza di login manager si usano i [servizi di systemd](https://unix.stackexchange.com/questions/401759) e nello specifico:
-- cambiare in `/etc/systemd/logind.conf` , da `#NAutoVTs=6` a `NAutoVTs=1`
-- creare `/etc/systemd/system/getty@tty1.service.d/override.conf`
-  (eventualmente attraverso `systemctl edit getty@tty1`) inserendo il contenuto
-  ```
-  [Service]
-  ExecStart=
-  ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
-  ```
-- abilitare il servizio mediante
-  ```
-  systemctl enable getty@tty1.service
-  ```
-- fare il `reboot`
-Per l'autoavvio del server grafico al login porre in `.profile` la linea:
-```
-startx
-```
-
-
-## Configurazione
+# Fluxbox
 Per fluxbox fare riferimento a https://wiki.debian.org/it/FluxBox
 
 
@@ -84,11 +54,3 @@ Mod4 F8 :ExecCommand amixer set Master 2%+       # aumenta volume
 # XF86AudioRaiseVolume :ExecCommand amixer set Master 2%+
 # XF86AudioLowerVolume :ExecCommand amixer set Master 2%-
 ```
-
-Nel caso di tasti speciali/multimediali, qualora `xev` non fornisca un
-nome del pulsante per come è mappato da X (es `XF86AudioRaiseVolume`)
-si può inserire il keycode (un numerico semplice); per ottenerlo, nel
-caso `xev` non lo stampi si può installare `evtest` che da il keycode
-a livello kernel e aggiungere 8 per ottenere il keycode a livello X
-(confrontare il valore restituito di keycode su un tasto semplice es
-`a`).
