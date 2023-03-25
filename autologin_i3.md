@@ -2,9 +2,8 @@
 
 ## Installazione componenti
 ```
-apt install xorg fluxbox
-# driver ATI
-apt-get install firmware-linux-nonfree libgl1-mesa-dri xserver-xorg-video-ati
+apt install xorg xinit i3
+# per scheda grafica vedere la pagina del wiki debian
 ```
 
 ## Autologin
@@ -15,7 +14,7 @@ In assenza di login manager si usano i [servizi di systemd](https://unix.stackex
   ```
   [Service]
   ExecStart=
-  ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
+  ExecStart=-/sbin/agetty --autologin nomeutente --noclear %I 38400 linux
   ```
 - abilitare il servizio mediante
   ```
