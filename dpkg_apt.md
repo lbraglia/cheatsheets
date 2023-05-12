@@ -103,14 +103,22 @@ Gestisce ricerca e reperimento di software, fungendo come intefaccia
 ad altri programmi storici di più basso livello (`apt-get`,
 `apt-cache`) e avvalendosi di `dpkg` per l'installazione
 
-### Configurazione `/etc/apt/sources.list`
+### Repo `/etc/apt/sources.list` utili
 
 ```
 # Stable
 deb http://deb.debian.org/debian stable main contrib non-free
 deb http://deb.debian.org/debian stable-updates main contrib non-free
 deb http://security.debian.org/debian-security stable-security main contrib non-free
+
+# backports
+deb http://deb.debian.org/debian bullseye-backports main
+
+# R aggiornato
+deb http://cloud.r-project.org/bin/linux/debian bullseye-cran40
 ```
+
+
 
 
 ### Comandi comuni di `apt`
