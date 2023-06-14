@@ -1,5 +1,106 @@
 # Installazione software
 
+
+## `apt`
+Gestisce ricerca e reperimento di software, fungendo come intefaccia
+ad altri programmi storici di più basso livello (`apt-get`,
+`apt-cache`) e avvalendosi di `dpkg` per l'installazione
+
+### Repo `/etc/apt/sources.list` utili
+
+```
+# Stable
+deb http://deb.debian.org/debian stable main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian stable-updates main contrib non-free non-free-firmware
+deb http://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware
+
+# backports
+deb http://deb.debian.org/debian bullseye-backports main
+
+# R aggiornato
+deb http://cloud.r-project.org/bin/linux/debian bullseye-cran40
+```
+
+
+
+### Comandi comuni di `apt`
+```
+# Lista pacchetti installati
+apt list
+
+# Aggiornamento installazione
+apt update
+apt upgrade
+apt full-upgrade
+
+# Ricerca
+apt search parole    # cerca in nome o descrizione
+apt show pacchetto   # descrizione del pacchetto
+
+# Installazione
+apt install pacchetto
+apt reinstall pacchetto
+
+# Rimozione
+apt remove pacchetto   # rm il software
+apt purge pacchetto    # anche i file di configurazione
+
+# Pulizia 
+apt clean      # cache
+apt autoremove # dipendenze non più necessarie
+```
+
+### Installazione dai backports
+Abilitare l'opportuna riga nel `sources.list`, dipende dalla versione di debian, che possiamo indagare con `lsb_release`
+```
+m740n:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:Debian
+Description:Debian GNU/Linux 11 (bullseye)
+Release:11
+Codename:bullseye
+```
+per bullseye la riga è 
+```
+deb http://deb.debian.org/debian bullseye-backports main
+```
+dopodiché
+```
+apt update
+apt install <package>/bullseye-backports
+```
+Per approfondimenti [vedere qui](https://backports.debian.org).
+
+### Ricerca software mediante `debtags`
+
+```
+# Lista pacchetti coi quali è possibile editare immagini raster
+# escludendo librerie e dummy package
+debtags search "use::editing && works-with::image:raster && \
+	! (role::shared-lib || role::dummy)"
+
+# Tutti i client mail
+debtags search "works-with::mail && network::client"
+```
+
+### Aggiornamento di sistema automatico
+Utilizzare il seguente script:
+<!-- in `cron` (macchine sempre accese) o `anacron` (le -->
+<!-- rimanenti)  -->
+```
+#!/bin/bash
+apt update
+apt upgrade -y
+apt clean
+apt autoremove
+```
+
+Dargli i permessi di esecuzione e spostarlo in `/usr/sbin` e linkarlo
+in `/etc/cron.weekly`; `anacron` eseguirà lo script (se il computer è
+connesso alla corrente).
+
+
+
 ## `dpkg`
 È il programma utilizzato (tramite `apt`) per installazione/e
 rimozione di software; memorizza il log in `/var/log/dpkg.log`.
@@ -88,7 +189,7 @@ Per riconfigurare un pacchetto (es cambio opzioni)
 dpkg-reconfigure nomepacchetto
 ```
 
-# Listing e ricerca di contenuti locali (pacchetti installati
+### Listing e ricerca di contenuti locali (pacchetti installati
 ```
 dpkg -L coreutils   # quali file/path contiene un dato pacchetto
 dpkg -S /bin/date   # greppa il pattern fornito tra i path di tutti
@@ -96,103 +197,3 @@ dpkg -S /bin/date   # greppa il pattern fornito tra i path di tutti
 					# contiene /bin/date
 ```
 
-
-
-## `apt`
-Gestisce ricerca e reperimento di software, fungendo come intefaccia
-ad altri programmi storici di più basso livello (`apt-get`,
-`apt-cache`) e avvalendosi di `dpkg` per l'installazione
-
-### Repo `/etc/apt/sources.list` utili
-
-```
-# Stable
-deb http://deb.debian.org/debian stable main contrib non-free
-deb http://deb.debian.org/debian stable-updates main contrib non-free
-deb http://security.debian.org/debian-security stable-security main contrib non-free
-
-# backports
-deb http://deb.debian.org/debian bullseye-backports main
-
-# R aggiornato
-deb http://cloud.r-project.org/bin/linux/debian bullseye-cran40
-```
-
-
-
-
-### Comandi comuni di `apt`
-```
-# Lista pacchetti installati
-apt list
-
-# Aggiornamento installazione
-apt update
-apt upgrade
-apt full-upgrade
-
-# Ricerca
-apt search parole    # cerca in nome o descrizione
-apt show pacchetto   # descrizione del pacchetto
-
-# Installazione
-apt install pacchetto
-apt reinstall pacchetto
-
-# Rimozione
-apt remove pacchetto   # rm il software
-apt purge pacchetto    # anche i file di configurazione
-
-# Pulizia 
-apt clean      # cache
-apt autoremove # dipendenze non più necessarie
-```
-
-### Installazione dai backports
-Abilitare l'opportuna riga nel `sources.list`, dipende dalla versione di debian, che possiamo indagare con `lsb_release`
-```
-m740n:~$ lsb_release -a
-No LSB modules are available.
-Distributor ID:Debian
-Description:Debian GNU/Linux 11 (bullseye)
-Release:11
-Codename:bullseye
-```
-per bullseye la riga è 
-```
-deb http://deb.debian.org/debian bullseye-backports main
-```
-dopodiché
-```
-apt update
-apt install <package>/bullseye-backports
-```
-Per approfondimenti [vedere qui](https://backports.debian.org).
-
-## Ricerca software mediante `debtags`
-
-```
-# Lista pacchetti coi quali è possibile editare immagini raster
-# escludendo librerie e dummy package
-debtags search "use::editing && works-with::image:raster && \
-	! (role::shared-lib || role::dummy)"
-
-# Tutti i client mail
-debtags search "works-with::mail && network::client"
-```
-
-## Aggiornamento di sistema automatico
-Utilizzare il seguente script:
-<!-- in `cron` (macchine sempre accese) o `anacron` (le -->
-<!-- rimanenti)  -->
-```
-#!/bin/bash
-apt update
-apt upgrade -y
-apt clean
-apt autoremove
-```
-
-Dargli i permessi di esecuzione e spostarlo in `/usr/sbin` e linkarlo
-in `/etc/cron.weekly`; `anacron` eseguirà lo script (se il computer è
-connesso alla corrente).
