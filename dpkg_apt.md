@@ -15,10 +15,10 @@ deb http://deb.debian.org/debian stable-updates main contrib non-free non-free-f
 deb http://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware
 
 # backports
-deb http://deb.debian.org/debian bullseye-backports main
+deb http://deb.debian.org/debian bookworm-backports main
 
 # R aggiornato
-deb http://cloud.r-project.org/bin/linux/debian bullseye-cran40
+deb http://cloud.r-project.org/bin/linux/debian bookworm-cran40
 ```
 
 
