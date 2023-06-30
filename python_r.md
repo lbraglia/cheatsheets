@@ -3,13 +3,13 @@
 
 ## Data Misc
 
-| R                      | Python                                       |
-|------------------------|----------------------------------------------|
-| ```rsource('foo.R')``` | ```pythonexecfile('foo.py') or run foo.py``` |
+| R                       | Python                                        |
+|-------------------------|-----------------------------------------------|
+| ```r source('foo.R')``` | ```python execfile('foo.py') or run foo.py``` |
 
 ## Data Second
 
-| R          | Python          |
-|------------|-----------------|
-| ```rasd``` | ```pythonfoo``` |
+| R           | Python           |
+|-------------|------------------|
+| ```r asd``` | ```python foo``` |
 
