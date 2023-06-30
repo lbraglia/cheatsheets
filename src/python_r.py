@@ -2,15 +2,18 @@ import pandas as pd
 from pathlib import Path
 import pylbmisc as lb
 
-infile = Path("python_r_data.xlsx")
-dfs = lb.io.data_import(infile)
+# infile = Path("python_r_data.xlsx")
+# dfs = lb.io.data_import(infile)
+
+tab_dir = Path("python_r_data")
+dfs = lb.io.data_import(list(tab_dir.iterdir()))
 
 def add_code_markup(x):
     return "`" + x.astype(str) + "`"
 
 md = ["# R - Python", "\n\n\n"]
 for nm, df in dfs.items():
-    title = nm.replace("python_r_", "").replace("_", " ").title()
+    title = nm.replace("_", " ").title()
     md.append("## {}\n\n".format(title))
     # add code for content to R and Python
     df["R"] = add_code_markup(df["R"])

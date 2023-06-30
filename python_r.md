@@ -1,15 +1,17 @@
 # R - Python
 
 
-## Data Misc
+## Second
+
+| R     | Python    |
+|-------|-----------|
+| `asd` | `foo`     |
+| `baz` | `asdomar` |
+
+## Misc
 
 | R                 | Python                             |
 |-------------------|------------------------------------|
 | `source('foo.R')` | `execfile('foo.py') or run foo.py` |
-
-## Data Second
-
-| R     | Python   |
-|-------|----------|
-| `asd` | `foo`    |
+| `foo`             | `bar`                              |
 
