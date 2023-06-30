@@ -6,7 +6,7 @@ infile = Path("python_r_data.xlsx")
 dfs = lb.io.data_import(infile)
 
 def add_code_markup(x, lang = ''):
-    return "`" + x.astype(str) + "`"
+    return "```" + x.astype(str) + "```"
 
 md = ["# R - Python", "\n\n\n"]
 for nm, df in dfs.items():
