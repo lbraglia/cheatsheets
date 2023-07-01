@@ -1,0 +1,3 @@
+R	Python	Note
+.	f = np.frompyfunc(f_worker, 1, 1)	 ufunc da funzione 1->1 (es un mapper)
+.	f = np.frompyfunc(f_worker, 2, 1)	 ufunc da funzione 2->1 (es operatore)

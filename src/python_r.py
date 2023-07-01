@@ -2,11 +2,8 @@ import pandas as pd
 from pathlib import Path
 import pylbmisc as lb
 
-# infile = Path("python_r_data.xlsx")
-# dfs = lb.io.data_import(infile)
-
 tab_dir = Path("python_r_data")
-dfs = lb.io.data_import(list(tab_dir.iterdir()))
+dfs = lb.io.data_import(list(sorted(tab_dir.iterdir())), csv_kwargs = {"sep":"\t"})
 
 def add_code_markup(x):
     return "`" + x.astype(str) + "`"

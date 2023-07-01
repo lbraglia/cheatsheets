@@ -1,3 +1,0 @@
-R,Python
-source('foo.R'),execfile('foo.py') or run foo.py
-foo,bar
