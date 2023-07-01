@@ -1,5 +1,5 @@
 Topic	R	Python	Note
-Testing/coercion	is.integer(x)	 pd.api.types.is_integer_dtype(x)	
+Testing/coercion	is.integer(x)        	 pd.api.types.is_integer_dtype(x)	
 	a = as.integer(x)	 a = x.astype(int)	
 			
 Missingness	is.na(x)	 x.isna()	

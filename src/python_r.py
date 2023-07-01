@@ -27,6 +27,8 @@ for nm, df in dfs.items():
     title = nm.replace("_", " ").title()
     md.append("## {}\n\n".format(title))
     # replace NA with "" and markup for columns
+    df_obj = df.select_dtypes(['object'])
+    df[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
     df = df.fillna("")
     df["Topic"] = df["Topic"].map(make_bold)
     df["R"] = df["R"].map(make_code)
