@@ -10,23 +10,50 @@
 
 ## 02 Pandas
 
-| Topic                  | R                   | Python                             | Note                                    |
-|------------------------|---------------------|------------------------------------|-----------------------------------------|
-| **Testing/coercion**   | `is.integer(x)`     | `pd.api.types.is_integer_dtype(x)` |                                         |
-|                        | `a = as.integer(x)` | `a = x.astype(int)`                |                                         |
-|                        |                     |                                    |                                         |
-| **Missingness**        | `is.na(x)`          | `x.isna()`                         |                                         |
-|                        | `!is.na(x)`         | `x.notna()`                        |                                         |
-|                        | `x[!is.na(x)]`      | `x.dropna()`                       |                                         |
-|                        | `x[is.na(x)]<- -9`  | `x.fillna(9)`                      |                                         |
-|                        |                     |                                    |                                         |
-| **Duplicated/unique**  | `duplicated(x)`     | `x.duplicated()`                   |                                         |
-|                        | `unique(x)`         | `x.unique() # np.dnarray`          |                                         |
-|                        | `unique(x)`         | `x.drop_duplicates() # pd.Series`  |                                         |
-|                        |                     |                                    |                                         |
-| **Applying functions** | `exp(x) + 1`        | `np.exp(x) + 1 # np ufuncs`        |                                         |
-|                        | `f(x)`              | `f(x)`                             | applicazione f vettorizzata/ufunc       |
-|                        |                     | `x.map(f)`                         | applicazione f per singolo elemento     |
-|                        |                     | `x.map(d)`                         | applicazione dict per recoding completo |
-|                        |                     | `x.replace(d)`                     | applicazione dict per recoding parziale |
+| Topic                  | R                                      | Python                             | Note                                    |
+|------------------------|----------------------------------------|------------------------------------|-----------------------------------------|
+| **Testing/coercion**   | `is.integer(x)`                        | `pd.api.types.is_integer_dtype(x)` |                                         |
+|                        | `a = as.integer(x)`                    | `a = x.astype(int)`                |                                         |
+|                        |                                        |                                    |                                         |
+|                        |                                        |                                    |                                         |
+| **Missingness**        | `is.na(x)`                             | `x.isna()`                         |                                         |
+|                        | `!is.na(x)`                            | `x.notna()`                        |                                         |
+|                        | `x[!is.na(x)]`                         | `x.dropna()`                       |                                         |
+|                        | `x[is.na(x)]<- -9`                     | `x.fillna(9)`                      |                                         |
+|                        |                                        |                                    |                                         |
+|                        |                                        |                                    |                                         |
+| **Duplicated/unique**  | `duplicated(x)`                        | `x.duplicated()`                   |                                         |
+|                        | `unique(x)`                            | `x.unique() # np.dnarray`          |                                         |
+|                        | `unique(x)`                            | `x.drop_duplicates() # pd.Series`  |                                         |
+|                        |                                        |                                    |                                         |
+| **Applying functions** | `exp(x) + 1`                           | `np.exp(x) + 1 # np ufuncs`        |                                         |
+|                        | `f(x)`                                 | `f(x)`                             | applicazione f vettorizzata/ufunc       |
+|                        |                                        | `x.map(f)`                         | applicazione f per singolo elemento     |
+|                        |                                        | `x.map(d)`                         | applicazione dict per recoding completo |
+|                        |                                        | `x.replace(d)`                     | applicazione dict per recoding parziale |
+|                        |                                        |                                    |                                         |
+|                        |                                        |                                    |                                         |
+| **Dataframe**          | `str(df), summary(df)`                 | `df.describe()`                    |                                         |
+|                        |                                        |                                    |                                         |
+|                        | `dim(df)`                              | `df.shape`                         |                                         |
+|                        | `nrow(df)`                             | `df.shape[0]`                      |                                         |
+|                        | `ncol(df)`                             | `df.shape[1]`                      |                                         |
+|                        |                                        |                                    |                                         |
+|                        | `colnames(df)`                         | `df.columns`                       |                                         |
+|                        | `rownames(df)`                         | `df.index`                         |                                         |
+|                        |                                        |                                    |                                         |
+|                        | `rownames(df) <- df$var`               | `df.set_index(“var”)`              |                                         |
+|                        |                                        |                                    |                                         |
+|                        | `na.omit(df)`                          | `df.dropna()`                      |                                         |
+|                        |                                        |                                    |                                         |
+|                        |                                        |                                    |                                         |
+| **Slicing subset**     | `df[c(row1,row2), c(col1,col2)]`       | `df.loc([col1,col2], [row1,row2])` | col1, row1,etc. are variable names      |
+|                        | `df[m:n,j:k]`                          | `df.iloc(m:n, j:k)`                | m, n, j, k are indices                  |
+|                        |                                        |                                    |                                         |
+|                        |                                        |                                    |                                         |
+| **Merge/Bind**         | `merge(df1, df2, by = ‘key’)`          |                                    |                                         |
+|                        | `rbind(df1, df2)`                      |                                    |                                         |
+|                        | `cbind(df1, df2)`                      |                                    |                                         |
+|                        |                                        |                                    |                                         |
+| **Grouping**           | `lapply(split(df, df$col), summarize)` | `df.groupby(by=["col"]).sum()`     |                                         |
 
