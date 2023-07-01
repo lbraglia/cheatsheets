@@ -2,12 +2,10 @@ Topic	R	Python	Note
 Testing/coercion	is.integer(x)	pd.api.types.is_integer_dtype(x)	
 	a = as.integer(x)	a = x.astype(int)	
 			
-			
 Missingness	is.na(x)	x.isna()	
 	!is.na(x)	x.notna()	
 	x[!is.na(x)]	x.dropna()	
 	x[is.na(x)]<- -9	x.fillna(9)	
-			
 			
 Duplicated/unique	duplicated(x)	x.duplicated()	
 	unique(x)	x.unique() # np.dnarray	
@@ -19,27 +17,41 @@ Applying functions	exp(x) + 1	np.exp(x) + 1 # np ufuncs
 		x.map(d)	applicazione dict per recoding completo
 		x.replace(d)	applicazione dict per recoding parziale
 			
-			
-Dataframe	str(df), summary(df)	df.describe()	
-			
+Dataframe	str(df), summary(df)	df.describe(), df.info()	
 	dim(df)	df.shape	
 	nrow(df)	df.shape[0]	
 	ncol(df)	df.shape[1]	
-			
-	colnames(df)	df.columns	
-	rownames(df)	df.index	
-			
+	colnames(df)	df.columns; list(df.columns.values)	
+	rownames(df)	df.index; list(df.index.values)	
 	rownames(df) <- df$var	df.set_index(“var”)	
+	rownames(df) = x	df.index = x	
+	names(df) = x	df.columns = x	
+		df.rename(columns = ft)	con ft dict from:to oppure una funzione
+		df.rename(index = ft)	
 			
-	na.omit(df)	df.dropna()	
+Tipi		df.astype(d)	Coercizione tipo con d dict nvar: tipo
 			
+			
+NA handling	na.omit(df)	df.dropna()	eliminazione delle righe con anche un solo na
+		df.dropna(how = 'all')	eliminazione delle righe con tutti na
+		"df.dropna(axis = ""columns"", how = ""all"")"	eliminazione delle colonne tutte na
+			
+Duplicati		df.duplicated()	Individuazione righe duplicate
+		df.drop_duplicates()	Elimina righe duplicate
+		df.duplicated(“var1”)	Individuazione dupl. su una var.
+		df.drop_duplicates(“var1”)	Elimina dupl. su una var.
 			
 Slicing subset	df[c(row1,row2), c(col1,col2)]	df.loc([col1,col2], [row1,row2])	 col1, row1,etc. are variable names
 	df[m:n,j:k]	df.iloc(m:n, j:k)	 m, n, j, k are indices
 			
+Merge/Bind	merge(df1, df2, all.x=TRUE)	pd.merge(df1, df2, how = 'left')	
+	rbind(df1, df2)	pd.concat([df, df])	
+	cbind(df1, df2)	pd.concat([df, df], axis = 'columns')	
 			
-Merge/Bind	merge(df1, df2, by = ‘key’)		
-	rbind(df1, df2)		
-	cbind(df1, df2)		
+Sorting	df[order(df$col1),]	df.sort_values(by='col1')	basato su valori
+		df.sort_index()	basato su indici
 			
 Grouping	lapply(split(df, df$col), summarize)	"df.groupby(by=[""col""]).sum()"	
+			
+Ciclo su df		for varname, data in df.items:	ciclo su colonne
+		for row in df.itertuples():	ciclo su righe (ritornata una tupla)
