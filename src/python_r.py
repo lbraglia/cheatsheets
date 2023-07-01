@@ -6,12 +6,21 @@ tab_dir = Path("python_r_data")
 dfs = lb.io.data_import(list(sorted(tab_dir.iterdir())), csv_kwargs = {"sep":"\t"})
 
 
-def add_code_markup(x):
-    return "`" + x.astype(str) + "`"
+def make_code(x):
+    x = str(x)
+    if x!= "":
+        rval = "`" + x + "`"
+    else:
+        rval = x
+    return rval
 
-def add_topic_markup(x):
-    return "*" + x.astype(str) + "*"
-
+def make_bold(x):
+    x = str(x)
+    if x!= "":
+        rval = "**" + x + "**"
+    else:
+        rval = x
+    return rval
 
 md = ["# R - Python", "\n\n\n"]
 for nm, df in dfs.items():
@@ -19,9 +28,9 @@ for nm, df in dfs.items():
     md.append("## {}\n\n".format(title))
     # replace NA with "" and markup for columns
     df = df.fillna("")
-    df["Topic"] = add_topic_markup(df["Topic"])
-    df["R"] = add_code_markup(df["R"])
-    df["Python"] = add_code_markup(df["Python"])
+    df["Topic"] = df["Topic"].map(make_bold)
+    df["R"] = df["R"].map(make_code)
+    df["Python"] = df["Python"].map(make_code)
     md.append(df.to_markdown(index=False, tablefmt="github"))
     md.append("\n\n")
 
