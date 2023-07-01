@@ -5,14 +5,21 @@ import pylbmisc as lb
 tab_dir = Path("python_r_data")
 dfs = lb.io.data_import(list(sorted(tab_dir.iterdir())), csv_kwargs = {"sep":"\t"})
 
+
 def add_code_markup(x):
     return "`" + x.astype(str) + "`"
+
+def add_topic_markup(x):
+    return "*" + x.astype(str) + "*"
+
 
 md = ["# R - Python", "\n\n\n"]
 for nm, df in dfs.items():
     title = nm.replace("_", " ").title()
     md.append("## {}\n\n".format(title))
-    # add code for content to R and Python
+    # replace NA with "" and markup for columns
+    df = df.fillna("")
+    df["Topic"] = add_topic_markup(df["Topic"])
     df["R"] = add_code_markup(df["R"])
     df["Python"] = add_code_markup(df["Python"])
     md.append(df.to_markdown(index=False, tablefmt="github"))
