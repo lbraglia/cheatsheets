@@ -15,3 +15,15 @@ friendly_name=serverinodlna
 L'utente `minidlna` dovrà avere i permessi di lettura sulle cartelle
 condivise (quindi es aggiungerlo ad un gruppo ad hoc che ha accesso in
 lettura alla cartella `/media/shared`)
+
+## file supportati
+MiniDLNA supports a wide variety of video and audio file formats.
+
+* Video: Files ending with .avi, .mp4, .mkv, .mpg, .mpeg, .wmv, .m4v,
+  .flv, .mov, .3gp, etc.
+* Audio: Files ending with .mp3, .ogg, .flac, .wav, .pcm, .wma, .fla, .aac, etc.
+* Image: Files ending with .jpg, .jpeg
+* Playlist: Files ending with .m3u, .pls
+* Captions: Files ending with .srt, .smi 
+
+Arrabattarsi con [ffmpeg.md] nel caso sia necessario il transcoding.
