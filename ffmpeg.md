@@ -8,11 +8,27 @@ ffmpeg -i video.flv
 
 ## Conversione
 
-Un template generico per il transcoding 
+Un template generico
+```
+ffmpeg -i input.mp4 output.webm 
+```
+dove ffmpeg pensa a tutto con default ragionevoli.
+Viceversa se vogliamo gestire maggiormente:
 ```
 ffmpeg -i input_file -c:v codec -b:v bitrate -c:a audio_codec -b:a audio_bitrate output_file
 ```
-Viceversa se si vuole diminuire le dimensioni di un video usare quanto riportato sotto
+Per stampare i codecs video audio conosciuti
+```
+ffmpeg -codecs
+```
+Se si vuole cambiare solo una cosa e l'altra copiarla (es video copiato sotto)
+```
+ffmpeg -i input.webm -c:v copy -c:a flac output.mkv
+```
+Viceversa se si vuole diminuire le dimensioni di un video usare quanto
+riportato sotto in h264
+
+
 
 ### Formato encoding video
 Per il video usare il formato h264 dove in base alla qualità si avrà
