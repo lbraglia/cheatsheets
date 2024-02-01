@@ -26,4 +26,4 @@ MiniDLNA supports a wide variety of video and audio file formats.
 * Playlist: Files ending with .m3u, .pls
 * Captions: Files ending with .srt, .smi 
 
-Arrabattarsi con [ffmpeg.md] nel caso sia necessario il transcoding.
+Arrabattarsi con [ffmpeg](ffmpeg.md) nel caso sia necessario il transcoding.
