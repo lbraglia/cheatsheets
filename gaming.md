@@ -19,7 +19,8 @@ Vedere la sezione [bluetooth](bluetooth.md).
 ## Steam
 
 * istruzioni aggiornate qui https://wiki.debian.org/Steam
-
+* anche sta pagina da guardare https://wiki.archlinux.org/title/steam
+* questa per le lauch option https://www.alphr.com/steam-launch-options/
 ```
 apt install steam mangohud lm-sensors
 ```
@@ -28,6 +29,10 @@ apt install steam mangohud lm-sensors
 
 Alternative in ordine decrescente di preferenza, allo stato attuale:
 
+* da testare l'opzione `+fps_max 60` trovata [qui](https://www.alphr.com/steam-launch-options/), assieme a `-freq 60` and `-refresh 60` ad esempio
+  ```
+	+fps_max 60 -freq 60 -refresh 60	
+  ```
 * installare https://gitlab.com/torkel104/libstrangle mediante `stow` o altri trick spiegati in https://wiki.debian.org/DontBreakDebian
 * usare mangohud con `fps_limit` tra le opzioni
 * studiare [gamescope](https://wiki.archlinux.org/title/Gamescope)
