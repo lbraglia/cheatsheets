@@ -33,6 +33,7 @@ Alternative in ordine decrescente di preferenza, allo stato attuale:
   ```
 	+fps_max 60 -freq 60 -refresh 60	
   ```
+  assieme al setting del monitor a 60 hertz
 * installare https://gitlab.com/torkel104/libstrangle mediante `stow` o altri trick spiegati in https://wiki.debian.org/DontBreakDebian
 * usare mangohud con `fps_limit` tra le opzioni
 * studiare [gamescope](https://wiki.archlinux.org/title/Gamescope)
