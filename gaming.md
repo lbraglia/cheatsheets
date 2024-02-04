@@ -27,7 +27,7 @@ apt install steam mangohud lm-sensors
 
 ### FPS cap
 
-Alternative in ordine decrescente di preferenza, allo stato attuale:
+Alternative varie:
 
 * da testare l'opzione `+fps_max 60` trovata [qui](https://www.alphr.com/steam-launch-options/), assieme a `-freq 60` and `-refresh 60` ad esempio
   ```
@@ -42,6 +42,6 @@ Alternative in ordine decrescente di preferenza, allo stato attuale:
 ### Useful launch option
 
 ```
-strangle 60 %command%                # cappare a 60 con libstrangle
+MANGOHUD_CONFIG=no_display,fps_limit=60 mangohud %command%    # cappare a 60 senza mostrare mangohud
 PULSEAUDIO_LATENCY_MSEC=60 %command% # audio crackling
 ```
