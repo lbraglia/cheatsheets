@@ -10,6 +10,11 @@
 ## Testing delle performance/monitoraggio
 
 * Per il testing delle performance vedere https://wiki.debian.org/Mesa
+
+```
+apt-get install mesa-utils vulkan-tools
+```
+
 * Monitoraggio hardware CPU/GPU: mangohud, pacchetto lm-sensors (temperature)
 
 ## Configurazione pad bluetooth
@@ -25,21 +30,34 @@ Vedere la sezione [bluetooth](bluetooth.md).
 apt install steam mangohud lm-sensors
 ```
 
-### FPS cap
 
-Alternative varie:
+### Mangohud
 
-* da testare l'opzione `+fps_max 60` trovata [qui](https://www.alphr.com/steam-launch-options/), assieme a `-freq 60` and `-refresh 60` ad esempio
-  ```
-	+fps_max 60 -freq 60 -refresh 60	
-  ```
-  assieme al setting del monitor a 60 hertz
-* installare https://gitlab.com/torkel104/libstrangle mediante `stow` o altri trick spiegati in https://wiki.debian.org/DontBreakDebian
+Il file di configurazione principali, letti in ordine, sono:
+- generale è `~/.config/MangoHud/MangoHud.conf`
+- applicazione specifica: `~/.config/MangoHud/APPLICATION-NAME.conf`
+
+Testing delle configurazioni con:
+```
+mangohud glxgears
+mangohud vkcube
+```
+
+Opzioni utili rinvenibili sulla pagina
+
+Invocazione:
+```
+mangohud game      # gioco esterno
+mangohud %command% # singolo comando steam
+mangohud steam     # tutti i giochi fatti partire con steam
+```
+
+
+
 * usare mangohud con `fps_limit` tra le opzioni
-* studiare [gamescope](https://wiki.archlinux.org/title/Gamescope)
 
 
-### Useful launch option
+### Useful steam launch option
 
 ```
 MANGOHUD_CONFIG=no_display,fps_limit=60 mangohud %command%    # cappare a 60 senza mostrare mangohud
