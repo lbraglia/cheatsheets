@@ -21,13 +21,13 @@ apt-get install mesa-utils vulkan-tools
 
 Vedere la sezione [bluetooth](bluetooth.md).
 
-## Steam
+## Steam/Lutris
 
 * istruzioni aggiornate qui https://wiki.debian.org/Steam
 * anche sta pagina da guardare https://wiki.archlinux.org/title/steam
 * questa per le lauch option https://www.alphr.com/steam-launch-options/
 ```
-apt install steam mangohud lm-sensors
+apt install steam mangohud lm-sensors lutris
 ```
 
 
