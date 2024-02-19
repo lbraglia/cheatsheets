@@ -63,3 +63,13 @@ mangohud steam     # tutti i giochi fatti partire con steam
 MANGOHUD_CONFIG=no_display,fps_limit=60 mangohud %command%    # cappare a 60 senza mostrare mangohud
 PULSEAUDIO_LATENCY_MSEC=60 %command% # audio crackling
 ```
+
+## proton
+
+Il setup (logging giochi etc) di Proton Experimental (tipicamente) si
+fa seguendo
+[qui](https://github.com/ValveSoftware/Proton/?tab=readme-ov-file#runtime-config-options)
+mentre se si vogliono settare gli stessi parametri al lancio per un singolo gioco si può fare
+```
+PROTON_USE_WINED3D=1 %command%"
+```
