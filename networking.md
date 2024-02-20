@@ -1,6 +1,12 @@
 # Rete
 
-## Setup
+## Setup facilitato (soprattutto per portatili)
+
+Installare i pacchetti `network-manager` e `network-manager-gnome`
+dopodiché configurare mediante `nm-applet`.
+
+
+## Setup old-style
 ```
 ip addr              # lista interfacce disponibili (tra cui es wlan0) e stato
 ip link set wlan0 up # attiva/alimenta l'interfaccia
