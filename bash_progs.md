@@ -151,7 +151,11 @@ un esempio
 ```
 ls -l | sed 's/[aeio]/u/g'
 ```
-
+Sostituire una parola in tutti i file in una directory
+```
+sed -i -- 's/{absabs}/{norm}/g' */*/*
+```
+  
 ## awk
 Ricerca un pattern e poi svolge l'azione specificata.
 Se ad esempio abbiamo un file `/tmp/dummy` con:
