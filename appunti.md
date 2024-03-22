@@ -1,5 +1,16 @@
 # Appunti
 
+## latex-ocr
+See here https://github.com/lukas-blecher/LaTeX-OCR
+
+```
+apt install gnome-screenshot
+pip install -U "pix2tex[gui]"
+latexocr
+```
+
+
+
 ## Download video
 Libraries for YT
 ```
@@ -8,7 +19,7 @@ pip install -U --upgrade youtube-dl
 ```
 Download
 ```
-yt-dlp
+yt-dlp url
 ```
 
 ## Estrazione audio
@@ -49,11 +60,3 @@ res[0]['summary_text']
 
 https://medium.com/@sarowar.saurav10/6-useful-text-summarization-algorithm-in-python-dfc8a9d33074
 https://medium.com/@veejeah/python-summarization-a-comparative-exploration-62c030bd28e1
-
-
-
-## Translation
-https://huggingface.co/jbochi/madlad400-3b-mt
-
-## image generation
-https://huggingface.co/runwayml/stable-diffusion-v1-5
