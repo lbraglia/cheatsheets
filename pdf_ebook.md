@@ -2,6 +2,12 @@
 
 ## PDF
 
+### Impostare okular come opener di default
+```
+xdg-mime default okularApplication_pdf.desktop application/pdf
+```
+
+
 ### Apertura in maniera portabile
 ```
 xdg-open file2open.pdf
