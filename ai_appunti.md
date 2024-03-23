@@ -1,4 +1,4 @@
-# Appunti (ai tools and other tools)
+# Appunti (AI and other tools)
 
 ## Estrarre latex da immagine
 See here https://github.com/lukas-blecher/LaTeX-OCR
@@ -95,7 +95,7 @@ correct(text)
 
 
 
-## Ollama as frontend to chat models
+## Ollama as frontend to chatgpt-like models
 
 Install ollama from [here](https://ollama.com/), then choose some models from https://ollama.com/library and run it
 ```
