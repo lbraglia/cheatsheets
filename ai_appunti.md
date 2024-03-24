@@ -1,5 +1,27 @@
 # Appunti (AI and other tools)
 
+## estrarre immagini
+installare imagemagick e 
+```
+apt install imagemagick flameshot
+```
+poi avviare flameshot  e fare lo screenshot per convertirlo con `convert` di imagemagick
+```
+# convertire un singolo file
+convert file.png file.pdf
+# convertire una intera cartella a pdf
+mogrify -format pdf *.*
+```
+per inserirla in latex con (vedi logseq per finetuning)
+```tex
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{path/file/pdf}
+  \caption{Caption .}
+  \label{fig:}
+\end{figure}
+```
+
 ## Estrarre latex da immagine
 See here https://github.com/lukas-blecher/LaTeX-OCR
 
@@ -34,8 +56,8 @@ Estrazione testo
 whisper --help
 
 ## Estrazione di inglese
-whisper --output txt --language en english_video.webm
-whisper --output txt --language it italian_video.webm
+whisper --language en english_video.webm
+whisper --language it italian_video.webm
 ```
 
 ## Sintesi
