@@ -1,5 +1,27 @@
 # Rete
 
+## nordvpn
+
+Installa il loro deb
+``` 
+$ wget https://downloads.nordcdn.com/apps/linux/install.sh
+# sh install.sh
+# nordvpn login
+```
+prova a fare logout utente e rifare il login
+
+``` bash
+# selezionare il server qui https://nordvpn.com/it/servers/tools/ 
+# es za145.nordvpn.com
+# connettersi con
+nordvpn connect za145
+# per un paese casuale tra alcuni europei
+nordvpn_connect
+# per disconnettersi
+nordvpn disconnect
+```
+
+
 ## Setup facilitato (soprattutto per portatili)
 
 Installare i pacchetti `network-manager` e `network-manager-gnome`
