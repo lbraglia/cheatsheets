@@ -1,5 +1,15 @@
 # emacs
 
+## python
+
+```
+pip3 install -U pyright # language server
+psgrep pyright # to check if running (the process number)
+M-x package-install RET eglot RET # client to the server (default da emacs 29.2)
+```
+
+
+
 ### Help
 
 |Keystrokes  | Action     |
