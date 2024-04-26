@@ -232,7 +232,7 @@ un esempio di `Makefile` per `main`:
 Directory contenente script di tex processati con knitr
 ```
 %.pdf : %.tex
-	knit2pdf $<
+	rnw2pdf $<
 
 all: *.pdf
 
