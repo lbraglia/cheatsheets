@@ -31,4 +31,4 @@ startx
 
 ## i3
 File di configurazione: `.config/i3/config` gestito automaticamente mediante 
-le `make user-setup-script`.
+le `make user-setup-dotfiles`.
