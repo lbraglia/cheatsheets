@@ -3,6 +3,14 @@
 ## installazione
 https://logseq.com/downloads
 scaricare l'appimage, rinominarla in `logseq` e porla da qualche parte nel path
+(tipo `.local/bin/` per evitare che venga cancellata)
+
+```
+cd ~/.local/bin
+cp /tmp/Logseq* logseq
+chmod +x logseq
+```
+
 
 ## installazione di logseq-query (esportare query)
 https://github.com/cldwalker/logseq-query
