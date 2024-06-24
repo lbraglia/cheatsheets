@@ -32,3 +32,9 @@ startx
 ## i3
 File di configurazione: `.config/i3/config` gestito automaticamente mediante 
 le `make user-setup-dotfiles`.
+
+
+## Multiple monitor
+
+Installare `arandr`, effettuare la configurazione, esportarla con
+layout/save as, incollare il tutto in `.xinitrc`
