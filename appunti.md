@@ -1,6 +1,13 @@
 # Appunti (AI and other tools)
 
-## estrarre immagini
+## pdf to latex
+
+Usare:
+- https://products.aspose.app/pdf/conversion/pdf-to-tex per estrarre immagini
+- `pdftotext` per testo
+- python + regex per conversioni (esempi machine learning)
+
+## Estrarre immagini
 installare imagemagick e 
 ```
 apt install imagemagick flameshot
