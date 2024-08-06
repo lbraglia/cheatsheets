@@ -40,6 +40,12 @@ pip install -U "pix2tex[gui]"
 latexocr
 ```
 
+ache alla bruta
+```
+pip install -U pix2tex
+pix2tex file.png
+```
+
 ## Download video
 Libraries for YT
 ```
