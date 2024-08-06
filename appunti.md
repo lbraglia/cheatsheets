@@ -2,8 +2,10 @@
 
 ## pdf to latex
 
+Fare uno script python che faccia tutto in maniera compatta
+
 Usare:
-- https://products.aspose.app/pdf/conversion/pdf-to-tex per estrarre immagini
+-  https://tools.pdf24.org per estrarre immagini
 - `pdftotext` per testo
 - python + regex per conversioni (esempi machine learning)
 
