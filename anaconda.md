@@ -8,6 +8,17 @@ rispondere [yes] a Do you wish to update your shell profile to automatically ini
 conda config --set auto_activate_base false
 ```
 install su altro
+pacchetti utili di base
+```
+conda install anaconda::jupyter conda-forge::rise
+conda install conda-forge::jupytext
+```
+
+
+```
+conda command --help
+conda info -a
+```
 
 
 # jupyter
