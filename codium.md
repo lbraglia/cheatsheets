@@ -4,15 +4,19 @@ Alternativa libera di vscode: https://github.com/VSCodium/vscodium
 
 Plugin:
 
-- keybinding emacs: https://marketplace.visualstudio.com/items?itemName=tuttieee.emacs-mcx
+- python
+- python debugger
+- awesome emacs: keybinding emacs
+- codeium (AI): servizio web
+- twinny (AI): locale (setup https://twinnydotdev.github.io/twinny-docs/general/quick-start/)
+- codebraid: mixing languages
 
-- setup di R: https://www.youtube.com/watch?v=k79H8EeR5Jo
 
 
-AI
+## Codebraid
 
-- plugin2 per connessione https://marketplace.visualstudio.com/items?itemName=Continue.continue, configurazione https://www.youtube.com/watch?v=Zqpls-FSneY
-
-- altro plugin https://github.com/rjmacarthy/twinny per connessione a modelli locali
+```
+codebraid pandoc --from markdown --to docx report.md -o report.docx --overwrite
+```
 
 
