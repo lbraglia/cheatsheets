@@ -2,19 +2,24 @@
 
 ## Ollama
 
-Install ollama from [here](https://ollama.com/), then choose some models from https://ollama.com/library and run it
+
+
+Install ollama from [here](https://ollama.com/), 
+```
+wget https://ollama.com/install.sh
+su
+sh install.sh
+```
+Choose some models from https://ollama.com/library and run it
 ```
 # eseguire un modello gerico con poca ram
 ollama run dolphin-mistral
-# eseguire un modello generico con tanta ram (64gb)
-ollama run dolphin-mixtral
 
 # list available models
 ollama list
 
 # delete a model
 ollama rm llama2
-
 
 # >>> What's in this image? /Users/jmorgan/Desktop/smile.png
 # The image features a yellow smiley face, which is likely the central focus of 
@@ -25,6 +30,13 @@ ollama rm llama2
 Useful plugin
 - logseq integration https://github.com/omagdy7/ollama-logseq
 - telegram bot https://github.com/ruecat/ollama-telegram
+
+
+## fabric
+
+```
+curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-linux-amd64 > fabric && chmod +x fabric && ./fabric --version
+```
 
 
 ## Da approfondire
