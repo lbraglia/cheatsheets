@@ -8,15 +8,8 @@ Plugin:
 - python debugger
 - awesome emacs: keybinding emacs
 - codeium (AI): servizio web
-- twinny (AI): locale (setup https://twinnydotdev.github.io/twinny-docs/general/quick-start/)
-- codebraid: mixing languages
+- twinny (AI): locale ([setup](https://twinnydotdev.github.io/twinny-docs/general/quick-start/))
+- [quarto](www.quarto.org): literate programming
 
-
-
-## Codebraid
-
-```
-codebraid pandoc --from markdown --to docx report.md -o report.docx --overwrite
-```
 
 
