@@ -2,77 +2,63 @@
 
 
 ## Matematica
-- Singole equazioni vanno impostate nell'environment `equation` o `equation*` (il primo stampa anche il numero dell'equazione, ed è possibile farvi riferimento mediante una label).
-- Per piu' righe di matematica e colonne allineabili utilizzare `align` o `align*`, con la seguente sintassi:
-``` latex
-\begin{align*}
-y &= asd  \\ 
-  &= foo
-\end{align*}
-```
-- Se una linea e prosieguo (es una somma di termini che sfocia in più di una linea) di un'altra potrebbe esser utile `\qquad {}` per indentare.
-- Se si desidera che solo una linea abbia la numerazione, sopprimere le numerazioni in tutte le altre linee ponendo `\nonumber` prima di `\\`.
-``` latex
-\begin{align}
-f(x) &= x^4 + 7x^3 + 2x^2 \nonumber \\
-  & \qquad {} + 10x + 12
-\end{align}
-```
-### Environment custom gagliardi
-```latex
-\newtheorem{thm}{Teorema}[section]
-\newtheorem{cor}[thm]{Corollario}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposizione}
-\newtheorem{defn}{Definizione}[section]
-\newtheorem{axiom}{Assioma}[section]
-\newtheorem{es}{Esempio}[section]
-\newtheorem{exercise}{Esercizio}[section] %in test
-\theoremstyle{remark}
-\newtheorem{rmk}{Osservazione importante}
-\newtheorem{oss}{Osservazione}
-```
-### Operatori
+- Singole equazioni vanno impostate nell'environment `equation` o
+  `equation*` (il primo stampa anche il numero dell'equazione, ed è
+  possibile farvi riferimento mediante una label).
+- Per piu' righe di matematica e colonne allineabili utilizzare
+  `align` o `align*`, con la seguente sintassi:
+  ``` latex
+  \begin{align*}
+    y &= asd  \\ 
+      &= foo
+  \end{align*}
+  ```
+- Se una linea e prosieguo (es una somma di termini che sfocia in più
+  di una linea) di un'altra potrebbe esser utile `\qquad {}` per
+  indentare.
+- Se si desidera che solo una linea abbia la numerazione, sopprimere
+  le numerazioni in tutte le altre linee ponendo `\nonumber` prima di
+  `\\`.
+  ``` latex
+  \begin{align}
+    f(x) &= x^4 + 7x^3 + 2x^2 \nonumber \\
+         & \qquad {} + 10x + 12
+  \end{align}
+  ```
+
+### Definire comandi e alias
 ```latex
 \newcommand{\vettore}[1]{\overrightarrow{#1}}
 \let\vec\vettore
-\newcommand{\versore}[1]{\overrightarrow{\textbf{#1}}}
-\newcommand{\angolo}[1]{\widehat{#1}}
-\newcommand{\abs}[1]{\left\vert #1 \right\vert}
-% \newcommand{\absabs}[1]{\abs{\abs{#1}}} %sostituito da norm
-\newcommand{\graffe}[1]{\left\{ #1 \right\}}
-\newcommand{\quadre}[1]{\left\lbrack #1 \right\rbrack}
-\newcommand{\angole}[1]{\left\langle #1 \right\rangle} 
-\newcommand{\tonde}[1]{{\left( #1 \right)}}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\de}[1]{\; d#1} % dx per integrale
-
-
 ```
+
+### Operatori "custom"
+Non tutti gli operatori dell'analisi sono disponibili (ad esempio Re
+per l'estrazione della parte reale di un complesso). Per far capire a
+latex che è un operatore (il che lo fa stampare NON in corsivo,
+bisogna adoperare \operatorname, ad esempio:
+``` latex
+\operatorname{Re} z = a
+```
+
 ### Testo sopra/sotto parti di formula
 Si realizzano rispettivamente mediante
-
 ``` latex
 \overbrace{frammento_formula}^\text{contenuto}
 \underbrace{frammento_formula}_\text{contenuto}
 ```
-### Creare box nelle equazioni
-Per un box che contenga solo la formula (e non il numero si può utilizzare `boxed`, ad esempio
 
+### Creare box nelle equazioni
+Per un box che contenga solo la formula (e non il numero si può
+utilizzare `boxed`, ad esempio
 ``` latex
 \begin{equation}
 \boxed{x^2+y^2 = z^2}
 \end{equation}
 ```
-### Operatori "custom"
-Non tutti gli operatori dell'analisi sono disponibili (ad esempio Re per l'estrazione della parte reale di un complesso). Per far capire a latex che è un operatore (il che lo fa stampare NON in corsivo, bisogna adoperare \operatorname, ad esempio:
 
-``` latex
-\operatorname{Re} z = a
-```
+
 ### Frecce
-
 
 ``` latex
 \rightarrow           \Rightarrow
@@ -82,15 +68,17 @@ Non tutti gli operatori dell'analisi sono disponibili (ad esempio Re per l'estra
 \longleftarrow        \Longleftarrow
 \longleftrightarrow   \Longleftrightarrow
 ```
+
 ### Numeri esplicativi
 Usare `explained`
 
 ```latex 
 \begin{equation}
-asd = foo    \explained{\iff}{1} bar = baz
+  asd = foo \explained{\iff}{1} bar = baz
 \end{equation}
 dove $(1)$ è dovuto al fatto che
 ```
+
 **Template per esercizi**
 ```latex
 \begin{exercise}[]
@@ -103,11 +91,9 @@ dove $(1)$ è dovuto al fatto che
   \end{solution}
 \end{exercise}
 ```
-**Miscellanea**
-```latex
-\defeq è l'uguale con il def sopra per le definizioni
-```
+
 ## Formattazione e cose di base
+
 ### Note a margine varie o evidenziazione di scritto
 ```latex
 \newcommand{\colored}[2]{{\color{#1} #2}} 
@@ -115,67 +101,72 @@ dove $(1)$ è dovuto al fatto che
 \newcommand{\nb}[1]{{ \marginpar{\color{blue}\textbf{NB}: #1} }}
 \newcommand{\fixme}[2][fixme]{{ \colored{red}{#2} } \todo{#1}}
 ```
+
 ### Link ipertestuali
 ``` latex
 \href{url}{testo}
 ```
+
 ### Includere file verbatim
 Utilizzare il pacchetto `verbatim` nell'intestazione
-
 ``` latex
 \verbatiminput{nome_file}
 ```
-### Citazione
-Si possono utilizzare gli environment `quote` o `quotation`:\
-quest'ultima indenta le colonne ed è meglio per citazioni lunghe
 
+### Citazione
+Si possono utilizzare gli environment `quote` o `quotation`:
+quest'ultima indenta le colonne ed è meglio per citazioni lunghe
 ```latex
 \begin{quote}
 \end{quote}
 \begin{quotation}
 \end{quotation}
 ```
+
 ### Cross-reference nel documento
 Per creare una referenza a section subsection, figure table o teorema\
-utillizzare
-
+utilizzare
 ``` latex
 \label{nomepersonalizzato}
 ```
-Per utilizzarlo:\
-`\pageref{nomepersonalizzato}` restituisce la pagina della label\
-`\ref{nome}` restituisce il numero della label (es numero tabella, teorema ecc)
+Per utilizzarlo: 
+- `\pageref{nomepersonalizzato}` restituisce la pagina della label
+- `\ref{nome}` restituisce il numero della label (es numero tabella,
+  teorema ecc)
 
 ## Tabelle e figure
+
 ### Indicazioni generali
 Si usano rispettivamente l'ambiente `tabular` e il comando `\includegraphics` all'interno degli ambienti `table` e `figure` che sarà piazzata da latex al meglio nel documento, accompagnata da didascalia. Si possono anche dare direttive sul piazzamento come segue
 ``` latex
 \begin{table}[ht] %la sequenza di possibili posizionamenti è seguita
 \begin{figure}[b]
 ```
-e le opzioni disponibili sono le seguenti\
-| lettera  | significato  |\
-|:---------|:---------|\
-| h        | qui (here), se possibile					|\
-| t        | in cima (top) alla pagina				|	\
-| b        | in fondo alla pagina						|\
-| p        | in una pagina di soli oggetti mobili		|\
+e le opzioni disponibili sono le seguenti
+
+| lettera  | significato  |
+|:---------|:---------|
+| h        | qui (here), se possibile					|
+| t        | in cima (top) alla pagina				|	
+| b        | in fondo alla pagina						|
+| p        | in una pagina di soli oggetti mobili		|
 | !        | forza ma meglio di no (usare tabular allora)|
 
 
 
 ### Tabelle
-Si pone un tabular dentro a table: le opzioni di tabular sono\
-| lettera  | significato  |\
-|:---------|:---------|\
-| l  |  left-justified column |\
-| c | centered column |\
-| r | right-justified column|\
-| p{'width'} | column with text vertically aligned at the top|\
-| m{'width'} | column with text vertically aligned in the middle (array package)| \
+Si pone un tabular dentro a table: le opzioni di tabular sono
+
+| lettera  | significato  |
+|:---------|:---------|
+| l  |  left-justified column |
+| c | centered column |
+| r | right-justified column|
+| p{'width'} | column with text vertically aligned at the top|
+| m{'width'} | column with text vertically aligned in the middle (array package)|
 | b{'width'}| column with text vertically aligned at the bottom (array package)|
 
-Tabella **minimale** (copia e incolla bitch)
+Tabella **minimale** (copia e incolla)
 ```latex
 \begin{table}
 \centering
@@ -221,12 +212,20 @@ Per **celle che vanno a capo** utilizzare il custom
 ```latex
 \specialcell{riga1 \\ riga2 \\ riga3}
 ```
-per **colonne che wrappano testo automaticamente** usare p{larghezza colonna} come qui: la prima larga 1 inch e wrappa, l'ultima 1.5 inches e wrappa
+
+Per **colonne che wrappano testo automaticamente** usare p{larghezza colonna} come qui: 
+la prima larga 1 inch e wrappa, l'ultima 1.5 inches e wrappa
 ```latex 
 \begin{tabular}{m{1in}clllllm{1.5in}}
 ```
-Per **tabelle lunghe** che si estendono su piu pagine guardare `longtable`.\
-Per **tabelle larghe**, per ruotare di 90 gradi è utile il pacchetto `rotating` che definisce l'ambiente `sidewaystable`, da usare nel modo seguente
+
+Per **tabelle lunghe** che si estendono su piu pagine guardare
+`longtable`.
+
+Per **tabelle larghe**, per ruotare di 90 gradi è utile il pacchetto
+`rotating` che definisce l'ambiente `sidewaystable`, da usare nel modo
+seguente:
+
 ``` latex
 \begin{sidewaystable}Template per esercizi
 \caption{}
@@ -262,18 +261,22 @@ La sintassi di `includegraphics` è
 con:
 
 - `path_file` NON deve contenere estensione .pdf
-- possono esser key le seguenti\
-| key  | significato  |\
-|:--|:--|\
-|width    | scale graphic to the specified width   |\
-|height   | scale graphic to the specified height  |\
-|angle    | rotate graphic counterclockwise        |\
+- possono esser key le seguenti
+
+| key  | significato  |
+|:--|:--|
+|width    | scale graphic to the specified width   |
+|height   | scale graphic to the specified height  |
+|angle    | rotate graphic counterclockwise        |
 |scale    | scale graphic                          |
 
-- Per **ruotare** la figura utilizzare il pacchetto rotating e l'environment `sidewaysfigure`, similmente a quanto illustrato con le tabelle/sidewaystable`.
+- Per **ruotare** la figura utilizzare il pacchetto rotating e
+  l'environment `sidewaysfigure`, similmente a quanto illustrato con
+  le tabelle/sidewaystable`.
 
 
 ### Altri tips/tricks per figure e tabelle
+
 #### Figure/tabelle multiple/affiancate
 Per affiancare piu figure o tabelle si usa il pacchetto `subfig` (che richiede la presenza del pacchetto `caption`, per la personalizzazione delle caption) mediante il comando `subfloat`\
 Un esempio di figure multiple in un box $2 \times 2$:
@@ -322,12 +325,13 @@ La sintassi
 ```
 tre argomenti obbligatori:
 - **oggetto** indica il tipo di oggetto da includere (figure o table, da non confondere con gli ambienti omonimi);
-- **collocazione**, che dice a dove mettere l’oggetto sulla pagina, accetta una sola delle otto opzioni spcificate in seguito, in maiuscolo o in minuscolo a seconda che si voglia mettere l’oggetto “esattamente qui nel testo” o si voglia creare un oggetto mobile, rispettivamente. Le preferenze di collocazione sono specificabili mediante\
-| Opzione  | Descrizione  |\
-|---|---|\
-| r,R  | Sul lato destro del testo (right)   |\
-| l,L  | Sul lato sinistro del testo (left)  |\
-| i,I  | Sul margine interno (inner)	     |\
+- **collocazione**, che dice a dove mettere l’oggetto sulla pagina, accetta una sola delle otto opzioni spcificate in seguito, in maiuscolo o in minuscolo a seconda che si voglia mettere l’oggetto “esattamente qui nel testo” o si voglia creare un oggetto mobile, rispettivamente. Le preferenze di collocazione sono specificabili mediante
+
+| Opzione  | Descrizione  |
+|---|---|
+| r,R  | Sul lato destro del testo (right)   |
+| l,L  | Sul lato sinistro del testo (left)  |
+| i,I  | Sul margine interno (inner)	     |
 | o,O  | Sul margine esterno (outer)	     |
 
 - **larghezza** specifica la larghezza dell’oggetto che, se nulla (0pt), equivale  all’opzione assegnata a \includegraphics .
