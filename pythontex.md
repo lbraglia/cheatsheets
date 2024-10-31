@@ -101,8 +101,7 @@ def tabellina(n):
 	    print(r"\label{tab:tabellina_del_%d}" % n)
 	    print(r"\end{table}")
 ```
-e la chiamiamo con `\pyc{tabellina(7)}`
-
+e la chiamiamo con `\pyc{tabellina(7)}`.
 Se in `pycode` o `pyblock` definiamo
 ```python 
 def pow(x, y):
