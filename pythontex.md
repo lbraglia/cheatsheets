@@ -1,30 +1,44 @@
-Disponibile in Debian nel pacchetto `texlive-extra-utils`\
+# pythontex
+
+Disponibile in Debian nel pacchetto `texlive-extra-utils`. 
+
 Utilizzo tipico a seguire
 ```bash
 pdflatex file.tex  # qui pythontex estrae il codice py in un file temporaneo
 pythontex file.tex  # qui esegue il codice e salva gli output
 pdflatex file.tex  # qui si mette tutto assieme
 ```
-<br>
 
 ## cheatsheet
 **Environment**:
 - A disposizione:
-	- `pycode` esegue il codice presente ma non lo stampa a video. Stampa solo ciò che è stampato esplicitamente mediante print, che deve essere codice $\LaTeX$ valido. Tornano in questo caso comodo \
-	 le stringhe raw di Python he permettono di non porre la doppia backslash per averne una;
-
-	- `pyblock` esegue il codice e lo stampa a video. Il codice stampato con print non è automaticamente incluso ma si usano le macro `\printpythontex` dove si vuole che avvenga la stampa
+	- `pycode` esegue il codice presente ma non lo stampa a
+      video. Stampa solo ciò che è stampato esplicitamente mediante
+      print, che deve essere codice $\LaTeX$ valido. Tornano in questo
+      caso comodo le stringhe raw di Python he permettono di non porre
+      la doppia backslash per averne una;
+	- `pyblock` esegue il codice e lo stampa a video. Il codice
+      stampato con print non è automaticamente incluso ma si usano le
+      macro `\printpythontex` dove si vuole che avvenga la stampa
 	- `rcode`, `rblock`: cosa equivalente, per `R`, ma da abilitare mediante
 		```latex
 		\usepackage[usefamily=R]{pythontex}
 		```
-	- *Secondari* (non usare se non strettamente necessari):`pyverbatim` (`rverbatim`)per il codice prettyprintato ma non eseguito; `pyconsole` per la simulazione di console con prettyprintato il codice e anche l'output
+	- *Secondari* (non usare se non strettamente
+      necessari):`pyverbatim` (`rverbatim`)per il codice
+      prettyprintato ma non eseguito; `pyconsole` per la simulazione
+      di console con prettyprintato il codice e anche l'output
 
 - È meglio:
-	- *lasciare sempre una linea bianca all’inizio e alla fine* di un environment, non stare a ridosso del begin end per esigenze di interprete.
-	- *evitare di mischiare codice che deve essere eseguito sequenzialmente in environment* di tipo diverso: non è possibile definire in pyconsole e usare in pycode o viceversa. È invece possibile definire in pycode e usare in pyblock (e viceversa)
+	- *lasciare sempre una linea bianca all’inizio e alla fine* di un
+      environment, non stare a ridosso del begin end per esigenze di
+      interprete.
+	- *evitare di mischiare codice che deve essere eseguito
+      sequenzialmente in environment* di tipo diverso: non è possibile
+      definire in pyconsole e usare in pycode o viceversa. È invece
+      possibile definire in pycode e usare in pyblock (e viceversa)
 
-<br>
+
 
 **Comandi**
 - `\py` usato per eseguire codice (anche statement di print volendo) e stampare il risultato finale, convertendo in stringa se necessario. Serve tipicamente per richiamare dati/risultati. Se dentro py si usa chiama una funzione verrà convertito il valore di return (quindi se non restituisce verrà stampato None). Il quello che ritorna deve essere valido codice Latex,\
