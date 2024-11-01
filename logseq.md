@@ -14,17 +14,3 @@ cd ~/.local/bin
 cp /tmp/Logseq* logseq
 chmod +x logseq
 ```
-
-
-## plugin 
-
-- bullet threading
-- tabs
-- todo list
-- tags
-
-
-Da provare
-- agenda
-- toc generator
-- omnivore o alternative
