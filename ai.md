@@ -37,7 +37,36 @@ Useful plugin
 ```
 curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-linux-amd64 > fabric && chmod +x fabric && ./fabric --version
 ```
+spostarlo in .local/bin per averlo nel path
+```
+mv fabric .local/bin
+```
+setup
+```
+fabric --setup
+```
+listare i pattern disponibili
+```
+fabric -l
+```
+alcuni utilizzi
+```
+cat knowledge.txt | fabric --pattern summarize
+fabric -y "https://youtube.com/watch?v=uXs-zPc63kM" --pattern extract_wisdom > sintesi.txt
+```
+Installare alcune utility gagliarde (simulano `pbpaste` del mac)
+```
 
+#  versione 1
+apt-get install xclip
+
+# alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+# copiare da web browser poi
+pbpaste | fabric --pattern extract_wisdom
+
+```
 
 ## Da approfondire
 
