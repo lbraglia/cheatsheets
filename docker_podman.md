@@ -1,4 +1,4 @@
-# Docker
+## Docker
 
 ## Macchina virtuale vs container
 
@@ -47,7 +47,7 @@ Le macchine virtuali sono però più isolate tra loro.
   immagini/versioni di un certo software (eg apache, 1.1, 1.0, 0.9)
   permettendo la scelta di varie versioni
 
-## docker vs podman
+## Docker vs podman
 docker è indipendente e piu supportato, podman è sviluppato da redhat
 e più compatibile li. Si dovrebbe poter usarli intercambiabilmente.
 
@@ -128,6 +128,7 @@ Per rimuovere i layer/dipendenze
 podman image ls
 ```
 
+
 ## Eseguire una immagine e creare un container
 ```bash
 podman run debian # non fa niente
@@ -152,7 +153,7 @@ podman run -it --name prova-debian debian bash
 root@0f4e5917ac08:/# apt update            # id non visualizzato ma pace 
 ```
 
-Alcuni avvii speciali:
+Alcuni **avvii di interesse**:
 - eliminare il container al termine dell'esecuzione  (non verrà eliminato con `Ctrl+p Ctrl+q`)
   ```bash
   podman run --rm -it --name asdomar debian bash
@@ -220,9 +221,11 @@ docker ps -a
 podman ps
 podman stop id_o_name # uno solo
 ```
-Per stopparli tutti o stoppare il demone o fare un ciclo sui container id
+Per stopparli tutti o stoppare il demone o fare un ciclo sui container id oppure usare prune
 ```bash
-for container in $(podman ps| cut -d' ' -f1|tail -n +2); do podman stop $container; done
+podman container prune
+# oppure
+for container in $(podman ps| cut -d' ' -f1 | tail -n +2); do podman stop $container; done
 ```
 
 Se si è piantato male e non chiude usare `kill`
@@ -230,9 +233,7 @@ Se si è piantato male e non chiude usare `kill`
 podman kill id_o_name # uno solo
 ```
 
-
-
-## comandi utili
+## Comandi utili
 Creare un container, eseguire vari comandi e chiudere/pulire tutto
 ```bash
 podman run --rm -it debian bash -c "comandi separati da ;"
@@ -243,13 +244,47 @@ podman logs asdomar    # vedere i log sino ad ora
 podman logs asdomar -f # continua a seguire i log di un container
 ```
 
+## Networking e volumi
+I container sono isolati di default ma a volte abbiamo bisogno di
+rendere disponibile porte/cartelle (es server web)
 
+Web server: 
 ```bash
-
+podman run -p 8080:80 -v /tmp:/var/www/html:ro nginx # 
 ```
+Si ha che:
+- esponiamo la porta 80 del container sulla porta locale 8080 mediante
+  `-p portahost:portacontainer` (`-p` sta per port)
+- quello che vogliamo nginx serva è una directory selezionata mediante
+  `-v cartellahost:cartellacontainer` (`-v` sta per volume, e poi
+  nginx serve in `/usr/share/nginx/html`). Qui in `/home/l/sito` ci
+  dovrebbe essere una index.html
 
 
-```bash
+## Docker/podman compose
+Se abbiamo bisogno di coordinamento di servizi differenti (es
+webserver, database etc) vogliamo creare una immagine che le includa
+tutti senza dover far partire diversi container e farli comunicare.
+
+Per questo serve compose: creiamo un file `podman-compose.yml`. qua una stack con server e php
+```yml
+services:                             # chiamato services ma è un container
+
+  php:                                # un id a scelta giusto per identificare il container
+    image: "php:latest"               # immagine base
+    container_name: php_stack         # tipo --name da command line
+    volumes:                          # volumi da montare
+      - './mia_app_da_servire:/var/www/html' # tipo -v da command line
+      
+  nginx:                              # un id a scelta giusto per identificare il container
+    image: "nginx:latest"             # immagine base
+    container_name: nginx_stack       # tipo --name da command line
+    ports:                            # porte da esporre
+      - "8080:80"                     # tipo -p da command line
+      - "8443:443"
+    volumes:                          # volumi da montare
+      - './mia_app_da_servire:/var/www/html:ro' # tipo -v da command line: ro sta per readonly
+      - './config/nginx:/etc/nginx/conf.d'
 
 ```
 
