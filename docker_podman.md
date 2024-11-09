@@ -62,7 +62,11 @@ Security:
 docker consolidato, podman emergente
 
 ## Installazione di podman
-installare il pacchetto `podman`; se si vuole installare
+installare il pacchetto `podman` e se si vuole fare il compose podman-compose
+```
+apt install podman podman-compose
+```
+Se si vuole installare
 `podman-docker` si avrà una cli experience simile a docker ma anche no
 direi.
 
@@ -171,6 +175,12 @@ Alcuni **avvii di interesse**:
   ```bash
   podman run --memory 1024m immagine # solo  1 giga di ram
   ```
+- specificare restart policy: se/quando un container deve essere 
+  riavviato a seguito di stop o riavvio del demone (se presente)
+  ```bash
+  podman run -restart opzione ..
+  ```
+  dove opzioni sono `"always"|"no"|"never"|"on-failure"|"unless-stopped"`
 
 
 ## Uscire e rientrare in un container
@@ -213,7 +223,7 @@ podman ps
 ```
 Creati ma non in esecuzione
 ```bash
-docker ps -a
+podman ps -a
 ```
 
 ## Fermare container in esecuzione
@@ -250,15 +260,26 @@ rendere disponibile porte/cartelle (es server web)
 
 Web server: 
 ```bash
-podman run -p 8080:80 -v /tmp:/var/www/html:ro nginx # 
+                                                               # permette accesso
+podman run -p 8080:80 -v /tmp:/var/www/html:ro nginx           # a tutta la rete
+podman run -p 127.0.0.1:8080:80 -v /tmp:/var/www/html:ro nginx # solo a localhost
 ```
 Si ha che:
 - esponiamo la porta 80 del container sulla porta locale 8080 mediante
   `-p portahost:portacontainer` (`-p` sta per port)
 - quello che vogliamo nginx serva è una directory selezionata mediante
-  `-v cartellahost:cartellacontainer` (`-v` sta per volume, e poi
-  nginx serve in `/usr/share/nginx/html`). Qui in `/home/l/sito` ci
+  `-v cartellahost:cartellacontainer` (nginx serve in `/usr/share/nginx/html`). Qui in `/home/l/sito` ci
   dovrebbe essere una index.html
+
+Possiamo anche non scegliere la porta dell'host ma lasciare che sia
+podman ad utilizzarne una disponibile (es per sistemi più
+complessipotremmo avere la porta già occupata da un altro
+container. Nel caso usiamo giusto
+
+```bash
+podman run -d -p 80 -v /tmp:/var/www/html:ro nginx # esponi la 80 del container da qualche parte
+podman ps # trova su quale porta dell'host è mappata
+```
 
 
 ## Docker/podman compose
@@ -275,27 +296,135 @@ services:                             # chiamato services ma è un container
     container_name: php_stack         # tipo --name da command line
     volumes:                          # volumi da montare
       - './mia_app_da_servire:/var/www/html' # tipo -v da command line
-      
+
   nginx:                              # un id a scelta giusto per identificare il container
     image: "nginx:latest"             # immagine base
     container_name: nginx_stack       # tipo --name da command line
     ports:                            # porte da esporre
       - "8080:80"                     # tipo -p da command line
-      - "8443:443"
+      - "8443:443"                   
     volumes:                          # volumi da montare
       - './mia_app_da_servire:/var/www/html:ro' # tipo -v da command line: ro sta per readonly
-      - './config/nginx:/etc/nginx/conf.d'
-
+      - './config/nginx:/etc/nginx/conf.d'   
+    depends_on:                        # elenco servizi da cui questo dipende (nell'ordine di avvio )
+      - php                            # viene avviato prima php```
 ```
+Nella cartella col file `.yml` per lanciare l'intero stack (i due container)
+```bash
+podman compose up    # logga in stdout
+podman compose up -d # vai in background/detached
+```
+
+Poi per tirare giu il servizio o diamo Ctrl+c oppure se lo abbiamo
+tirato su in detached, dalla cartella dove è il file `.yml` mediante
+```bash
+podman compose down
+```
+
+
+## Uso di variabili e file `.env` nei file compose
+Roba tipo token e parametri di configurazione sensibili non vanno
+hardcoded ma posti in un file `.env` e richiamati nel file compose
+come `${VARNAME:?err}` con:
+- VARNAME il nome della variabile ed 
+- `:?err` significa che se non la trova si lamenta 
+
+Ad esempio morro per dare i nomi alle varie componenti e impostare una
+password (mediante il parametro environment che serve per impostare
+variabili d'ambiente esportate all'interno del container: es mysql
+cerca una variabile `MYSQL_ROOT_PASSWORD`):
+```yaml
+
+   container_name: ${APP_NAME:?err}-php
+   ...
+   container_name: ${APP_NAME:?err}-nginx
+   
+   mysql:
+     ...
+	 environment:
+	    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
+```
+creiamo il file .env
+```bash
+touch .env
+emacs .env
+```
+e impostiamolo in maniera tale da
+```
+APP_NAME=myapp
+MYSQL_ROOT_PASSWORD=rootpass
+```
+chiaro che `.env` andrà diretto in `.gitignore`.
+
+Per sapere quali variabili d'ambiente guarda il container leggere la
+pagina del progetto su dockerhub
+
+
+
+## Volumi e bind mounts
+Per rendere i dati all'interno dei nostri container persistenti e
+gestibili possiamo usare volumi o bind mounts.
+- **volumi**: modo migliore per rendere persistenti dati. Possono
+  essere pensati come spazi di lettura/scrittura persistenti che sono
+  condivisibili tra container (e sono accessibili anche dall'host)
+- **bind mounts**: (esempio di nginx) una cartella del sistema host è
+  mappata in una cartella del container e vi è uno scambio
+  bidirezionale. Hanno senso quando vogliamo rendere una risorsa
+  residente sul sistema host all'interno del container (sito web, file
+  di configurazione comuni etc).
+
+
+Creazione di volume
+```bash
+podman volume create  # volume anonimo
+podman volume create volumeprova # volume con nome (quello che vogliamo)
+```
+Una volta creato (o se no lo crea lui) per usarlo in un container lo
+specifichiamo sotto volume nel file di configurazione col suo nome
+(che non è più un path)
+```yml
+services:
+  prova:
+  ...
+  volumes:
+    - volumeprova:/app/data
+	
+volumes:
+  volumeprova: # qui spazio bianco a dx di :
+```
+Per condividere un volume tra container semplicemente metterlo nella sezione `volumes`
+
+
+Elencare volumi disponibili
+```bash
+podman volume ls
+```
+I volumi sono indipendenti dai container e ci possono esser volumi non
+più usati/associati ad alcun container. Per fare pulizia
+```bash
+podman volume prune
+```
+Info su un volume, tra i quali il mountpoint
+```bash
+podman volume inspect 44d400f294a3243b3e47b7c7746343ec79440a74117db8631ccd1302a87a42ad
+```
+es se vogliamo fare un backup basta che andiamo nella cartella del mountpoint e facciamo
+una copia magari da spostare in un altro volume o sul nostro disco
+
+
+
+
+
 
 
 ```bash
 
 ```
 
-
 ```bash
 
 ```
 
 
+## TODO
+ghcr.io tutorial per installare da github?
