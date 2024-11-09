@@ -341,8 +341,8 @@ cerca una variabile `MYSQL_ROOT_PASSWORD`):
    
    mysql:
      ...
-	 environment:
-	    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
+      environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
 ```
 creiamo il file .env
 ```bash
@@ -388,7 +388,7 @@ services:
   ...
   volumes:
     - volumeprova:/app/data
-	
+
 volumes:
   volumeprova: # qui spazio bianco a dx di :
 ```
@@ -413,18 +413,141 @@ una copia magari da spostare in un altro volume o sul nostro disco
 
 
 
+## Containerfile (Dockerfile)
+Serve per creare la nostra immagine personalizzata; riempire un file di nome `Containerfile`
+```
+FROM ubuntu                                        # utilizza ubuntu come base
 
+LABEL Description="ubuntu con curl preinstallato"  # LABEL
+RUN apt update && apt install -y curl              # applica queste modifiche
 
+ENTRYPOINT ["/usr/bin/curl"]
 
+# BUILD: docker build -t mycurl .
+# RUN: docker run mycurl https://morrolinux.it
+```
+Ogni riga che è posta nel file crea un nuovo *layer* (con molte righe
+l'immagine sarà più grande/pesante). Questo il motivo per cui update e
+install sono stati posti nella stessa riga.
+Peraltro in creazione ad ogni riga *il container viene spento e
+riacceso* quindi:
+- più righe rendono anche più lento il tutto
+- se impostiamo variabili di ambiente in una riga, in quella
+  successiva non ci sono più
 
+Una volta completato lo buildiamo e runniamo, es nel caso precedente
 ```bash
-
+podman build -t mycurl .  # . è la directory dove si trova il Containerfile
+podman run mycurl https://morrolinux.it
 ```
 
-```bash
+Comandi utili per il `Containerfile` sono:
+- `ADD` per aggiungere file dell'host/esterni al container/dal web
+- `COPY` copia proprio file e cartelle locali
+- `ENTRYPOINT` imposta l'eseguibile lanciato di defualt quando
+  lanciamo il container (es entrypoint = /bin/sh)
+- `CMD` specifica i parametri di lancio dell'`ENTRYPOINT` (es cmd =
+  sleep 600)
+- `ENV` imposta variabili d'ambiente che saranno sempre presenti
+  quando avremo il container
+- `EXPOSE` specifica che questa applicazione container è in ascolto su
+  una certa porta
+- `FROM` usato per definire l'immagine di partenza da cui deriviamo la nostra
+- `RUN` per eseguire comandi arbitrari
 
+
+## Caricare su un registry
+Da provare bene eh sono appunti approssimativi sotto
+```bash
+podman login
+podman tag mycurl lbraglia/mycurl:latest
+podman image push lbraglia/mycurl:latest
+```
+
+## Altri esempi di Containerfile
+Un esempio di scriptino dockerizzato 
+```
+FROM python:3.8-bullseye                 # python 3.8 costruito su debian bullseye
+
+WORKDIR /python-docker                   # imposta cartella lavoro corrente all'interno del container
+                                         # la crea se non esiste gia
+
+COPY requirements.txt requirements.txt   # importa il file delle dipendenze
+RUN apt update && apt install -y python3 python3-pip  # installa pip
+RUN pip3 install -r requirements.txt     # installa le dipendenze del progetto
+RUN mkdir /hist                          # crea una cartella
+
+COPY . .                                 # copia tutto il resto dalla cartella locale sull'host
+                                         # nella cartella attuale
+CMD [ "python3", "scriptino.py"]         # definisce cosa viene lanciato all'avvio
+```
+Una containerizzazione di un IDE comune per tutti gli sviluppatori di un progetto
+```Dockerfile
+FROM ubuntu:noble 
+
+# se non specifica USER esegue come ROOT, sotto installo
+
+RUN apt update && \
+    apt -y install vim libxkbcommon-dev libglib2.0-dev libxcb-cursor0 qt6-wayland \
+    build-essential git python3 python3-pip libgl1-mesa-dev nasm libpulse0 
+
+RUN pip install --break-system-packages aqtinstall     
+
+USER ubuntu              # D'ORA IN POI ESEGUI COME UTENTE UBUNTU (non root default su ubuntu:noble)
+WORKDIR /home/ubuntu/Qt  # muoviti (e crea la) nella cartella di lavoro
+
+# installa vari plugin di interesse comuni
+RUN aqt install-qt linux desktop 6.8.0 linux_gcc_64 --archives icu qtbase qtdeclarative && \
+    aqt install-tool linux desktop tools_qtcreator_gui qt.tools.qtcreator_gui && \
+    aqt install-tool linux desktop tools_cmake qt.tools.cmake && \
+    aqt install-tool linux desktop tools_ninja qt.tools.ninja
+
+# setta varie variabili d'ambiente per il path etc
+ENV PATH=$PATH:/home/ubuntu/Qt/Tools/CMake/bin/:/home/ubuntu/Qt/Tools/Ninja
+ENV QT_QPA_PLATFORM_PLUGIN_PATH=/home/ubuntu/Qt/6.8.0/gcc_64/plugins/platforms
+ENV CMAKE_PREFIX_PATH=/home/ubuntu/Qt/6.8.0/gcc_64/
+
+# spostati in home e clona il progetto
+WORKDIR /home/ubuntu/
+RUN git clone https://github.com/morrolinux/qt-docker-demo-project.git
+VOLUME /home/ubuntu/qt-docker-demo-project	# il percorso specificato viene reso persistente
+                                            # con volume anonimo. Quando eseguito container, docker
+											# crea al volo un volume anonimo e ci salva il contenuto 
+											# di questa cartella. Questa contiene il codice
+											# che elaboriamo e vogliamo salvarlo
+											# per essere poi ritrovato con docker start (invece di run)
+
+WORKDIR /home/ubuntu/qt-docker-demo-project # compila il progetto nella cartella
+RUN cmake . && make 
+
+USER root                                   # ritorna a ROOT, necessario per qtcreator quando il 
+                                            # container sarà avviato
+
+ENTRYPOINT ["/home/ubuntu/Qt/Tools/QtCreator/bin/qtcreator"] # eseguibile lanciato l'ide (es /bin/sh)
+CMD ["/home/ubuntu/qt-docker-demo-project/CMakeLists.txt"]   # parametro: percorso progetto da aprire
+```
+Per cucinare l'immagine
+```bash
+podman build -t qtdemo .
+```
+In casi semplici non grafici per eseguire
+```bash
+podman run qtdemo # per casi semplici
+```
+In caso di app con grafica dobbiamo togliere l'isolamento mediante le cose di sotto
+```bash
+xhost +SI:localuser:$(id -un)
+podman run --name qtdemo -ti -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --ipc=host --net=host dove-dev
+#   lavora nel volume ed esci
+```
+Dopo bisogna riattivare il container qtdemo se no configurazioni e
+codice non è salvato e viene creato nuovamente
+```bash
+podman start qtdemo
 ```
 
 
 ## TODO
 ghcr.io tutorial per installare da github?
+
+https://gist.github.com/yokawasa/841b6db379aa68b2859846da84a9643c
