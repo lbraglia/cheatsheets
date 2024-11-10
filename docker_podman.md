@@ -415,7 +415,7 @@ una copia magari da spostare in un altro volume o sul nostro disco
 
 ## Containerfile (Dockerfile)
 Serve per creare la nostra immagine personalizzata; riempire un file di nome `Containerfile`
-```
+```Dockerfile
 FROM ubuntu                                        # utilizza ubuntu come base
 
 LABEL Description="ubuntu con curl preinstallato"  # LABEL
@@ -429,6 +429,10 @@ ENTRYPOINT ["/usr/bin/curl"]
 Ogni riga che è posta nel file crea un nuovo *layer* (con molte righe
 l'immagine sarà più grande/pesante). Questo il motivo per cui update e
 install sono stati posti nella stessa riga.
+
+Se si vogliono porre più comandi di seguito usare `;` per terminare un
+comand e `\` per andare a capo nella prossima riga.
+
 Peraltro in creazione ad ogni riga *il container viene spento e
 riacceso* quindi:
 - più righe rendono anche più lento il tutto
@@ -466,7 +470,7 @@ podman image push lbraglia/mycurl:latest
 
 ## Altri esempi di Containerfile
 Un esempio di scriptino dockerizzato 
-```
+```Dockerfile
 FROM python:3.8-bullseye                 # python 3.8 costruito su debian bullseye
 
 WORKDIR /python-docker                   # imposta cartella lavoro corrente all'interno del container
@@ -510,12 +514,12 @@ ENV CMAKE_PREFIX_PATH=/home/ubuntu/Qt/6.8.0/gcc_64/
 # spostati in home e clona il progetto
 WORKDIR /home/ubuntu/
 RUN git clone https://github.com/morrolinux/qt-docker-demo-project.git
-VOLUME /home/ubuntu/qt-docker-demo-project	# il percorso specificato viene reso persistente
-                                            # con volume anonimo. Quando eseguito container, docker
-											# crea al volo un volume anonimo e ci salva il contenuto 
-											# di questa cartella. Questa contiene il codice
-											# che elaboriamo e vogliamo salvarlo
-											# per essere poi ritrovato con docker start (invece di run)
+VOLUME /home/ubuntu/qt-docker-demo-project # il percorso specificato viene reso persistente
+                                           # con volume anonimo. Quando eseguito container, docker
+                                           # crea al volo un volume anonimo e ci salva il contenuto 
+                                           # di questa cartella. Questa contiene il codice
+                                           # che elaboriamo e vogliamo salvarlo
+                                           # per essere poi ritrovato con docker start (invece di run)
 
 WORKDIR /home/ubuntu/qt-docker-demo-project # compila il progetto nella cartella
 RUN cmake . && make 
@@ -545,9 +549,3 @@ codice non è salvato e viene creato nuovamente
 ```bash
 podman start qtdemo
 ```
-
-
-## TODO
-ghcr.io tutorial per installare da github?
-
-https://gist.github.com/yokawasa/841b6db379aa68b2859846da84a9643c
