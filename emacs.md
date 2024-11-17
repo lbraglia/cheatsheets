@@ -24,28 +24,30 @@
 
 | Keystrokes  | Action                                                 |
 |-------------|--------------------------------------------------------|
-| `C-x d`     | go in Dired mode                                       |
-| `Enter`     | edit selected file/enter directory                     |
+| `C-x d`     | attiva Dired mode                                      |
+| `^`         | parent directory                                       |
+| `>`         | prossima directory                                     |
+| `<`         | directory precedente                                   |
+| `+`         | crea directory                                         |
+| `T`         | crea file (touch)                                      |
+| `C`         | copia file                                             |
+| `R`         | rinomina/muovi                                         |
+| `S`         | fai soft link                                          |
 | `W`         | open file with external application                    |
-| `q`         | quit                                                   |
-| `g`         | refresh dir listing                                    |
-| `s`         | sort list of files by name/date                        |
-| `v`         | view selected file (read only)                         |
-| `^`         | move to parent directory                               |
-| `>`         | go to parent directory                                 |
-| `<`         | go to previous directory                               |
-| `+`         | create a directory                                     |
-| `m`         | mark a file                                            |
+| `Z`         | compress/uncompress (gzip)                             |
+| `Enter`     | edit selected file/enter directory                     |
+| `v`         | view (read only) selected file                         |
+| `D`         | marka per eliminazione                                 |
+| `x`         | delete marked files                                    |
+| `u`         | unmarka un file                                        |
+| `U`         | unmarka tutti i marked files                           |
+| `g`         | aggiorna listato                                       |
+| `s`         | sort                                                   |
+| `m`         | mark a file (poi usare `D` per eliminarlo)             |
 | `%m`        | mark files via regexp on the name                      |
 | `%g`        | mark files via regexp on the content (similar to grep) |
-| `u`         | unmark a file                                          |
-| `U`         | unmark all marked files                                |
-| `D`         | delete                                                 |
-| `C`         | copy                                                   |
-| `R`         | rename/move the file                                   |
-| `S`         | make soft link                                         |
-| `Z`         | compress/uncompress (gzip)                             |
 | `! command` | run command on a file                                  |
+| `q`         | quit                                                   |
 
 ### Help
 
@@ -230,25 +232,24 @@
 
 ### Python mode
 
-| Keystrokes     | Action                                                |
-|----------------|-------------------------------------------------------|
-| `C-c C-p`      | start interpreter from python code                    |
-| `C-c C-z`      | muoviti nella shell python                            |
-| `C-h a python` | vedi qualsiasi comando associato a python             |
-| `C-c <`        | indenta a sinistra                                    |
-| `C-c >`        | indenta a destra                                      |
-| `M Tab`        | autocomplete                                          |
-| `C-c C-d`      | describe at point (roba builtin)                      |
-| `C-c C-f`      | documentazione ad un punto                            |
-| `C-c C-l`      | evaluate a file (source) nel sottoprocesso            |
-| `C-c C-c`      | evaluate a buffer                                     |
-| `C-c C-r`      | evaluate a selected region                            |
-| `C-c C-e`      | evaluate a statement                                  |
-| `C-c C-s`      | evaluate a command                                    |
-| `C-c C-j`      | spostati il cursore in definizioni varie (imenu)      |
-| `C-c C-v`      | check code (specificare eseguibile)                   |
-
-| `M-x compile`  | specificando `mypy file.py` controlla il typecheck    |
+| Keystrokes     | Action                                             |
+|----------------|----------------------------------------------------|
+| `C-c C-p`      | start interpreter from python code                 |
+| `C-c C-z`      | muoviti nella shell python                         |
+| `C-h a python` | vedi qualsiasi comando associato a python          |
+| `C-c <`        | indenta a sinistra                                 |
+| `C-c >`        | indenta a destra                                   |
+| `M Tab`        | autocomplete                                       |
+| `C-c C-d`      | describe at point (roba builtin)                   |
+| `C-c C-f`      | documentazione ad un punto                         |
+| `C-c C-l`      | evaluate a file (source) nel sottoprocesso         |
+| `C-c C-c`      | evaluate a buffer                                  |
+| `C-c C-r`      | evaluate a selected region                         |
+| `C-c C-e`      | evaluate a statement                               |
+| `C-c C-s`      | evaluate a command                                 |
+| `C-c C-j`      | spostati il cursore in definizioni varie (imenu)   |
+| `C-c C-v`      | check code                                         |
+| `M-x compile`  | specificando `mypy file.py` controlla il typecheck |
 
 
 
