@@ -22,29 +22,30 @@
 
 ### Directory editor mode (Dired)
 
-| Keystrokes               | Action                                                 |
-|--------------------------|--------------------------------------------------------|
-| `C-x d`                  | go in Dired mode                                       |
-| `Enter`                  | edit selected file/enter directory                     |
-| `q`                      | quit                                                   |
-| `g`                      | refresh dir listing                                    |
-| `s`                      | sort list of files by name/date                        |
-| `v`                      | view selected file (read only)                         |
-| `^`                      | move to parent directory                               |
-| `>`                      | go to parent directory                                 |
-| `<`                      | go to previous directory                               |
-| `+`                      | create a directory                                     |
-| `m`                      | mark a file                                            |
-| `%m`                     | mark files via regexp on the name                      |
-| `%g`                     | mark files via regexp on the content (similar to grep) |
-| `u`                      | unmark a file                                          |
-| `U`                      | unmark all marked files                                |
-| `D`                      | delete                                                 |
-| `C`                      | copy                                                   |
-| `R`                      | rename/move the file                                   |
-| `S`                      | make soft link                                         |
-| `Z`                      | compress/uncompress (gzip)                             |
-| `! command`              | run command on a file                                  |
+| Keystrokes  | Action                                                 |
+|-------------|--------------------------------------------------------|
+| `C-x d`     | go in Dired mode                                       |
+| `Enter`     | edit selected file/enter directory                     |
+| `W`         | open file with external application                    |
+| `q`         | quit                                                   |
+| `g`         | refresh dir listing                                    |
+| `s`         | sort list of files by name/date                        |
+| `v`         | view selected file (read only)                         |
+| `^`         | move to parent directory                               |
+| `>`         | go to parent directory                                 |
+| `<`         | go to previous directory                               |
+| `+`         | create a directory                                     |
+| `m`         | mark a file                                            |
+| `%m`        | mark files via regexp on the name                      |
+| `%g`        | mark files via regexp on the content (similar to grep) |
+| `u`         | unmark a file                                          |
+| `U`         | unmark all marked files                                |
+| `D`         | delete                                                 |
+| `C`         | copy                                                   |
+| `R`         | rename/move the file                                   |
+| `S`         | make soft link                                         |
+| `Z`         | compress/uncompress (gzip)                             |
+| `! command` | run command on a file                                  |
 
 ### Help
 
