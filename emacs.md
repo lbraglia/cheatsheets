@@ -14,11 +14,11 @@
 
 ### Shell commands
 
-| Keystrokes  | Action                                                 |
-|-------------|--------------------------------------------------------|
-| `M-!`       | execute shell command                                  |
-| `C-u M-!`   | execute shell command and put output in current buffer |
-| `M-|`       | execute shell command on marked region                 |
+| Keystrokes | Action                                                 |
+|------------|--------------------------------------------------------|
+| `M-!`      | execute shell command                                  |
+| `C-u M-!`  | execute shell command and put output in current buffer |
+| `M-\|`     | execute shell command on marked region                 |
 
 ### Directory editor mode (Dired)
 
