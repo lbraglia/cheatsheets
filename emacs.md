@@ -1,54 +1,5 @@
 # emacs
 
-## Context
-
-### Useful modes/commands
-
-| Keystrokes     | Action                 |
-|----------------|------------------------|
-| `M-x cd`       | change local directory |
-| `M-x mkdir`    | create directory       |
-| `M-x man`      | manpages mode          |
-| `M-x shell`    | shell                  |
-| `M-x calendar` | view calendar          |
-
-### Shell commands
-
-| Keystrokes | Action                                                 |
-|------------|--------------------------------------------------------|
-| `M-!`      | execute shell command                                  |
-| `C-u M-!`  | execute shell command and put output in current buffer |
-| `M-\|`     | execute shell command on marked region                 |
-
-### Directory editor mode (Dired)
-
-| Keystrokes  | Action                                                 |
-|-------------|--------------------------------------------------------|
-| `C-x d`     | attiva Dired mode                                      |
-| `^`         | parent directory                                       |
-| `>`         | prossima directory                                     |
-| `<`         | directory precedente                                   |
-| `+`         | crea directory                                         |
-| `T`         | crea file (touch)                                      |
-| `C`         | copia file                                             |
-| `R`         | rinomina/muovi                                         |
-| `S`         | fai soft link                                          |
-| `W`         | open file with external application                    |
-| `Z`         | compress/uncompress (gzip)                             |
-| `Enter`     | edit selected file/enter directory                     |
-| `v`         | view (read only) selected file                         |
-| `D`         | marka per eliminazione                                 |
-| `x`         | delete marked files                                    |
-| `u`         | unmarka un file                                        |
-| `U`         | unmarka tutti i marked files                           |
-| `g`         | aggiorna listato                                       |
-| `s`         | sort                                                   |
-| `m`         | mark a file (poi usare `D` per eliminarlo)             |
-| `%m`        | mark files via regexp on the name                      |
-| `%g`        | mark files via regexp on the content (similar to grep) |
-| `! command` | run command on a file                                  |
-| `q`         | quit                                                   |
-
 ### Help
 
 | Keystrokes | Action                                                    |
@@ -94,29 +45,29 @@
 
 ### Moving
 
-| Keystrokes | Action                               |
-|------------|--------------------------------------|
-| `C-p `     | previous line                        |
-| `C-n `     | next line                            |
-| `C-a `     | line beginning                       |
-| `C-e `     | end of line                          |
-| `C-f `     | forward a character                  |
-| `C-b `     | backward a character                 |
-| `M-f `     | forward a word                       |
-| `M-b `     | backward a word                      |
-| `M-a `     | beginning of sentence                |
-| `M-e `     | end of sentence                      |
-| `M-{ `     | beginning of paragraph               |
-| `M-} `     | end of paragraph                     |
-| `C-q C-l`  | insert a page break                  |
-| `C-x [`    | previous page                        |
-| `C-x ]`    | next page                            |
-| `C-v`      | next screen                          |
-| `M-v`      | previous screen                      |
-| `M-< `     | beginning of buffer                  |
-| `M-> `     | end of buffer                        |
-| `M-g M-g`  | go to line                           |
-| `C-l`      | (repeated) center display as desired |
+| Keystrokes | Action                                                 |
+|------------|--------------------------------------------------------|
+| `C-p `     | previous line                                          |
+| `C-n `     | next line                                              |
+| `C-a `     | line beginning                                         |
+| `C-e `     | end of line                                            |
+| `C-f `     | forward a character                                    |
+| `C-b `     | backward a character                                   |
+| `M-f `     | forward a word                                         |
+| `M-b `     | backward a word                                        |
+| `M-a `     | beginning of sentence                                  |
+| `M-e `     | end of sentence                                        |
+| `M-{ `     | beginning of paragraph (text delimited by white space) |
+| `M-} `     | end of paragraph (text delimited by white space)       |
+| `C-q C-l`  | insert a page break                                    |
+| `C-x [`    | previous page                                          |
+| `C-x ]`    | next page                                              |
+| `C-v`      | next screen                                            |
+| `M-v`      | previous screen                                        |
+| `M-< `     | beginning of buffer                                    |
+| `M-> `     | end of buffer                                          |
+| `M-g M-g`  | go to line                                             |
+| `C-l`      | (repeated) center display as desired                   |
 
 ### Select/mark region
 
@@ -217,6 +168,54 @@
 
 
 ## Interesting modes
+
+### Useful modes/commands
+
+| Keystrokes     | Action                 |
+|----------------|------------------------|
+| `M-x cd`       | change local directory |
+| `M-x mkdir`    | create directory       |
+| `M-x man`      | manpages mode          |
+| `M-x shell`    | shell                  |
+| `M-x calendar` | view calendar          |
+
+### Shell commands
+
+| Keystrokes | Action                                                 |
+|------------|--------------------------------------------------------|
+| `M-!`      | execute shell command                                  |
+| `C-u M-!`  | execute shell command and put output in current buffer |
+| `M-\|`     | execute shell command on marked region                 |
+
+### Directory editor mode (Dired)
+
+| Keystrokes  | Action                                                 |
+|-------------|--------------------------------------------------------|
+| `C-x d`     | attiva Dired mode                                      |
+| `^`         | parent directory                                       |
+| `>`         | prossima directory                                     |
+| `<`         | directory precedente                                   |
+| `+`         | crea directory                                         |
+| `T`         | crea file (touch)                                      |
+| `C`         | copia file                                             |
+| `R`         | rinomina/muovi                                         |
+| `S`         | fai soft link                                          |
+| `W`         | open file with external application                    |
+| `Z`         | compress/uncompress (gzip)                             |
+| `Enter`     | edit selected file/enter directory                     |
+| `v`         | view (read only) selected file                         |
+| `D`         | marka per eliminazione                                 |
+| `x`         | delete marked files                                    |
+| `u`         | unmarka un file                                        |
+| `U`         | unmarka tutti i marked files                           |
+| `g`         | aggiorna listato                                       |
+| `s`         | sort                                                   |
+| `m`         | mark a file (poi usare `D` per eliminarlo)             |
+| `%m`        | mark files via regexp on the name                      |
+| `%g`        | mark files via regexp on the content (similar to grep) |
+| `! command` | run command on a file                                  |
+| `q`         | quit                                                   |
+
 
 ### Shell mode
 
