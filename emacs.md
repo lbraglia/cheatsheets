@@ -45,40 +45,51 @@
 
 ### Moving
 
-| Keystrokes | Action                                                 |
-|------------|--------------------------------------------------------|
-| `C-p `     | previous line                                          |
-| `C-n `     | next line                                              |
-| `C-a `     | line beginning                                         |
-| `C-e `     | end of line                                            |
-| `C-f `     | forward a character                                    |
-| `C-b `     | backward a character                                   |
-| `M-f `     | forward a word                                         |
-| `M-b `     | backward a word                                        |
-| `M-a `     | beginning of sentence                                  |
-| `M-e `     | end of sentence                                        |
-| `M-{ `     | beginning of paragraph (text delimited by white space) |
-| `M-} `     | end of paragraph (text delimited by white space)       |
-| `C-q C-l`  | insert a page break                                    |
-| `C-x [`    | previous page                                          |
-| `C-x ]`    | next page                                              |
-| `C-v`      | next screen                                            |
-| `M-v`      | previous screen                                        |
-| `M-< `     | beginning of buffer                                    |
-| `M-> `     | end of buffer                                          |
-| `M-g M-g`  | go to line                                             |
-| `C-l`      | (repeated) center display as desired                   |
+| Keystrokes | Action                                                       |
+|------------|--------------------------------------------------------------|
+| `C-p `     | previous line                                                |
+| `C-n `     | next line                                                    |
+| `C-a `     | line beginning                                               |
+| `C-e `     | end of line                                                  |
+| `C-f `     | forward a character                                          |
+| `C-b `     | backward a character                                         |
+| `M-f `     | forward a word                                               |
+| `M-b `     | backward a word                                              |
+| `M-a `     | beginning of sentence                                        |
+| `M-e `     | end of sentence                                              |
+| `M-{ `     | beginning of paragraph (text delimited by white space)       |
+| `M-} `     | end of paragraph (text delimited by white space)             |
+| `C-q C-l`  | insert a page break                                          |
+| `C-x [`    | previous page                                                |
+| `C-x ]`    | next page                                                    |
+| `C-v`      | next screen                                                  |
+| `M-v`      | previous screen                                              |
+| `M-< `     | beginning of buffer                                          |
+| `M-> `     | end of buffer                                                |
+| `M-g M-g`  | go to line                                                   |
+| `C-l`      | (repeated) center display as desired                         |
+| `C-M-l`    | porre la cosa corrente (es funzione) nello schermo al meglio |
+
 
 ### Select/mark region
 
-| Keystrokes  | Action                               |
-|-------------|--------------------------------------|
-| `C-space`   | by line                              |
-| `C-x space` | by column                            |
-| `C-x C-x`   | go to the other end of marked region |
-| `M-h`       | mark paragraph                       |
-| `C-x C-p`   | mark the current page                |
-| `C-x h`     | mark the whole buffer                |
+| Keystrokes         | Action                                                     |
+|--------------------|------------------------------------------------------------|
+| `C-space`          | start selecting by line (modo + generale) poi muoversi     |
+| `C-x space`        | start selecting by column (modo + generale) poi muoversi   |
+| `S-M-f`            | (Shift + movimento) evidenzia muovendosi (avanti parola)   |
+| `S-M-b`            | (Shift + movimento) evidenzia muovendosi (indietro parola) |
+| `S-C-n`            | (Shift + movimento) evidenzia muovendosi (avanti riga)     |
+| `S-C-n`            | (Shift + movimento) evidenzia muovendosi (indietro riga)   |
+| `M-@`              | seleziona prossima parola (a ripetizione) senza muoversi   |
+| `C-M-@`            | idem non ho capito diff                                    |
+| `M-h`              | mark the whole paragraph                                   |
+| `C-M-h`            | mark the whole defun (elisp)                               |
+| `C-x C-p`          | mark the current page                                      |
+| `C-x h`            | mark the whole buffer                                      |
+| `C-x C-x`          | move to other end of marked region                         |
+| `M-x -region[TAB]` | to see all the commands usable for regions                 |
+
 
 ### Bookmarks
 
