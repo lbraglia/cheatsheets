@@ -262,6 +262,31 @@
 | `M-x compile`  | specificando `mypy file.py` controlla il typecheck |
 
 
+### Projectile
+
+| Keystrokes  | Action                           |
+|-------------|----------------------------------|
+| `C-c p p`   | switch project                   |
+| `C-c p f`   | seach file                       |
+| `C-c p s g` | greppa nel progetto teoricamente |
+
+### Magit
+
+| Keystrokes  | Action                           |
+|-------------|----------------------------------|
+| `C-x g`     | status                           |
+
+### org-mode
+
+| Keystrokes  | Action                                              |
+|-------------|-----------------------------------------------------|
+| `TAB`       | collassa                                            |
+| `M + enter` | new section/ aggiungi elemento elenco puntato/lista |
+| `M + su`    | sposta su una sezione                               |
+| `C-c C-l`   | inserire link                                       |
+| `C-c C-o`   | aprire link                                         |
+|             |                                                     |
+
 
 ### Compile
 
@@ -285,3 +310,7 @@ Start with something like `emacs *.[ch] Makefile`; do the makefile. Then
 | `M-x visit-tags-table` | tell emacs to use a tag table                                       |
 | `M-.`                  | find tag/visit definition in this window                            |
 | `C-x 4 .`              | find tag/visit in other window                                      |
+
+
+
+###
