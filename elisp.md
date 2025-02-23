@@ -7,16 +7,17 @@
 
 
 ## Testing
-In un buffer `.el`
+Se si vuole una REPL, comandare `M-x ielm`, altrimenti da un buffer `.el`
 
+| comando                     | significato                     |
 |-----------------------------|---------------------------------|
 | `C-x C-e  (eval-last-sexp)` | valuta l'espressione precedente |
 | `M-x eval-buffer`           | esegue l'intero buffer          |
 | `M-x eval-region`           | esegue la zona evidenziata      |
-|-----------------------------|---------------------------------|
 
 
 ## Sintassi
+
 
 La sintassi è composta di liste (tra parentesi) simboli/variabili e valori
 
@@ -65,6 +66,13 @@ Per valutare il tipo di qualcosa usare `type-of`
 (type-of "hello")
 ```
 
+### Tipi booleani
+`t` serve per indicare true, `nil` per false, sono simboli (variabili) non una
+costante quindi non hanno tipo
+
+
+
+
 ## Valutazione
 Le regole di valutazione cambiano a seconda di cosa si sta valutando: alcune
 cose sono self-evaluating (ritornano il loro valore) come costanti. 
@@ -81,5 +89,54 @@ utilizzare namespace per evitare clash
 (setq lb/mio-nickname "lucailgarb")
 (greet lb/mio-nickname)
 (setq lb/mio-nickname "paglia")
+```
+
+I namespace possono essere usati anche per funzioni
+``` elisp
+(defun lb/mia-funzione ()
+  "Docstring"
+  )
+(greet lb/mio-nickname)
+(setq lb/mio-nickname "paglia")
+```
+
+
+### Uguaglianza
+Ci sono tre operatori, `eq`, `eql` ed `equal`: utilizzare quest'ultimo per
+controllare l'uguaglianza (oppure utilizzare metodi specializzati come
+`string-equal`)
+
+``` elisp
+
+(equal 1 1) ; se valutata restituisce t
+(equal 1 0) ; se valutata restituisce nil
+
+```
+
+### Operazioni aritmetiche
+
+``` elisp
+(+ 5 5)  ;; 10
+(- 5 5)  ;; 0
+(* 5 5)  ;; 25
+(/ 5 5)  ;; 1
+(* (+ 3 2) (- 10 5))  ;; nested
+
+(% 11 5)      ;; resto divisione intera (risultato = 1)
+(mod 11.1 5)  ;; resto float (1.099)
+```
+
+### Coercizione numerica
+Si usa
+  * `truncate` (intero verso lo 0)
+  * `round` (intero più vicino)
+  * `floor` (intero inferiore)
+  * `ceiling` (intero superiore)
+
+``` elisp
+(truncate 1.2)   ;; 1
+(floor 1.2)      ;; 1
+(ceiling 1.2)    ;; 2
+(round 1.5)      ;; 2
 ```
 
