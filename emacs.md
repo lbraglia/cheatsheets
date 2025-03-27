@@ -18,6 +18,7 @@
 | Keystrokes | Action                                     |
 |------------|--------------------------------------------|
 | `C-x C-f`  | Create buffer/Open file                    |
+| `C-x x g`  | reload an open file/buffer                 |
 | `C-x C-s`  | Save current buffer to file                |
 | `C-x s`    | Save all buffers connected to a file       |
 | `C-x C-w`  | Save to file named as                      |
