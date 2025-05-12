@@ -327,11 +327,45 @@ tre argomenti obbligatori:
 - **oggetto** indica il tipo di oggetto da includere (figure o table, da non confondere con gli ambienti omonimi);
 - **collocazione**, che dice a dove mettere l’oggetto sulla pagina, accetta una sola delle otto opzioni spcificate in seguito, in maiuscolo o in minuscolo a seconda che si voglia mettere l’oggetto “esattamente qui nel testo” o si voglia creare un oggetto mobile, rispettivamente. Le preferenze di collocazione sono specificabili mediante
 
-| Opzione  | Descrizione  |
-|---|---|
-| r,R  | Sul lato destro del testo (right)   |
-| l,L  | Sul lato sinistro del testo (left)  |
-| i,I  | Sul margine interno (inner)	     |
-| o,O  | Sul margine esterno (outer)	     |
+| Opzione | Descrizione                        |
+|---------|------------------------------------|
+| r,R     | Sul lato destro del testo (right)  |
+| l,L     | Sul lato sinistro del testo (left) |
+| i,I     | Sul margine interno (inner)        |
+| o,O     | Sul margine esterno (outer)        |
 
 - **larghezza** specifica la larghezza dell’oggetto che, se nulla (0pt), equivale  all’opzione assegnata a \includegraphics .
+
+
+## Citazioni/bibliografia
+Usare il pacchetto `biblatex` e il tool `biber`
+```latex
+\usepackage{biblatex}                     % numerica semplice
+% \usepackage[style=alphabetic]{biblatex}    % alfabetica
+% \usepackage[style=authoryear]{biblatex}    % autore e anno
+
+\addbibresource{file.bib}
+
+\begin{document}
+
+% comandi citazione
+\cite{foo}           % citazione numerica
+\parencite{bar}      % citations in parentheses (or square brackets)
+\footcite{baz}       % citazione in a footnote
+
+% trick per aggiungere prenote (eg see) e postnote (qualcosa aggiunta dopo la
+% citazione e virgola)
+\cite[see][page 12]{latexcompanion}
+
+
+\printbibliography 
+\end{document}
+```
+
+dopo la sequenza è 
+```bash
+pdflatex file
+biber file
+pdflatex file
+pdflatex file
+```
