@@ -369,3 +369,44 @@ biber file
 pdflatex file
 pdflatex file
 ```
+
+
+## beamer (slides)
+Qui tutorial https://latex-beamer.com/tutorials/
+
+Template di una slide
+```latex
+\begin{frame}[options]{Frame Title}{Frame subtitle}
+  content
+\end{frame}
+```
+Template minimale
+```latex
+\begin{frame}[allowframebreaks]{Titolo}
+  content
+\end{frame}
+```
+Per l'aggiunta di note:
+```latex
+\documentclass[10pt]{beamer}
+\setbeameroption{show notes on second screen=right}
+```
+Per la visualizzazione di presentazione e note torna comodo `pympress`
+```bash
+pympress slides.pdf # apt install pympress
+```
+Aggiunta di struttura
+```latex
+% slide di TOC
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+% e poi sezioni normalmente
+\section{Problem statement}
+\section{Existing results}
+    \subsection{Method 1}
+    \subsection{Method 2}
+    \subsection{Method 3}
+\section{Comparative study}
+\section*{References}
+```
