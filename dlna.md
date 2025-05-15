@@ -10,7 +10,7 @@ media_dir=P,/media/shared/foto
 media_dir=V,/media/shared/video
 
 # e volendo tag del device human friendly
-friendly_name=serverinodlna
+friendly_name=hostname
 ```
 L'utente `minidlna` dovrà avere i permessi di lettura sulle cartelle
 condivise (quindi es aggiungerlo ad un gruppo ad hoc che ha accesso in
