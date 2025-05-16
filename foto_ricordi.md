@@ -24,3 +24,9 @@ Template nome directory (rotellina)
 Rename file (scheda a dx):
 - data dell'imagine (data-Ora e Numero immagine)
 - data-ora e numero video
+
+## digikam
+utile per:
+- individuare doppi
+
+
