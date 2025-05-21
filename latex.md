@@ -405,7 +405,13 @@ opts_chunk$set("engine" = "R", fig.align = "center", tidy = TRUE, echo=FALSE)
 
 \end{document}
 ```
-
+Sezione
+```latex
+% -----------------------------------------------------------------------
+\part{Titolo Parte}
+\frame{\partpage}
+% -----------------------------------------------------------------------
+```
 Template di una slide
 ```latex
 \begin{frame}[options]{Frame Title}{Frame subtitle}
@@ -418,32 +424,25 @@ Template minimale di slide
   content
 \end{frame}
 ```
-Sezione
+Creare blocchi
 ```latex
-% -----------------------------------------------------------------------
-\part{Titolo Parte}
-\frame{\partpage}
-% -----------------------------------------------------------------------
+\begin{block}{Intestazione}
+  contenuto
+\end{block}
 ```
-Stampa bibliografia alla fine
-```latex
-\begin{frame}[allowframebreaks]{Bibliografia}
-  \printbibliography
-\end{frame}
-```
-Per creare degli stop nella presentazioni
+Creare degli stop nella presentazioni
 ```latex
 \pause
-```
-Per includere altri documenti knitr
-```latex
-\Sexpr{knitr::knit_child("common_include/slide_da_includere.Rnw")}
 ```
 Inclusione immagini (meglio vedi sopra)
 ```latex
 % \begin{center}
 %   \includegraphics[scale = 0.35]{img/immagine}
 % \end{center}
+```
+Per includere altri documenti knitr
+```latex
+\Sexpr{knitr::knit_child("common_include/slide_da_includere.Rnw")}
 ```
 Per l'aggiunta di *note del relatore*:
 ```latex
@@ -453,6 +452,12 @@ Per l'aggiunta di *note del relatore*:
 Per la visualizzazione di presentazione e note torna comodo `pympress`
 ```bash
 pympress slides.pdf # apt install pympress
+```
+Stampa bibliografia alla fine
+```latex
+\begin{frame}[allowframebreaks]{Bibliografia}
+  \printbibliography
+\end{frame}
 ```
 Aggiunta di struttura
 ```latex
