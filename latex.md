@@ -372,21 +372,80 @@ pdflatex file
 
 
 ## beamer (slides)
-Qui tutorial https://latex-beamer.com/tutorials/
+Qui tutorial https://latex-beamer.com/tutorials/.
+Intestazione minimale
+```latex
+\documentclass[10pt,handout,notes=hide]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[english, italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{mypkg}
+\usepackage{hyperref}
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{biblio.bib}
+\usetheme{Copenhagen}
+\setbeamercovered{transparent} 
+% -----------------------------------------------------------------------
+\title[Small official title]{Long official title}
+\subtitle{Subtitle}
+\author{Luca Braglia} 
+\date{}
+% -----------------------------------------------------------------------
+\begin{document}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\frame{ \titlepage }
+
+% ========================================================================
+<<include = FALSE>>=
+
+library(knitr)
+opts_chunk$set("engine" = "R", fig.align = "center", tidy = TRUE, echo=FALSE)
+
+@
+
+\end{document}
+```
 
 Template di una slide
 ```latex
 \begin{frame}[options]{Frame Title}{Frame subtitle}
-  content
+  Contenuto
 \end{frame}
 ```
-Template minimale
+Template minimale di slide
 ```latex
 \begin{frame}[allowframebreaks]{Titolo}
   content
 \end{frame}
 ```
-Per l'aggiunta di note:
+Sezione
+```latex
+% -----------------------------------------------------------------------
+\part{Titolo Parte}
+\frame{\partpage}
+% -----------------------------------------------------------------------
+```
+Stampa bibliografia alla fine
+```latex
+\begin{frame}[allowframebreaks]{Bibliografia}
+  \printbibliography
+\end{frame}
+```
+Per creare degli stop nella presentazioni
+```latex
+\pause
+```
+Per includere altri documenti knitr
+```latex
+\Sexpr{knitr::knit_child("common_include/slide_da_includere.Rnw")}
+```
+Inclusione immagini (meglio vedi sopra)
+```latex
+% \begin{center}
+%   \includegraphics[scale = 0.35]{img/immagine}
+% \end{center}
+```
+Per l'aggiunta di *note del relatore*:
 ```latex
 \documentclass[10pt]{beamer}
 \setbeameroption{show notes on second screen=right}
