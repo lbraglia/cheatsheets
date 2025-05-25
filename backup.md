@@ -7,10 +7,12 @@ rclone ls pcloud: # lista tutto
 rclone lsd pcloud: # lista directory
 rclone ls pcloud:fotine/ # lista tutto nella directory
 ```
-per il backup
+per il backup che segua i link ed ignori da exclude.txt
 ```
-rclone copy .backup pcloud:
+rclone copy --copy-links --exclude-from .backup/exclude.txt .backup pcloud:
 ```
+
+
 
 
 ## Backup rete locale con `netcat` e `tar`
