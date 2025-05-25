@@ -1,5 +1,18 @@
 # Backup
 
+## `pcloud` con `rclone`
+Setup [qui](https://rclone.org/pcloud/) poi
+```bash
+rclone ls pcloud: # lista tutto
+rclone lsd pcloud: # lista directory
+rclone ls pcloud:fotine/ # lista tutto nella directory
+```
+per il backup
+```
+rclone copy .backup pcloud:
+```
+
+
 ## Backup rete locale con `netcat` e `tar`
 
 Sulla macchina destinazione:
