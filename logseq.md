@@ -11,6 +11,6 @@ evitare che venga cancellata)
 
 ```
 cd ~/.local/bin
-cp /tmp/Logseq* logseq
+mv /tmp/Logseq.. logseq
 chmod +x logseq
 ```
