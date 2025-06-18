@@ -95,10 +95,19 @@ Premere Invio per mantenere il valore predefinito[*] o digitare il numero della 
  update-alternatives: viene usato /usr/bin/emacs per fornire /usr/bin/editor (editor) in modalità manuale
 ```
 
+
+
+Per aggiungere una alternative (con una priorità maggiore a quelle disponibili
+diviene il default e non vi è bisogno di settarlo poi)
+
+
+```
+update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/librewolf 100
+```
+
+Per ulteriori info `man update-alternatives` e https://www.baeldung.com/linux/update-alternatives-command
 Altri gruppi di alternative possono esser trovati in
 /etc/alternatives, tra essi x-www-browser
-
-Per ulteriori info `man update-alternatives`.
 
 
 ## Shutdown e riavvio
