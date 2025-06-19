@@ -153,7 +153,7 @@ ls -l | sed 's/[aeio]/u/g'
 ```
 Sostituire una parola in tutti i file in una directory
 ```
-sed -i -- 's/{absabs}/{norm}/g' */*/*
+sed -i -- 's/absabs/norm/g' */*/*
 ```
   
 ## awk
