@@ -334,7 +334,7 @@ tre argomenti obbligatori:
 | i,I     | Sul margine interno (inner)        |
 | o,O     | Sul margine esterno (outer)        |
 
-- **larghezza** specifica la larghezza dell’oggetto che, se nulla (0pt), equivale  all’opzione assegnata a \includegraphics .
+- **larghezza** specifica la larghezza dell’oggetto che, se nulla (0pt), equivale all’opzione assegnata a \includegraphics .
 
 
 ## Citazioni/bibliografia
@@ -538,10 +538,10 @@ cm: centimeter (2.54 centimeters = 1 inch)
 mm: millimeter (10 millimeters = 1 centimeter)
 ```
 - Specificando tre numeri come in (1,1,1) si fa un punto nel sistema di coordinate xyz.
-- Si può anche specificare un punto in *coordinate polari*, utilizzando i due punti invece di virgola. Ad esempio `(30:1cm)`  means "1cm in a 30 degrees direction".
+- Si può anche specificare un punto in *coordinate polari*, utilizzando i due punti invece di virgola. Ad esempio `(30:1cm)` means "1cm in a 30 degrees direction".
 - Si può porre come *prefisso alle coordinate* (x,y):
-	- il ++ per renderle relative rispetto all'ultima coordinata specificata (considerata come ancora). Ad esempio `++(1cm,0pt)` significa "1cm a destra della precedente posizione".  In seguito questa nuova posizione sarà considerata come "ancora" per i punti a venire. Ad esempio `(1,0) ++ (1,0) ++ (0,1)` specifica le coodinate (1,0), poi (2,0), and (2,1).
-	- Se invece poniamo solamente un +, non verrà aggiornata l'"ancora" che rimane l'ultima valida/specificata.  Ad esempio `(1,0) + (1,0) +(0,1)` specifica le coordinate (1,0), poi (2,0), e (1,1).
+	- il ++ per renderle relative rispetto all'ultima coordinata specificata (considerata come ancora). Ad esempio `++(1cm,0pt)` significa "1cm a destra della precedente posizione". In seguito questa nuova posizione sarà considerata come "ancora" per i punti a venire. Ad esempio `(1,0) ++ (1,0) ++ (0,1)` specifica le coodinate (1,0), poi (2,0), and (2,1).
+	- Se invece poniamo solamente un +, non verrà aggiornata l'"ancora" che rimane l'ultima valida/specificata. Ad esempio `(1,0) + (1,0) +(0,1)` specifica le coordinate (1,0), poi (2,0), e (1,1).
 
 ### Comandi utili
 #### Griglia
@@ -751,7 +751,7 @@ foreach \x / \y in {1/2 , a/b} {"\x\ and \y "}
 ``` 
 che stampa "1 and 2 a and b". il secondo `\` dopo `\x` serve per avere lo spazio ...
 
-- Per plottare 3  punti centrati in diverse coordinate e aventi differenti diametri, ad esempio:
+- Per plottare 3 punti centrati in diverse coordinate e aventi differenti diametri, ad esempio:
 ```latex
 \foreach \x / \y / \diameter in {0 / 0 / 2mm, 1 / 1 / 3mm, 2 / 0 / 1mm}
 \draw (\x,\y) circle (\diameter);
